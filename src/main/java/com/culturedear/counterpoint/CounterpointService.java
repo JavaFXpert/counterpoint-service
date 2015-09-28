@@ -40,23 +40,18 @@ class XmlRestController {
     produces = MediaType.APPLICATION_XML_VALUE
   )
             
-  ScorePartwise write(@RequestBody IntWrapper wrapper) throws Exception {
-
-    // read request ID params in
-    int[] wrapperInts = wrapper.getInts();
-    for (int i = 0; i < wrapperInts.length; i++) {
-      System.out.println(wrapperInts[i]);
-    }
+  ScorePartwise write(@RequestBody CounterpointModel counterpointModel) throws Exception {
 
     // prepare response XML out
     CounterpointGenerator cg = new CounterpointGenerator();
     cg.fillRhyPat();
-    int[] cf = {62, 65, 64, 62, 67, 65, 69, 67, 65, 64, 62};
+    int[] cf = counterpointModel.getMainMelody();
     cg.setCantusFirmus(cf);
-    int[] vbs = {50, 69, 74};
+    int[] vbs = counterpointModel.getPartsInitialNotes();
 
     CounterpointSolution counterpointSolution = new CounterpointSolution();
-    counterpointSolution = cg.anySpecies(CounterpointGenerator.dorian, vbs, cf.length, 2);
+    counterpointSolution = cg.anySpecies(counterpointModel.getScaleMode(),
+            vbs, cf.length, counterpointModel.getCounterpointSpecies());
 
     ScorePartwise scorePartwise = counterpointSolution.toScorePartwise();
 
