@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,7 @@ import java.util.List;
  * @author jamesweaver
  */
 @JsonRootName("score-partwise")
-public class ScorePartwise {
+public class ScorePartwise implements Serializable {
 
   @JacksonXmlProperty(localName="version", isAttribute=true)
   private final String version = "3.0";

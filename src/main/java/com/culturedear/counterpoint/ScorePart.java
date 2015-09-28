@@ -3,10 +3,12 @@ package com.culturedear.counterpoint;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
+import java.io.Serializable;
+
 /**
  * Created by jamesweaver on 9/26/15.
  */
-public class ScorePart {
+public class ScorePart implements Serializable {
   @JacksonXmlProperty(localName="id", isAttribute=true)
   private String id;
 
