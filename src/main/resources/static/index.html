@@ -20,9 +20,9 @@
       var options = {
         host: 'hacking.sites.noteflight.com',
         width: 900,
-        height: 600,
+        height: 700,
         viewParams: {
-          scale: 1.5,
+          scale: 1,
           role: 'template',
           app: 'html5'
         }
@@ -35,7 +35,7 @@
       }
 
       function callCounterpointService() {
-        var cantusFirmusJson = JSON.stringify({
+        var cantusFirmusJson = {
           //"mainMelody" : [62, 65, 64, 62, 67, 65, 69, 67, 65, 64, 62],
           "mainMelody" : [60, 60, 67, 67, 69, 69, 67, 67, 65, 65, 64, 64, 62, 62, 60],
           //"partsInitialNotes" : [50, 69, 74],
@@ -44,44 +44,17 @@
           "counterpointSpecies" : 2,
           //"scaleMode" : 2
           "scaleMode" : 6
-        });
-
-        $.ajax({
-          url:'http://localhost:8080/counterpoint',
-          type:'post',
-          data : cantusFirmusJson,
-          contentType: "application/json",
-          dataType: 'json',
-          success: function(data) {
-            scoreView.loadMusicXML(data);
-          },
-          error: function (xhr) {
-            scoreView.loadMusicXML(xhr.responseText);
-          }
-        });
-      }
-
-      // Uncomment the following after ascertaining how to get the serialized XML from the arg passed into the done method
-      /*
-      function callCounterpointService() {
-        var cantusFirmusJson = {
-          "mainMelody": [62, 65, 64, 62, 67, 65, 69, 67, 65, 64, 62],
-          "partsInitialNotes": [50, 69, 74],
-          "counterpointSpecies": 2,
-          "scaleMode": 2
         };
         cantusFirmusJson = JSON.stringify(cantusFirmusJson);
         $.ajax({
           method: 'POST',
           contentType: 'application/json',
           url: 'http://localhost:8080/counterpoint',
-          data: cantusFirmusJson,
-        }).done(function (msg) {
-          alert( msg + " msg.responseText: " + msg.responseText);
-          //scoreView.loadMusicXML(msg);
+          data: cantusFirmusJson
+        }).done(function (doc) {
+          scoreView.loadMusicXML(doc.documentElement.outerHTML);
         });
       }
-      */
 
     </script>
 
