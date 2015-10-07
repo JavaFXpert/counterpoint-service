@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/counterpoint-service.iml" filepath="$PROJECT_DIR$/counterpoint-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/counterpoint-service.iml" filepath="$PROJECT_DIR$/counterpoint-service.iml" />
     </modules>
   </component>
 </project>

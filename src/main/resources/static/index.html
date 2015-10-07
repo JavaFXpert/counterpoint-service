@@ -35,10 +35,14 @@
 
       function callCounterpointService() {
         var cantusFirmusJson = JSON.stringify({
-          "mainMelody" : [62, 65, 64, 62, 67, 65, 69, 67, 65, 64, 62],
-          "partsInitialNotes" : [50, 69, 74],
-          "counterpointSpecies" : 2,
-          "scaleMode" : 2
+          //"mainMelody" : [62, 65, 64, 62, 67, 65, 69, 67, 65, 64, 62],
+          "mainMelody" : [60, 62, 64, 65, 67, 69, 71, 72, 67, 64, 62, 60],
+          //"partsInitialNotes" : [50, 69, 74],
+          "partsInitialNotes" : [67, 72, 84],
+          //"counterpointSpecies" : 2,
+          "counterpointSpecies" : 3,
+          //"scaleMode" : 2
+          "scaleMode" : 6
         });
 
         $.ajax({
@@ -48,19 +52,40 @@
           contentType: "application/json",
           dataType: 'json',
           success: function(data) {
-            window.alert( 'success..')
+            scoreView.loadMusicXML(data);
+            //loadScore(data);
+            //window.alert( 'success..')
           },
           error: function (xhr) {
-            window.alert( 'error! '+ xhr.responseText);
+            scoreView.loadMusicXML(xhr.responseText);
+            //loadScore(data);
+            //window.alert( 'error! '+ xhr.responseText);
             //alert("error: " + xhr.responseText);
           }
         });
-
-        /*
-        jqXhr = $.post("http://localhost:8080/counterpoint",
-                       cantusFirmusJson;
-        */
       }
+
+      // Uncomment the following after ascertaining how to get the serialized XML from the arg passed into the done method
+      /*
+      function callCounterpointService() {
+        var cantusFirmusJson = {
+          "mainMelody": [62, 65, 64, 62, 67, 65, 69, 67, 65, 64, 62],
+          "partsInitialNotes": [50, 69, 74],
+          "counterpointSpecies": 2,
+          "scaleMode": 2
+        };
+        cantusFirmusJson = JSON.stringify(cantusFirmusJson);
+        $.ajax({
+          method: 'POST',
+          contentType: 'application/json',
+          url: 'http://localhost:8080/counterpoint',
+          data: cantusFirmusJson,
+        }).done(function (msg) {
+          alert( msg + " msg.responseText: " + msg.responseText);
+          //scoreView.loadMusicXML(msg);
+        });
+      }
+      */
 
     </script>
 
