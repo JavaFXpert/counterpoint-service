@@ -36,11 +36,11 @@
       function callCounterpointService() {
         var cantusFirmusJson = JSON.stringify({
           //"mainMelody" : [62, 65, 64, 62, 67, 65, 69, 67, 65, 64, 62],
-          "mainMelody" : [60, 62, 64, 65, 67, 69, 71, 72, 67, 64, 62, 60],
+          "mainMelody" : [60, 60, 67, 67, 69, 69, 67, 67, 65, 65, 64, 64, 62, 62, 60],
           //"partsInitialNotes" : [50, 69, 74],
-          "partsInitialNotes" : [67, 72, 84],
+          "partsInitialNotes" : [52, 67],
           //"counterpointSpecies" : 2,
-          "counterpointSpecies" : 3,
+          "counterpointSpecies" : 2,
           //"scaleMode" : 2
           "scaleMode" : 6
         });
@@ -53,14 +53,9 @@
           dataType: 'json',
           success: function(data) {
             scoreView.loadMusicXML(data);
-            //loadScore(data);
-            //window.alert( 'success..')
           },
           error: function (xhr) {
             scoreView.loadMusicXML(xhr.responseText);
-            //loadScore(data);
-            //window.alert( 'error! '+ xhr.responseText);
-            //alert("error: " + xhr.responseText);
           }
         });
       }
