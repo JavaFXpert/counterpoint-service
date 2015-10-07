@@ -11,50 +11,32 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 public class CounterpointService {
 
-  public static void main(String[] args) {
-    SpringApplication.run(CounterpointService.class, args);
-  }
+    public static void main(String[] args) {
+        SpringApplication.run(CounterpointService.class, args);
+    }
 }
 
-class IntWrapper {
-
-  private int[] ints;
-
-  public IntWrapper(int... ints) {
-      this.ints = ints;
-  }
-
-  public IntWrapper() {
-  }
-
-  public int[] getInts() {
-      return ints;
-  }
-}
 
 @RestController
 @RequestMapping("/counterpoint")
 class XmlRestController {
-  @RequestMapping(method = RequestMethod.POST,
-    consumes = MediaType.APPLICATION_JSON_VALUE,
-    produces = MediaType.APPLICATION_XML_VALUE
-  )
-            
-  ScorePartwise write(@RequestBody CounterpointModel counterpointModel) throws Exception {
 
-    // prepare response XML out
-    CounterpointGenerator cg = new CounterpointGenerator();
-    cg.fillRhyPat();
-    int[] cf = counterpointModel.getMainMelody();
-    cg.setCantusFirmus(cf);
-    int[] vbs = counterpointModel.getPartsInitialNotes();
+    @RequestMapping(method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_XML_VALUE
+    )
+    ScorePartwise write(@RequestBody CounterpointModel counterpointModel) throws Exception {
 
-    CounterpointSolution counterpointSolution = new CounterpointSolution();
-    counterpointSolution = cg.anySpecies(counterpointModel.getScaleMode(),
-            vbs, cf.length, counterpointModel.getCounterpointSpecies());
+        // prepare response XML out
+        CounterpointGenerator cg = new CounterpointGenerator();
+        cg.fillRhyPat();
+        int[] cf = counterpointModel.getMainMelody();
+        cg.setCantusFirmus(cf);
+        int[] vbs = counterpointModel.getPartsInitialNotes();
 
-    ScorePartwise scorePartwise = counterpointSolution.toScorePartwise();
+        CounterpointSolution counterpointSolution = cg.anySpecies(counterpointModel.getScaleMode(),
+                vbs, cf.length, counterpointModel.getCounterpointSpecies());
 
-    return scorePartwise;
-  }
+        return counterpointSolution.toScorePartwise();
+    }
 }
