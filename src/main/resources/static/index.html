@@ -38,11 +38,11 @@
 
       var scoreView = new NFClient.ScoreView('score1', '3b88798c7533d46aa60c3c8077e44742c7c4027a', options);
 
-      function callCounterpointService(mainMelody, scaleModeSelection, speciesSelection) {
+      function callCounterpointService(mainMelody, initialNotes, scaleModeSelection, speciesSelection) {
         var cantusFirmusJson = {
           "mainMelody" : mainMelody,
-          //"partsInitialNotes" : [48, 55],
-          "partsInitialNotes" : [48, 67, 72],
+          "partsInitialNotes" : initialNotes,
+          //"partsInitialNotes" : [48, 67, 72],
           "counterpointSpecies" : speciesSelection,
           "scaleMode" : scaleModeSelection
         };
@@ -58,8 +58,10 @@
       }
 
       function readMainMelody() {
-        var mainMelodyPitches = [];
+
         scoreView.getScore().done(function(scoreData) {
+          var mainMelodyPitches = [];
+          var initialPitches = [];
           if (scoreData != null && scoreData.staves.length > 0) {
             var curStaff = scoreData.staves[0];
             for (var measIdx = 0; measIdx < curStaff.measures.length; measIdx++) {
@@ -67,16 +69,36 @@
               for (var noteSetIdx = 0; noteSetIdx < curMeasure.noteSets.length; noteSetIdx++) {
                 var curNoteSet = curMeasure.noteSets[noteSetIdx];
                 if (curNoteSet.notes.length > 0) {
-                  var curNote = curNoteSet.notes[0];
+                  //var curNote = curNoteSet.notes[0];
+                  var curNote = curNoteSet.notes[curNoteSet.notes.length - 1];
                   console.log("curNote.pitch:" + (curNote.pitch + 12));
                   mainMelodyPitches.push(curNote.pitch + 12);
+
+                  // If this is the first noteSet, get the starting pitches
+                  if (measIdx == 0 && noteSetIdx == 0) {
+                    initialPitches = getNotesFromNoteset(curNoteSet, curNote.pitch);
+                  }
                 }
               }
             }
-            //
           }
-          callCounterpointService(mainMelodyPitches, readModeSelection(), readSpeciesSelection());
+          callCounterpointService(mainMelodyPitches, initialPitches, readModeSelection(), readSpeciesSelection());
         });
+      }
+
+      function getNotesFromNoteset(noteSet, excludePitch) {
+        var initialNotes = [];
+        for (noteIdx = 0; noteIdx < noteSet.notes.length; noteIdx++) {
+          var curChordNote = noteSet.notes[noteIdx];
+          console.log("curChordNote.pitch:" + (curChordNote.pitch + 12));
+          if (curChordNote.pitch != excludePitch) {
+            initialNotes.push(curChordNote.pitch + 12);
+          }
+        }
+        if (initialNotes.length == 0) {
+          initialNotes.push(excludePitch - 7 + 12);
+        }
+        return initialNotes;
       }
 
       function readModeSelection() {
