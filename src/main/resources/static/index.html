@@ -125,7 +125,7 @@
           }
         }
         if (initialNotes.length == 0) {
-          initialNotes.push(pitchToReserve - 7 + 12);
+          initialNotes.push(pitchToReserve - 12 + 12); //TODO: Handle the 12 tone difference between MIDI and Noteflight note pitches better everywhere
         }
 
         // Push the note being reserved for the first note in the cantus firmus
@@ -160,7 +160,7 @@
           }
         }
         if (initialNotes.length == 0) {
-          initialNotes.push(pitchToReserve - 7 + 12);
+          initialNotes.push(pitchToReserve - 12 + 12);
         }
 
         // Push the note being reserved for the first note in the cantus firmus
