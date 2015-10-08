@@ -62,6 +62,7 @@
         scoreView.getScore().done(function(scoreData) {
           var mainMelodyPitches = [];
           var initialPitches = [];
+          var initialNoteSet;
           if (scoreData != null && scoreData.staves.length > 0) {
             var curStaff = scoreData.staves[0];
             for (var measIdx = 0; measIdx < curStaff.measures.length; measIdx++) {
@@ -74,18 +75,30 @@
                   console.log("curNote.pitch:" + (curNote.pitch + 12));
                   mainMelodyPitches.push(curNote.pitch + 12);
 
-                  // If this is the first noteSet, get the starting pitches
-                  if (measIdx == 0 && noteSetIdx == 0) {
-                    initialPitches = getNotesFromNoteset(curNoteSet, curNote.pitch);
+                  //If we pushed the second note in the melody line, use it to exclude one of the initial pitches
+                  if (mainMelodyPitches.length == 2) {
+                    initialPitches = getNotesFromNoteset(initialNoteSet, curNote.pitch);
                   }
+
+                  // If this is the first noteSet, save it
+                  if (measIdx == 0 && noteSetIdx == 0) {
+                    initialNoteSet = curNoteSet;
+                  }
+
                 }
               }
             }
           }
+          /*
+           * As a result of calling getNotesFromOnset() the last element of initialPitches contains the pitch that
+           * the mainMelodyPitches needs to start with
+           */
+          mainMelodyPitches[0] = initialPitches.pop();
           callCounterpointService(mainMelodyPitches, initialPitches, readModeSelection(), readSpeciesSelection());
         });
       }
 
+      /*
       function getNotesFromNoteset(noteSet, excludePitch) {
         var initialNotes = [];
         for (noteIdx = 0; noteIdx < noteSet.notes.length; noteIdx++) {
@@ -98,6 +111,32 @@
         if (initialNotes.length == 0) {
           initialNotes.push(excludePitch - 7 + 12);
         }
+        return initialNotes;
+      }
+      */
+
+      function getNotesFromNoteset(noteSet, secondPitchInCantus) {
+        var initialNotes = [];
+        var pitchToExclude = 0;
+        for (noteIdx = 0; noteIdx < noteSet.notes.length; noteIdx++) {
+          var curChordNote = noteSet.notes[noteIdx];
+          console.log("curChordNote.pitch:" + (curChordNote.pitch + 12));
+          if (Math.abs(secondPitchInCantus - curChordNote.pitch) <
+                  Math.abs(secondPitchInCantus - pitchToExclude)) {
+            if (pitchToExclude != 0) {
+              initialNotes.push(pitchToExclude + 12);
+            }
+            pitchToExclude = curChordNote.pitch;
+          }
+          else {
+            initialNotes.push(curChordNote.pitch + 12);
+          }
+        }
+        if (initialNotes.length == 0) {
+          initialNotes.push(pitchToExclude - 7 + 12);
+        }
+
+        initialNotes.push(pitchToExclude + 12);
         return initialNotes;
       }
 
