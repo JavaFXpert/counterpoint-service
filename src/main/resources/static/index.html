@@ -10,7 +10,14 @@
   </head>
 
   <body>
-    <div id="score1"></div>
+  <div class="row">
+    <div class="large-8 columns">
+      <h1>Composing Music in the Cloud</h1>
+    </div>
+
+  </div>
+
+  <div id="score1"></div>
     <script>
       // Initialize the Noteflight client API.
       NFClient.init(function(info) {
@@ -20,9 +27,9 @@
       var options = {
         host: 'hacking.sites.noteflight.com',
         width: 900,
-        height: 700,
+        height: 600,
         viewParams: {
-          scale: 1.5,
+          scale: 1.0,
           role: 'template',
           app: 'html5',
           displayMode: 'flow'
@@ -31,12 +38,12 @@
 
       var scoreView = new NFClient.ScoreView('score1', '3b88798c7533d46aa60c3c8077e44742c7c4027a', options);
 
-      function callCounterpointService(mainMelody) {
+      function callCounterpointService(mainMelody, scaleModeSelection) {
         var cantusFirmusJson = {
           "mainMelody" : mainMelody,
           "partsInitialNotes" : [48, 55],
           "counterpointSpecies" : 2,
-          "scaleMode" : 5
+          "scaleMode" : scaleModeSelection
         };
         cantusFirmusJson = JSON.stringify(cantusFirmusJson);
         $.ajax({
@@ -67,29 +74,50 @@
             }
             //
           }
-          callCounterpointService(mainMelodyPitches);
+          callCounterpointService(mainMelodyPitches, readModeSelection());
         });
+      }
+
+      function readModeSelection() {
+        var modeVal = $('#modeIds').val();
+        var modeValInt = isNaN(modeVal) ? 0 : parseInt(modeVal);
+        return modeValInt;
       }
 
     </script>
 
-    <div class="row">
-      <div class="large-8 columns">
-        <h1>Composing Music in the Cloud</h1>
-
-        <div class="small-4 columns">
-          <button class="small button" onclick="readMainMelody()">readMainMelody</button>
-        </div>
-        <!--div class="small-6 columns">
-          <button class="small button" onclick="callCounterpointService()">callCounterpointService</button>
-        </div-->
-
-      </div>
-    </div>
     <script src="js/vendor/jquery.js"></script>
     <script src="js/foundation.min.js"></script>
     <script>
       $(document).foundation();
     </script>
+  </div>
+
+  <div class="row">
+    <div class="large-12 columns">
+      <label>Select Box</label>
+      <select name="modes" id="modeIds">
+        <option value="0">Ionian</option>
+        <option value="1">Dorian</option>
+        <option value="2">Phrygian</option>
+        <option value="3">Lydian</option>
+        <option value="4">Mixolydian</option>
+        <option value="5">Aeolian</option>
+        <option value="6">Locrian</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-4 columns">
+      <button class="small button" onclick="readMainMelody()">readMainMelody</button>
+    </div>
+    <div class="small-6 columns">
+      <button class="small button" onclick="readModeSelection()">readModeSelection</button>
+    </div>
+
+  </div>
+
+
   </body>
 </html>
