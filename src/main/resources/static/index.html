@@ -75,9 +75,17 @@
                   console.log("curNote.pitch:" + (curNote.pitch + 12));
                   mainMelodyPitches.push(curNote.pitch + 12);
 
-                  //If we pushed the second note in the melody line, use it to exclude one of the initial pitches
+                  //If we pushed the second note in the melody line, use it to reserve one of the initial pitches
                   if (mainMelodyPitches.length == 2) {
-                    initialPitches = getNotesFromNoteset(initialNoteSet, curNote.pitch);
+                    // If there is more than one note in the initial NoteSet of the first measure in the
+                    // first staff, then use this NoteSet to get initial pitches
+                    if (initialNoteSet.notes.length > 1) {
+                      initialPitches = getInitialNotesFromNoteset(initialNoteSet, curNote.pitch);
+                    }
+                    // otherwise, get the initial pitches from the first note of each staff
+                    else {
+                      initialPitches = getInitialNotesFromAllStaves(scoreData.staves, curNote.pitch);
+                    }
                   }
 
                   // If this is the first noteSet, save it
@@ -98,45 +106,65 @@
         });
       }
 
-      /*
-      function getNotesFromNoteset(noteSet, excludePitch) {
+      // TODO: Factor out common code with getInitialNotesFromAllStaves method
+      function getInitialNotesFromNoteset(noteSet, secondPitchInCantus) {
         var initialNotes = [];
-        for (noteIdx = 0; noteIdx < noteSet.notes.length; noteIdx++) {
-          var curChordNote = noteSet.notes[noteIdx];
-          console.log("curChordNote.pitch:" + (curChordNote.pitch + 12));
-          if (curChordNote.pitch != excludePitch) {
-            initialNotes.push(curChordNote.pitch + 12);
-          }
-        }
-        if (initialNotes.length == 0) {
-          initialNotes.push(excludePitch - 7 + 12);
-        }
-        return initialNotes;
-      }
-      */
-
-      function getNotesFromNoteset(noteSet, secondPitchInCantus) {
-        var initialNotes = [];
-        var pitchToExclude = 0;
+        var pitchToReserve = 0;
         for (noteIdx = 0; noteIdx < noteSet.notes.length; noteIdx++) {
           var curChordNote = noteSet.notes[noteIdx];
           console.log("curChordNote.pitch:" + (curChordNote.pitch + 12));
           if (Math.abs(secondPitchInCantus - curChordNote.pitch) <
-                  Math.abs(secondPitchInCantus - pitchToExclude)) {
-            if (pitchToExclude != 0) {
-              initialNotes.push(pitchToExclude + 12);
+                  Math.abs(secondPitchInCantus - pitchToReserve)) {
+            if (pitchToReserve != 0) {
+              initialNotes.push(pitchToReserve + 12);
             }
-            pitchToExclude = curChordNote.pitch;
+            pitchToReserve = curChordNote.pitch;
           }
           else {
             initialNotes.push(curChordNote.pitch + 12);
           }
         }
         if (initialNotes.length == 0) {
-          initialNotes.push(pitchToExclude - 7 + 12);
+          initialNotes.push(pitchToReserve - 7 + 12);
         }
 
-        initialNotes.push(pitchToExclude + 12);
+        // Push the note being reserved for the first note in the cantus firmus
+        initialNotes.push(pitchToReserve + 12);
+        return initialNotes;
+      }
+
+      // TODO: Factor out common code with getInitialNotesFromNoteset method
+      function getInitialNotesFromAllStaves(staves, secondPitchInCantus) {
+        var initialNotes = [];
+        var pitchToReserve = 0;
+        for (staffIdx = 0; staffIdx < staves.length; staffIdx++) {
+          curStaff = staves[staffIdx];
+          if (curStaff.measures.length > 0) {
+            var curMeasure = curStaff.measures[0];
+            if (curMeasure.noteSets.length > 0) {
+              var curNoteSet = curMeasure.noteSets[0];
+              if (curNoteSet.notes.length > 0) {
+                var curNote = curNoteSet.notes[0];
+                if (Math.abs(secondPitchInCantus - curNote.pitch) <
+                        Math.abs(secondPitchInCantus - pitchToReserve)) {
+                  if (pitchToReserve != 0) {
+                    initialNotes.push(pitchToReserve + 12);
+                  }
+                  pitchToReserve = curNote.pitch;
+                }
+                else {
+                  initialNotes.push(curNote.pitch + 12);
+                }
+              }
+            }
+          }
+        }
+        if (initialNotes.length == 0) {
+          initialNotes.push(pitchToReserve - 7 + 12);
+        }
+
+        // Push the note being reserved for the first note in the cantus firmus
+        initialNotes.push(pitchToReserve + 12);
         return initialNotes;
       }
 

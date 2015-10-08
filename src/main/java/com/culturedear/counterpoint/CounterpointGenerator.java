@@ -76,10 +76,12 @@ public class CounterpointGenerator {
    * @return 
    */
   boolean inMode(int pitch, int mode) {
-    int pit;
+    int pit = pitch % 12;
+    /*
     if (pitch > 11)
       pit = pitch % 12;
     else pit=pitch;
+    */
     switch (mode) {
       case 0:     return(_ionian[pit]); //ionian
       case 1:     return(_dorian[pit]); //dorian
