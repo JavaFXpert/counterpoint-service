@@ -18,22 +18,6 @@ import java.util.List;
 public class CounterpointGenerator {
   private CounterpointSolution counterpointSolution;
 
-  /* TODO: SAIL p51
-  inline void ARRBLT(int *dest, int *source, int num) {
-    int i; 
-    for (i=0;i<num;i++) dest[i]=source[i];
-  }
-  */
-  
-  /*
-  void arrBlt(int dest[], int source[], int num) {
-    int i; 
-    for (i = 0; i < num; i++) {
-      dest[i]=source[i];
-    }
-  }
-  */
-
   void arrBlt(int array[],int destIdx, int sourceOffset, int numToCopy) {
     int i; 
     for (i = 0; i < numToCopy; i++) {
@@ -69,7 +53,7 @@ public class CounterpointGenerator {
   static int mixolydian = 4; //was 5
   static int aeolian = 5; //was 1
   static int locrian = 6; //was 7
-    
+
   boolean _ionian[] =     {true, false, true, false, true, true, false, 
                            true, false, true, false, true};
   boolean _dorian[] =     {true, false, true, true, false, true, false, 
@@ -1930,16 +1914,6 @@ public class CounterpointGenerator {
   
   /**
    * 
-   * @param amp
-   * @return 
-   */
-  float random(float amp) {
-    int i = (int)((randx = randx*1103515245 + 12345)>>16) & 077777;
-    return(amp * (((float)i)*inverse_rscl));
-  }
-  
-  /**
-   * 
    * @param n 
    */
   void usedRhy(int n) {
@@ -1967,7 +1941,7 @@ public class CounterpointGenerator {
   
   int goodRhy() {
     int i;
-    i = (int)(random(10.0F));
+    i = (int)(Math.random() * 10.0);
     if (curRhy(i) > curRhy(Math.max(1, (i-1)))) {
       return(Math.max(1, (i-1)));
     }

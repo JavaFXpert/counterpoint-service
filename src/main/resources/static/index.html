@@ -38,11 +38,11 @@
 
       var scoreView = new NFClient.ScoreView('score1', '3b88798c7533d46aa60c3c8077e44742c7c4027a', options);
 
-      function callCounterpointService(mainMelody, scaleModeSelection) {
+      function callCounterpointService(mainMelody, scaleModeSelection, speciesSelection) {
         var cantusFirmusJson = {
           "mainMelody" : mainMelody,
           "partsInitialNotes" : [48, 55],
-          "counterpointSpecies" : 2,
+          "counterpointSpecies" : speciesSelection,
           "scaleMode" : scaleModeSelection
         };
         cantusFirmusJson = JSON.stringify(cantusFirmusJson);
@@ -74,7 +74,7 @@
             }
             //
           }
-          callCounterpointService(mainMelodyPitches, readModeSelection());
+          callCounterpointService(mainMelodyPitches, readModeSelection(), readSpeciesSelection());
         });
       }
 
@@ -82,6 +82,12 @@
         var modeVal = $('#modeIds').val();
         var modeValInt = isNaN(modeVal) ? 0 : parseInt(modeVal);
         return modeValInt;
+      }
+
+      function readSpeciesSelection() {
+        var speciesVal = $('#speciesIds').val();
+        var speciesValInt = isNaN(speciesVal) ? 1 : parseInt(speciesVal);
+        return speciesValInt;
       }
 
     </script>
@@ -95,7 +101,7 @@
 
   <div class="row">
     <div class="large-12 columns">
-      <label>Select Box</label>
+      <label>Mode</label>
       <select name="modes" id="modeIds">
         <option value="0">Ionian</option>
         <option value="1">Dorian</option>
@@ -109,11 +115,27 @@
   </div>
 
   <div class="row">
+    <div class="large-12 columns">
+      <label>Species</label>
+      <select name="species" id="speciesIds">
+        <option value="1">First species</option>
+        <option value="2">Second species</option>
+        <option value="3">Third species</option>
+        <option value="4">Fourth species</option>
+        <option value="5">Fifth species</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row">
     <div class="small-4 columns">
       <button class="small button" onclick="readMainMelody()">readMainMelody</button>
     </div>
     <div class="small-6 columns">
       <button class="small button" onclick="readModeSelection()">readModeSelection</button>
+    </div>
+    <div class="small-6 columns">
+      <button class="small button" onclick="readSpeciesSelection()">readSpeciesSelection</button>
     </div>
 
   </div>
