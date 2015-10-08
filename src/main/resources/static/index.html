@@ -22,27 +22,20 @@
         width: 900,
         height: 700,
         viewParams: {
-          scale: 1,
+          scale: 1.5,
           role: 'template',
-          app: 'html5'
+          app: 'html5',
+          displayMode: 'flow'
         }
       };
 
       var scoreView = new NFClient.ScoreView('score1', '3b88798c7533d46aa60c3c8077e44742c7c4027a', options);
 
-      function loadScore() {
-        scoreView.loadMusicXML('<score-partwise version="3.0"><part-list><score-part id="P1"><part-name>Cantus firmus</part-name></score-part><score-part id="P2"><part-name>Melody 1</part-name></score-part><score-part id="P3"><part-name>Melody 2</part-name></score-part><score-part id="P4"><part-name>Melody 3</part-name></score-part></part-list><part id="P1"><measure number="1"><note><pitch><step>D</step><alter>0</alter><octave>4</octave></pitch><duration>4</duration><type>whole</type></note></measure><measure number="2"><note><pitch><step>F</step><alter>0</alter><octave>4</octave></pitch><duration>4</duration><type>whole</type></note></measure><measure number="3"><note><pitch><step>E</step><alter>0</alter><octave>4</octave></pitch><duration>4</duration><type>whole</type></note></measure><measure number="4"><note><pitch><step>D</step><alter>0</alter><octave>4</octave></pitch><duration>4</duration><type>whole</type></note></measure><measure number="5"><note><pitch><step>G</step><alter>0</alter><octave>4</octave></pitch><duration>4</duration><type>whole</type></note></measure><measure number="6"><note><pitch><step>F</step><alter>0</alter><octave>4</octave></pitch><duration>4</duration><type>whole</type></note></measure><measure number="7"><note><pitch><step>A</step><alter>0</alter><octave>4</octave></pitch><duration>4</duration><type>whole</type></note></measure><measure number="8"><note><pitch><step>G</step><alter>0</alter><octave>4</octave></pitch><duration>4</duration><type>whole</type></note></measure><measure number="9"><note><pitch><step>F</step><alter>0</alter><octave>4</octave></pitch><duration>4</duration><type>whole</type></note></measure><measure number="10"><note><pitch><step>E</step><alter>0</alter><octave>4</octave></pitch><duration>4</duration><type>whole</type></note></measure><measure number="11"><note><pitch><step>D</step><alter>0</alter><octave>4</octave></pitch><duration>4</duration><type>whole</type></note></measure></part><part id="P2"><measure number="1"><note><pitch><step>D</step><alter>0</alter><octave>3</octave></pitch><duration>4</duration><type>whole</type></note></measure><measure number="2"><note><pitch><step>D</step><alter>0</alter><octave>3</octave></pitch><duration>4</duration><type>whole</type></note></measure><measure number="3"><note><pitch><step>E</step><alter>0</alter><octave>3</octave></pitch><duration>4</duration><type>whole</type></note></measure><measure number="4"><note><pitch><step>G</step><alter>0</alter><octave>3</octave></pitch><duration>4</duration><type>whole</type></note></measure><measure number="5"><note><pitch><step>G</step><alter>0</alter><octave>3</octave></pitch><duration>4</duration><type>whole</type></note></measure><measure number="6"><note><pitch><step>D</step><alter>0</alter><octave>3</octave></pitch><duration>4</duration><type>whole</type></note></measure><measure number="7"><note><pitch><step>C</step><alter>0</alter><octave>3</octave></pitch><duration>4</duration><type>whole</type></note></measure><measure number="8"><note><pitch><step>E</step><alter>0</alter><octave>3</octave></pitch><duration>4</duration><type>whole</type></note></measure><measure number="9"><note><pitch><step>A</step><alter>0</alter><octave>2</octave></pitch><duration>4</duration><type>whole</type></note></measure><measure number="10"><note><pitch><step>C</step><alter>1</alter><octave>3</octave></pitch><duration>4</duration><type>whole</type></note></measure><measure number="11"><note><pitch><step>D</step><alter>0</alter><octave>3</octave></pitch><duration>4</duration><type>whole</type></note></measure></part><part id="P3"><measure number="1"><note><pitch><step>A</step><alter>0</alter><octave>4</octave></pitch><duration>4</duration><type>whole</type></note></measure><measure number="2"><note><pitch><step>D</step><alter>0</alter><octave>4</octave></pitch><duration>4</duration><type>whole</type></note></measure><measure number="3"><note><pitch><step>G</step><alter>0</alter><octave>4</octave></pitch><duration>4</duration><type>whole</type></note></measure><measure number="4"><note><pitch><step>B</step><alter>0</alter><octave>4</octave></pitch><duration>4</duration><type>whole</type></note></measure><measure number="5"><note><pitch><step>E</step><alter>0</alter><octave>4</octave></pitch><duration>4</duration><type>whole</type></note></measure><measure number="6"><note><pitch><step>A</step><alter>0</alter><octave>4</octave></pitch><duration>4</duration><type>whole</type></note></measure><measure number="7"><note><pitch><step>C</step><alter>0</alter><octave>5</octave></pitch><duration>4</duration><type>whole</type></note></measure><measure number="8"><note><pitch><step>B</step><alter>0</alter><octave>4</octave></pitch><duration>4</duration><type>whole</type></note></measure><measure number="9"><note><pitch><step>C</step><alter>0</alter><octave>5</octave></pitch><duration>4</duration><type>whole</type></note></measure><measure number="10"><note><pitch><step>A</step><alter>0</alter><octave>4</octave></pitch><duration>4</duration><type>whole</type></note></measure><measure number="11"><note><pitch><step>D</step><alter>0</alter><octave>4</octave></pitch><duration>4</duration><type>whole</type></note></measure></part><part id="P4"><measure number="1"><note><pitch><step>D</step><alter>0</alter><octave>5</octave></pitch><duration>2</duration><type>half</type></note><note><pitch><step>C</step><alter>0</alter><octave>5</octave></pitch><duration>2</duration><type>half</type></note></measure><measure number="2"><note><pitch><step>B</step><alter>0</alter><octave>4</octave></pitch><duration>2</duration><type>half</type></note><note><pitch><step>A</step><alter>0</alter><octave>4</octave></pitch><duration>2</duration><type>half</type></note></measure><measure number="3"><note><pitch><step>C</step><alter>0</alter><octave>5</octave></pitch><duration>2</duration><type>half</type></note><note><pitch><step>B</step><alter>0</alter><octave>4</octave></pitch><duration>2</duration><type>half</type></note></measure><measure number="4"><note><pitch><step>G</step><alter>0</alter><octave>4</octave></pitch><duration>2</duration><type>half</type></note><note><pitch><step>A</step><alter>0</alter><octave>4</octave></pitch><duration>2</duration><type>half</type></note></measure><measure number="5"><note><pitch><step>B</step><alter>0</alter><octave>4</octave></pitch><duration>2</duration><type>half</type></note><note><pitch><step>C</step><alter>0</alter><octave>5</octave></pitch><duration>2</duration><type>half</type></note></measure><measure number="6"><note><pitch><step>D</step><alter>0</alter><octave>5</octave></pitch><duration>2</duration><type>half</type></note><note><pitch><step>A</step><alter>0</alter><octave>4</octave></pitch><duration>2</duration><type>half</type></note></measure><measure number="7"><note><pitch><step>E</step><alter>0</alter><octave>4</octave></pitch><duration>2</duration><type>half</type></note><note><pitch><step>F</step><alter>0</alter><octave>4</octave></pitch><duration>2</duration><type>half</type></note></measure><measure number="8"><note><pitch><step>G</step><alter>0</alter><octave>4</octave></pitch><duration>2</duration><type>half</type></note><note><pitch><step>E</step><alter>0</alter><octave>4</octave></pitch><duration>2</duration><type>half</type></note></measure><measure number="9"><note><pitch><step>C</step><alter>0</alter><octave>4</octave></pitch><duration>2</duration><type>half</type></note><note><pitch><step>D</step><alter>0</alter><octave>4</octave></pitch><duration>2</duration><type>half</type></note></measure><measure number="10"><note><pitch><step>E</step><alter>0</alter><octave>4</octave></pitch><duration>2</duration><type>half</type></note><note><pitch><step>A</step><alter>0</alter><octave>3</octave></pitch><duration>2</duration><type>half</type></note></measure><measure number="11"><note><pitch><step>A</step><alter>0</alter><octave>3</octave></pitch><duration>4</duration><type>whole</type></note></measure></part></score-partwise>');
-      }
-
-      function callCounterpointService() {
+      function callCounterpointService(mainMelody) {
         var cantusFirmusJson = {
-          //"mainMelody" : [62, 65, 64, 62, 67, 65, 69, 67, 65, 64, 62],
-          "mainMelody" : [60, 60, 67, 67, 69, 69, 67, 67, 65, 65, 64, 64, 62, 62, 60],
-          //"partsInitialNotes" : [50, 69, 74],
-          "partsInitialNotes" : [52, 67],
-          //"counterpointSpecies" : 2,
-          "counterpointSpecies" : 2,
-          //"scaleMode" : 2
+          "mainMelody" : mainMelody,
+          "partsInitialNotes" : [48, 55],
+          "counterpointSpecies" : 4,
           "scaleMode" : 6
         };
         cantusFirmusJson = JSON.stringify(cantusFirmusJson);
@@ -56,6 +49,28 @@
         });
       }
 
+      function readMainMelody() {
+        var mainMelodyPitches = [];
+        scoreView.getScore().done(function(scoreData) {
+          if (scoreData != null && scoreData.staves.length > 0) {
+            var curStaff = scoreData.staves[0];
+            for (var measIdx = 0; measIdx < curStaff.measures.length; measIdx++) {
+              var curMeasure = curStaff.measures[measIdx];
+              for (var noteSetIdx = 0; noteSetIdx < curMeasure.noteSets.length; noteSetIdx++) {
+                var curNoteSet = curMeasure.noteSets[noteSetIdx];
+                if (curNoteSet.notes.length > 0) {
+                  var curNote = curNoteSet.notes[0];
+                  console.log("curNote.pitch:" + (curNote.pitch + 12));
+                  mainMelodyPitches.push(curNote.pitch + 12);
+                }
+              }
+            }
+            //
+          }
+          callCounterpointService(mainMelodyPitches);
+        });
+      }
+
     </script>
 
     <div class="row">
@@ -63,11 +78,11 @@
         <h1>Composing Music in the Cloud</h1>
 
         <div class="small-4 columns">
-          <button class="small button" onclick="loadScore()">loadScore</button>
+          <button class="small button" onclick="readMainMelody()">readMainMelody</button>
         </div>
-        <div class="small-6 columns">
+        <!--div class="small-6 columns">
           <button class="small button" onclick="callCounterpointService()">callCounterpointService</button>
-        </div>
+        </div-->
 
       </div>
     </div>

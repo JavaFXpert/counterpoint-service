@@ -8,8 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by jamesweaver on 9/26/15.
- * TODO: Investigate how to prevent namespaces like zdef1193312741:id= from appearing
+ * Created by jamesweaver on 9/26/15
  */
 public class Part {
   @JacksonXmlProperty(localName="id", isAttribute=true)
