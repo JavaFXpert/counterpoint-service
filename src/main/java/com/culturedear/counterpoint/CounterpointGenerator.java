@@ -62,13 +62,13 @@ public class CounterpointGenerator {
   boolean dissonance[] = {false, true, true, false, false, true, true, false, 
                           false, false, true, true, false};
 
-  static int aeolian = 1;
-  static int dorian = 2;
-  static int phrygian = 3;
-  static int lydian = 4;
-  static int mixolydian = 5;
-  static int ionian = 6;
-  static int locrian = 7;
+  static int ionian = 0; //was 6
+  static int dorian = 1; //was 2
+  static int phrygian = 2; //was 3
+  static int lydian = 3; //was 4
+  static int mixolydian = 4; //was 5
+  static int aeolian = 5; //was 1
+  static int locrian = 6; //was 7
     
   boolean _ionian[] =     {true, false, true, false, true, true, false, 
                            true, false, true, false, true};
@@ -97,17 +97,17 @@ public class CounterpointGenerator {
       pit = pitch % 12;
     else pit=pitch;
     switch (mode) {
-      case 6:     return(_ionian[pit]); //ionian
-      case 1:    return(_aeolian[pit]); //aeolian
-      case 2:     return(_dorian[pit]); //dorian
-      case 3:   return(_phrygian[pit]); //phrygian
-      case 4:     return(_lydian[pit]); //lydian
-      case 5: return(_mixolydian[pit]); //mixolydian
-      case 7:    return(_locrian[pit]); //locrian
+      case 0:     return(_ionian[pit]); //ionian
+      case 1:     return(_dorian[pit]); //dorian
+      case 2:     return(_phrygian[pit]); //phrygian
+      case 3:     return(_lydian[pit]); //lydian
+      case 4:     return(_mixolydian[pit]); //mixolydian
+      case 5:     return(_aeolian[pit]); //aeolian
+      case 6:     return(_locrian[pit]); //locrian
     }
     return(false);
   }
-  
+
   // NOTE: C version was int
   boolean badMelodyInterval[] = {false,false,false,false,false,false,true,false,false,true,true,true,false};
   
@@ -1981,7 +1981,6 @@ public class CounterpointGenerator {
    * 
    * @param ourMode
    * @param startPitches
-   * @param curV
    * @param cantusFirmusLength
    * @param species 
    */
