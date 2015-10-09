@@ -1,0 +1,4 @@
+---
+applications:
+- name: com.culturedear.counterpoint.CounterpointService
+  buildpack: https://github.com/cloudfoundry/java-buildpack

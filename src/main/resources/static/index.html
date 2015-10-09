@@ -10,224 +10,215 @@
   </head>
 
   <body>
-  <div class="row">
-    <div class="large-8 columns">
-      <h1>Composing Music in the Cloud</h1>
+    <div class="row">
+      <div class="large-8 columns">
+        <h1>Composing Music in the Cloud</h1>
+      </div>
+
     </div>
 
-  </div>
+    <div id="score1"></div>
+      <script>
+        // Initialize the Noteflight client API.
+        NFClient.init(function(info) {
+          //alert("Noteflight API is ready, version " + info.version);
+        });
 
-  <div id="score1"></div>
-    <script>
-      // Initialize the Noteflight client API.
-      NFClient.init(function(info) {
-        //alert("Noteflight API is ready, version " + info.version);
-      });
-
-      var options = {
-        host: 'hacking.sites.noteflight.com',
-        width: 900,
-        height: 600,
-        viewParams: {
-          scale: 1.0,
-          role: 'template',
-          app: 'html5',
-          displayMode: 'flow'
-        }
-      };
-
-      var scoreView = new NFClient.ScoreView('score1', '3b88798c7533d46aa60c3c8077e44742c7c4027a', options);
-
-      function callCounterpointService(mainMelody, initialNotes, scaleModeSelection, speciesSelection) {
-        var cantusFirmusJson = {
-          "mainMelody" : mainMelody,
-          "partsInitialNotes" : initialNotes,
-          //"partsInitialNotes" : [48, 67, 72],
-          "counterpointSpecies" : speciesSelection,
-          "scaleMode" : scaleModeSelection
+        var options = {
+          host: 'hacking.sites.noteflight.com',
+          width: 900,
+          height: 600,
+          viewParams: {
+            scale: 1.0,
+            role: 'template',
+            app: 'html5',
+            displayMode: 'flow'
+          }
         };
-        cantusFirmusJson = JSON.stringify(cantusFirmusJson);
-        $.ajax({
-          method: 'POST',
-          contentType: 'application/json',
-          url: 'http://localhost:8080/counterpoint',
-          data: cantusFirmusJson
-        }).done(function (doc) {
-          scoreView.loadMusicXML(doc.documentElement.outerHTML);
-        });
-      }
 
-      function readMainMelody() {
+        var scoreView = new NFClient.ScoreView('score1', '3b88798c7533d46aa60c3c8077e44742c7c4027a', options);
 
-        scoreView.getScore().done(function(scoreData) {
-          var mainMelodyPitches = [];
-          var initialPitches = [];
-          var initialNoteSet;
-          if (scoreData != null && scoreData.staves.length > 0) {
-            var curStaff = scoreData.staves[0];
-            for (var measIdx = 0; measIdx < curStaff.measures.length; measIdx++) {
-              var curMeasure = curStaff.measures[measIdx];
-              for (var noteSetIdx = 0; noteSetIdx < curMeasure.noteSets.length; noteSetIdx++) {
-                var curNoteSet = curMeasure.noteSets[noteSetIdx];
+        function callCounterpointService(mainMelody, initialNotes, scaleModeSelection, speciesSelection) {
+          var cantusFirmusJson = {
+            "mainMelody" : mainMelody,
+            "partsInitialNotes" : initialNotes,
+            //"partsInitialNotes" : [48, 67, 72],
+            "counterpointSpecies" : speciesSelection,
+            "scaleMode" : scaleModeSelection
+          };
+          cantusFirmusJson = JSON.stringify(cantusFirmusJson);
+          $.ajax({
+            method: 'POST',
+            contentType: 'application/json',
+            //url: 'http://localhost:8080/counterpoint',
+            url: '/counterpoint',
+            data: cantusFirmusJson
+          }).done(function (doc) {
+            scoreView.loadMusicXML(doc.documentElement.outerHTML);
+          });
+        }
+
+        function readMainMelody() {
+
+          scoreView.getScore().done(function(scoreData) {
+            var mainMelodyPitches = [];
+            var initialPitches = [];
+            var initialNoteSet;
+            if (scoreData != null && scoreData.staves.length > 0) {
+              var curStaff = scoreData.staves[0];
+              for (var measIdx = 0; measIdx < curStaff.measures.length; measIdx++) {
+                var curMeasure = curStaff.measures[measIdx];
+                for (var noteSetIdx = 0; noteSetIdx < curMeasure.noteSets.length; noteSetIdx++) {
+                  var curNoteSet = curMeasure.noteSets[noteSetIdx];
+                  if (curNoteSet.notes.length > 0) {
+                    //var curNote = curNoteSet.notes[0];
+                    var curNote = curNoteSet.notes[curNoteSet.notes.length - 1];
+                    console.log("curNote.pitch:" + (curNote.pitch + 12));
+                    mainMelodyPitches.push(curNote.pitch + 12);
+
+                    //If we pushed the second note in the melody line, use it to reserve one of the initial pitches
+                    if (mainMelodyPitches.length == 2) {
+                      // If there is more than one note in the initial NoteSet of the first measure in the
+                      // first staff, then use this NoteSet to get initial pitches
+                      if (initialNoteSet.notes.length > 1) {
+                        initialPitches = getInitialNotesFromNoteset(initialNoteSet, curNote.pitch);
+                      }
+                      // otherwise, get the initial pitches from the first note of each staff
+                      else {
+                        initialPitches = getInitialNotesFromAllStaves(scoreData.staves, curNote.pitch);
+                      }
+                    }
+
+                    // If this is the first noteSet, save it
+                    if (measIdx == 0 && noteSetIdx == 0) {
+                      initialNoteSet = curNoteSet;
+                    }
+
+                  }
+                }
+              }
+            }
+            /*
+             * As a result of calling getNotesFromOnset() the last element of initialPitches contains the pitch that
+             * the mainMelodyPitches needs to start with
+             */
+            mainMelodyPitches[0] = initialPitches.pop();
+            callCounterpointService(mainMelodyPitches, initialPitches, readModeSelection(), readSpeciesSelection());
+          });
+        }
+
+        // TODO: Factor out common code with getInitialNotesFromAllStaves method
+        function getInitialNotesFromNoteset(noteSet, secondPitchInCantus) {
+          var initialNotes = [];
+          var pitchToReserve = 0;
+          for (noteIdx = 0; noteIdx < noteSet.notes.length; noteIdx++) {
+            var curChordNote = noteSet.notes[noteIdx];
+            console.log("curChordNote.pitch:" + (curChordNote.pitch + 12));
+            if (Math.abs(secondPitchInCantus - curChordNote.pitch) <
+                    Math.abs(secondPitchInCantus - pitchToReserve)) {
+              if (pitchToReserve != 0) {
+                initialNotes.push(pitchToReserve + 12);
+              }
+              pitchToReserve = curChordNote.pitch;
+            }
+            else {
+              initialNotes.push(curChordNote.pitch + 12);
+            }
+          }
+          if (initialNotes.length == 0) {
+            initialNotes.push(pitchToReserve - 12 + 12); //TODO: Handle the 12 tone difference between MIDI and Noteflight note pitches better everywhere
+          }
+
+          // Push the note being reserved for the first note in the cantus firmus
+          initialNotes.push(pitchToReserve + 12);
+          return initialNotes;
+        }
+
+        // TODO: Factor out common code with getInitialNotesFromNoteset method
+        function getInitialNotesFromAllStaves(staves, secondPitchInCantus) {
+          var initialNotes = [];
+          var pitchToReserve = 0;
+          for (staffIdx = 0; staffIdx < staves.length; staffIdx++) {
+            curStaff = staves[staffIdx];
+            if (curStaff.measures.length > 0) {
+              var curMeasure = curStaff.measures[0];
+              if (curMeasure.noteSets.length > 0) {
+                var curNoteSet = curMeasure.noteSets[0];
                 if (curNoteSet.notes.length > 0) {
-                  //var curNote = curNoteSet.notes[0];
-                  var curNote = curNoteSet.notes[curNoteSet.notes.length - 1];
-                  console.log("curNote.pitch:" + (curNote.pitch + 12));
-                  mainMelodyPitches.push(curNote.pitch + 12);
-
-                  //If we pushed the second note in the melody line, use it to reserve one of the initial pitches
-                  if (mainMelodyPitches.length == 2) {
-                    // If there is more than one note in the initial NoteSet of the first measure in the
-                    // first staff, then use this NoteSet to get initial pitches
-                    if (initialNoteSet.notes.length > 1) {
-                      initialPitches = getInitialNotesFromNoteset(initialNoteSet, curNote.pitch);
+                  var curNote = curNoteSet.notes[0];
+                  if (Math.abs(secondPitchInCantus - curNote.pitch) <
+                          Math.abs(secondPitchInCantus - pitchToReserve)) {
+                    if (pitchToReserve != 0) {
+                      initialNotes.push(pitchToReserve + 12);
                     }
-                    // otherwise, get the initial pitches from the first note of each staff
-                    else {
-                      initialPitches = getInitialNotesFromAllStaves(scoreData.staves, curNote.pitch);
-                    }
+                    pitchToReserve = curNote.pitch;
                   }
-
-                  // If this is the first noteSet, save it
-                  if (measIdx == 0 && noteSetIdx == 0) {
-                    initialNoteSet = curNoteSet;
+                  else {
+                    initialNotes.push(curNote.pitch + 12);
                   }
-
                 }
               }
             }
           }
-          /*
-           * As a result of calling getNotesFromOnset() the last element of initialPitches contains the pitch that
-           * the mainMelodyPitches needs to start with
-           */
-          mainMelodyPitches[0] = initialPitches.pop();
-          callCounterpointService(mainMelodyPitches, initialPitches, readModeSelection(), readSpeciesSelection());
-        });
-      }
-
-      // TODO: Factor out common code with getInitialNotesFromAllStaves method
-      function getInitialNotesFromNoteset(noteSet, secondPitchInCantus) {
-        var initialNotes = [];
-        var pitchToReserve = 0;
-        for (noteIdx = 0; noteIdx < noteSet.notes.length; noteIdx++) {
-          var curChordNote = noteSet.notes[noteIdx];
-          console.log("curChordNote.pitch:" + (curChordNote.pitch + 12));
-          if (Math.abs(secondPitchInCantus - curChordNote.pitch) <
-                  Math.abs(secondPitchInCantus - pitchToReserve)) {
-            if (pitchToReserve != 0) {
-              initialNotes.push(pitchToReserve + 12);
-            }
-            pitchToReserve = curChordNote.pitch;
+          if (initialNotes.length == 0) {
+            initialNotes.push(pitchToReserve - 12 + 12);
           }
-          else {
-            initialNotes.push(curChordNote.pitch + 12);
-          }
-        }
-        if (initialNotes.length == 0) {
-          initialNotes.push(pitchToReserve - 12 + 12); //TODO: Handle the 12 tone difference between MIDI and Noteflight note pitches better everywhere
+
+          // Push the note being reserved for the first note in the cantus firmus
+          initialNotes.push(pitchToReserve + 12);
+          return initialNotes;
         }
 
-        // Push the note being reserved for the first note in the cantus firmus
-        initialNotes.push(pitchToReserve + 12);
-        return initialNotes;
-      }
-
-      // TODO: Factor out common code with getInitialNotesFromNoteset method
-      function getInitialNotesFromAllStaves(staves, secondPitchInCantus) {
-        var initialNotes = [];
-        var pitchToReserve = 0;
-        for (staffIdx = 0; staffIdx < staves.length; staffIdx++) {
-          curStaff = staves[staffIdx];
-          if (curStaff.measures.length > 0) {
-            var curMeasure = curStaff.measures[0];
-            if (curMeasure.noteSets.length > 0) {
-              var curNoteSet = curMeasure.noteSets[0];
-              if (curNoteSet.notes.length > 0) {
-                var curNote = curNoteSet.notes[0];
-                if (Math.abs(secondPitchInCantus - curNote.pitch) <
-                        Math.abs(secondPitchInCantus - pitchToReserve)) {
-                  if (pitchToReserve != 0) {
-                    initialNotes.push(pitchToReserve + 12);
-                  }
-                  pitchToReserve = curNote.pitch;
-                }
-                else {
-                  initialNotes.push(curNote.pitch + 12);
-                }
-              }
-            }
-          }
-        }
-        if (initialNotes.length == 0) {
-          initialNotes.push(pitchToReserve - 12 + 12);
+        function readModeSelection() {
+          var modeVal = $('#modeIds').val();
+          var modeValInt = isNaN(modeVal) ? 0 : parseInt(modeVal);
+          return modeValInt;
         }
 
-        // Push the note being reserved for the first note in the cantus firmus
-        initialNotes.push(pitchToReserve + 12);
-        return initialNotes;
-      }
+        function readSpeciesSelection() {
+          var speciesVal = $('#speciesIds').val();
+          var speciesValInt = isNaN(speciesVal) ? 1 : parseInt(speciesVal);
+          return speciesValInt;
+        }
 
-      function readModeSelection() {
-        var modeVal = $('#modeIds').val();
-        var modeValInt = isNaN(modeVal) ? 0 : parseInt(modeVal);
-        return modeValInt;
-      }
+      </script>
 
-      function readSpeciesSelection() {
-        var speciesVal = $('#speciesIds').val();
-        var speciesValInt = isNaN(speciesVal) ? 1 : parseInt(speciesVal);
-        return speciesValInt;
-      }
-
-    </script>
-
-    <script src="js/vendor/jquery.js"></script>
-    <script src="js/foundation.min.js"></script>
-    <script>
-      $(document).foundation();
-    </script>
-  </div>
-
-  <div class="row">
-    <div class="large-6 medium-6 columns">
-      <label>Mode</label>
-      <select name="modes" id="modeIds">
-        <option value="0">Ionian</option>
-        <option value="1">Dorian</option>
-        <option value="2">Phrygian</option>
-        <option value="3">Lydian</option>
-        <option value="4">Mixolydian</option>
-        <option value="5">Aeolian</option>
-        <option value="6">Locrian</option>
-      </select>
+      <script src="js/vendor/jquery.js"></script>
+      <script src="js/foundation.min.js"></script>
+      <script>
+        $(document).foundation();
+      </script>
     </div>
 
-    <div class="large-6 medium-6 columns">
-      <label>Species</label>
-      <select name="species" id="speciesIds">
-        <option value="1">First species</option>
-        <option value="2">Second species</option>
-        <option value="3">Third species</option>
-        <option value="4">Fourth species</option>
-        <option value="5">Fifth species</option>
-      </select>
-    </div>
-  </div>
+    <div class="row">
+      <div class="large-4 medium-4 columns">
+        <label>Species</label>
+        <select name="species" id="speciesIds">
+          <option value="1">First species</option>
+          <option value="2">Second species</option>
+          <option value="3">Third species</option>
+          <option value="4">Fourth species</option>
+          <option value="5">Fifth species</option>
+        </select>
+      </div>
 
-  <div class="row">
-    <div class="small-4 columns">
-      <button class="small button" onclick="readMainMelody()">readMainMelody</button>
-    </div>
-    <div class="small-6 columns">
-      <button class="small button" onclick="readModeSelection()">readModeSelection</button>
-    </div>
-    <div class="small-6 columns">
-      <button class="small button" onclick="readSpeciesSelection()">readSpeciesSelection</button>
-    </div>
+      <div class="large-4 medium-4 columns">
+        <label>Mode</label>
+        <select name="modes" id="modeIds">
+          <option value="0">Ionian</option>
+          <option value="1">Dorian</option>
+          <option value="2">Phrygian</option>
+          <option value="3">Lydian</option>
+          <option value="4">Mixolydian</option>
+          <option value="5">Aeolian</option>
+          <option value="6">Locrian</option>
+        </select>
+      </div>
 
-  </div>
-
+      <div class="large-4 columns">
+        <button class="small button" onclick="readMainMelody()">Create Counterpoint</button>
+      </div>
+    </div>
 
   </body>
 </html>
