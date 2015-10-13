@@ -17,4 +17,12 @@ public class Pitch {
     this.octave = octave;
   }
 
+  @Override
+  public String toString() {
+    return "Pitch {" +
+        "step='" + step + '\'' +
+        ", alter=" + alter +
+        ", octave=" + octave +
+        '}';
+  }
 }

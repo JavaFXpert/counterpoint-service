@@ -54,6 +54,37 @@ public class CounterpointSolution {
         }
       }
     }
+
+    // Iterate over the measures for all parts, identifying the first chord in each measure
+    boolean keepGoing = true;
+    int measureNum = 0;
+    while (keepGoing) {
+      System.out.println("Analyzing chord for measure " + measureNum);
+      List<Part> parts = scorePartwise.getParts();
+      Iterator<Part> partIterator = parts.iterator();
+      while (partIterator.hasNext()) {
+        Part part = partIterator.next();
+        List<Measure> measures = part.getMeasures();
+        if (measureNum < measures.size()) {
+          Measure measure = measures.get(measureNum);
+          List<Note> notes = measure.getNotes();
+          if (notes.size() > 0) {
+            Note firstNote = notes.get(0);
+            System.out.println("- note: " + firstNote.getPitch());
+          }
+          else {
+            // Unexpected, as all measures should have at least one note
+            keepGoing = false;
+          }
+        }
+        else {
+          // We've run out of measures in at least one part
+          keepGoing = false;
+        }
+      }
+      measureNum++;
+    }
+
     return scorePartwise;
   }
 
