@@ -7,8 +7,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  * TODO: Add comments that explain usage of both durations (quarters and eights), and onset.
  * Created by jamesweaver on 9/25/15.
  */
-@JsonPropertyOrder({ "pitch", "duration", "type"})
-public class Note {
+@JsonPropertyOrder({ "pitch", "duration", "type", "lyric"})
+public class Note implements Comparable {
   // Onset in eighth notes from beginning of part
   @JsonIgnore
   private int onset;
@@ -18,6 +18,9 @@ public class Note {
 
   // Duration in eighth notes
   private int durationEights;
+
+  // Lyric to hold chord annotations
+  private Lyric lyric;
 
   public Note(int onset, int noteNum, int durationEights) {
     this.onset = onset;
@@ -37,6 +40,7 @@ public class Note {
 
   // Private so that noteNum isn't output in XML stream
   private int getNoteNum() {
+  //int getNoteNum() {
     return noteNum;
   }
 
@@ -114,6 +118,14 @@ public class Note {
     return noteType;
   }
 
+  public Lyric getLyric() {
+    return lyric;
+  }
+
+  public void setLyric(Lyric lyric) {
+    this.lyric = lyric;
+  }
+
   @Override
   public String toString() {
     return "Note{" +
@@ -121,5 +133,17 @@ public class Note {
         ", noteNum=" + noteNum +
         ", durationEights=" + durationEights +
         '}';
+  }
+
+  @Override
+  public int compareTo(Object o) {
+    int retVal = 0;
+    if (getNoteNum() > ((Note)o).getNoteNum()) {
+      retVal = 1;
+    }
+    else if (getNoteNum() < ((Note)o).getNoteNum()) {
+      retVal = -1;
+    }
+    return retVal;
   }
 }

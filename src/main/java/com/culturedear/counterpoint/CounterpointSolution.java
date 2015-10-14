@@ -1,8 +1,7 @@
 package com.culturedear.counterpoint;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by jamesweaver on 9/25/15.
@@ -40,6 +39,7 @@ public class CounterpointSolution {
         scorePartwise.getParts().add(part);
 
         List<Note> notesForPart = notesAllVoices.get(voiceIdxB);
+
         // Iteratate over the notes in this part and insert Measure elements
         Iterator<Note> noteIterator = notesForPart.iterator();
 
@@ -60,6 +60,8 @@ public class CounterpointSolution {
     int measureNum = 0;
     while (keepGoing) {
       System.out.println("Analyzing chord for measure " + measureNum);
+      Note topMeasureFirstNote = null;
+      List<Note> chordNotes = new ArrayList();
       List<Part> parts = scorePartwise.getParts();
       Iterator<Part> partIterator = parts.iterator();
       while (partIterator.hasNext()) {
@@ -69,8 +71,12 @@ public class CounterpointSolution {
           Measure measure = measures.get(measureNum);
           List<Note> notes = measure.getNotes();
           if (notes.size() > 0) {
-            Note firstNote = notes.get(0);
-            System.out.println("- note: " + firstNote.getPitch());
+            Note firstNoteInMeasure = notes.get(0);
+            if (topMeasureFirstNote == null) {
+              topMeasureFirstNote = firstNoteInMeasure;
+            }
+            System.out.println("- note: " + firstNoteInMeasure.getPitch());
+            chordNotes.add(firstNoteInMeasure);
           }
           else {
             // Unexpected, as all measures should have at least one note
@@ -81,6 +87,15 @@ public class CounterpointSolution {
           // We've run out of measures in at least one part
           keepGoing = false;
         }
+      }
+      if (topMeasureFirstNote != null) {
+        Collections.sort(chordNotes);
+
+        String notesString = chordNotes.stream()
+            .map(note -> note.getPitch().toString())
+            .collect(Collectors.joining(" "));
+        Lyric lyric = new Lyric(notesString);
+        topMeasureFirstNote.setLyric(lyric);
       }
       measureNum++;
     }

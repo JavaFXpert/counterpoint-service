@@ -19,10 +19,13 @@ public class Pitch {
 
   @Override
   public String toString() {
-    return "Pitch {" +
-        "step='" + step + '\'' +
-        ", alter=" + alter +
-        ", octave=" + octave +
-        '}';
+    String accidental = "";
+    if (alter < 0) {
+      accidental = "b";
+    }
+    else if (alter > 0) {
+      accidental = "#";
+    }
+    return step + accidental + octave;
   }
 }
