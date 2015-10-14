@@ -40,7 +40,6 @@ public class Note implements Comparable {
 
   // Private so that noteNum isn't output in XML stream
   private int getNoteNum() {
-  //int getNoteNum() {
     return noteNum;
   }
 
