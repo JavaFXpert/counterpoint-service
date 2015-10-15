@@ -1,6 +1,6 @@
 package demo;
 
-import com.culturedear.counterpoint.CounterpointService;
+import com.culturedear.CounterpointService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.web.WebAppConfiguration;

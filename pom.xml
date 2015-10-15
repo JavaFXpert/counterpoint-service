@@ -22,29 +22,26 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
 			<artifactId>jackson-dataformat-xml</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>com.jayway.jsonpath</groupId>
 			<artifactId>json-path</artifactId>
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>org.codehaus.woodstox</groupId>
-			<artifactId>woodstox-core-asl</artifactId>
-			<version>4.1.4</version>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>org.codehaus.woodstox</groupId>-->
+			<!--<artifactId>woodstox-core-asl</artifactId>-->
+			<!--<version>4.1.4</version>-->
+		<!--</dependency>-->
 
 		<dependency>
 			<groupId>com.google.code.gson</groupId>

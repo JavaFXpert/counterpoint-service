@@ -1,7 +1,5 @@
 package com.culturedear.counterpoint;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,18 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 
-@SpringBootApplication
-public class CounterpointService {
-
-    public static void main(String[] args) {
-        SpringApplication.run(CounterpointService.class, args);
-    }
-}
-
-
+/**
+ * Created by kbastani on 10/15/15.
+ */
 @RestController
 @RequestMapping("/counterpoint")
-class XmlRestController {
+public class XmlRestController {
 
     @RequestMapping(method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
