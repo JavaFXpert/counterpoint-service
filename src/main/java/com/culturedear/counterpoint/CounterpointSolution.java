@@ -61,7 +61,7 @@ public class CounterpointSolution {
     boolean keepGoing = true;
     int measureNum = 0;
     while (keepGoing) {
-      System.out.println("Analyzing chord for measure " + measureNum);
+      //System.out.println("Analyzing chord for measure " + measureNum);
       Note topMeasureFirstNote = null;
       List<Note> chordNotes = new ArrayList();
       List<Part> parts = scorePartwise.getParts();
@@ -77,7 +77,7 @@ public class CounterpointSolution {
             if (topMeasureFirstNote == null) {
               topMeasureFirstNote = firstNoteInMeasure;
             }
-            System.out.println("- note: " + firstNoteInMeasure.getPitch());
+            //System.out.println("- note: " + firstNoteInMeasure.getPitch());
             chordNotes.add(firstNoteInMeasure);
           }
           else {
@@ -99,9 +99,28 @@ public class CounterpointSolution {
 
         // Call the Chord Analyzer service
         RestTemplate restTemplate = new RestTemplate();
+        Lyric lyric = null;
         // TODO: Identify best practice (e.g. env variable, application.properties, yaml) for representing the URL for the following service
-        ClientMusicChord chord = restTemplate.getForObject("http://chordanalyzerservice.cfapps.pez.pivotal.io/analyze?notes=\"" + notesString + "\"", ClientMusicChord.class);
-        Lyric lyric = new Lyric(chord.getName());
+        try {
+          ClientMusicChord chord = restTemplate.getForObject("http://chordanalyzerservice.cfapps.pez.pivotal.io/analyze?notes=" + notesString, ClientMusicChord.class);
+
+          // TODO: Remove this temporary fix of stripping the octave number, when Class#getRoot method no longer returns octave number
+          String chordRootStr = chord.getRoot().toString();
+          if (chordRootStr.length() > 1) {
+            chordRootStr = chordRootStr.substring(0, chordRootStr.length() - 1);
+          }
+
+          // TODO: Remove this temporary fix of making the flat sign lower case, when Class#getRoot method no longer returns a "B" instead of "b"
+          if (chordRootStr.length() > 1) {
+            chordRootStr = chordRootStr.substring(0, chordRootStr.length() - 1) + chordRootStr.substring(1).toLowerCase();
+          }
+
+          lyric = new Lyric(chordRootStr + " " + chord.getChordType().toLowerCase());
+        }
+        catch (Exception e) {
+          System.out.println("Caught exception when analyzing chord " + e);
+          //lyric = new Lyric("???");
+        }
         topMeasureFirstNote.setLyric(lyric);
       }
       measureNum++;

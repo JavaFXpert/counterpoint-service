@@ -7,52 +7,42 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ClientMusicChord {
-  private String name;
   private String root;
+  private String chordType;
+  private String bassNote;
   private int inversion;
   private boolean isMajor;
   private boolean isMinor;
+  private String name;
 
   public ClientMusicChord() {
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
   }
 
   public String getRoot() {
     return root;
   }
 
-  public void setRoot(String root) {
-    this.root = root;
+  public String getChordType() {
+    return chordType;
+  }
+
+  public String getBassNote() {
+    return bassNote;
   }
 
   public int getInversion() {
     return inversion;
   }
 
-  public void setInversion(int inversion) {
-    this.inversion = inversion;
-  }
-
   public boolean isMajor() {
     return isMajor;
-  }
-
-  public void setIsMajor(boolean isMajor) {
-    this.isMajor = isMajor;
   }
 
   public boolean isMinor() {
     return isMinor;
   }
 
-  public void setIsMinor(boolean isMinor) {
-    this.isMinor = isMinor;
+  public String getName() {
+    return name;
   }
 }
