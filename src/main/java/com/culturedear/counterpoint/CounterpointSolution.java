@@ -1,5 +1,7 @@
 package com.culturedear.counterpoint;
 
+import org.springframework.web.client.RestTemplate;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -94,7 +96,12 @@ public class CounterpointSolution {
         String notesString = chordNotes.stream()
             .map(note -> note.getPitch().toString())
             .collect(Collectors.joining(" "));
-        Lyric lyric = new Lyric(notesString);
+
+        // Call the Chord Analyzer service
+        RestTemplate restTemplate = new RestTemplate();
+        // TODO: Identify best practice (e.g. env variable, application.properties, yaml) for representing the URL for the following service
+        ClientMusicChord chord = restTemplate.getForObject("http://chordanalyzerservice.cfapps.pez.pivotal.io/analyze?notes=\"" + notesString + "\"", ClientMusicChord.class);
+        Lyric lyric = new Lyric(chord.getName());
         topMeasureFirstNote.setLyric(lyric);
       }
       measureNum++;
