@@ -86,6 +86,8 @@
             data: cantusFirmusJson
           }).done(function (doc) {
             scoreView.loadMusicXML(doc.documentElement.outerHTML);
+          }).error(function (err) {
+            alert(err.responseText);
           });
         }
 
