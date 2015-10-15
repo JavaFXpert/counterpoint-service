@@ -102,20 +102,24 @@ public class CounterpointSolution {
         Lyric lyric = null;
         // TODO: Identify best practice (e.g. env variable, application.properties, yaml) for representing the URL for the following service
         try {
-          ClientMusicChord chord = restTemplate.getForObject("http://chordanalyzerservice.cfapps.pez.pivotal.io/analyze?notes=" + notesString, ClientMusicChord.class);
+          ClientMusicChord clientMusicChord = restTemplate.getForObject("http://chordanalyzerservice.cfapps.pez.pivotal.io/analyze?notes=" + notesString, ClientMusicChord.class);
 
-          // TODO: Remove this temporary fix of stripping the octave number, when Class#getRoot method no longer returns octave number
-          String chordRootStr = chord.getRoot().toString();
-          if (chordRootStr.length() > 1) {
-            chordRootStr = chordRootStr.substring(0, chordRootStr.length() - 1);
+          String chordTypeStr = clientMusicChord.getChordType();
+
+          String chordNotationStr = clientMusicChord.getRoot();
+          if (chordTypeStr.equalsIgnoreCase("pow")) {
+            chordNotationStr += "5"; // This is a power chord (triad with no 3)
+          }
+          else {
+            chordNotationStr += " " + chordTypeStr;
           }
 
-          // TODO: Remove this temporary fix of making the flat sign lower case, when Class#getRoot method no longer returns a "B" instead of "b"
-          if (chordRootStr.length() > 1) {
-            chordRootStr = chordRootStr.substring(0, chordRootStr.length() - 1) + chordRootStr.substring(1).toLowerCase();
+          // Notate as a slash chord if appropriate
+          if (clientMusicChord.getInversion() != 0) {
+            chordNotationStr += "/" + clientMusicChord.getBassNote();
           }
 
-          lyric = new Lyric(chordRootStr + " " + chord.getChordType().toLowerCase());
+          lyric = new Lyric(chordNotationStr);
         }
         catch (Exception e) {
           System.out.println("Caught exception when analyzing chord " + e);
