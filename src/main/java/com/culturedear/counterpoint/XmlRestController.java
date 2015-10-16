@@ -21,7 +21,7 @@ public class XmlRestController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_XML_VALUE
     )
-    ResponseEntity<Object> write(@RequestBody CounterpointModel counterpointModel) {
+    public ResponseEntity<Object> write(@RequestBody CounterpointModel counterpointModel) {
 
         // prepare response XML out
         CounterpointGenerator cg = new CounterpointGenerator();
