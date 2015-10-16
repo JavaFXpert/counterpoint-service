@@ -18,9 +18,19 @@
       </ul>
 
       <section class="top-bar-section">
+        <!-- Left Nav Section -->
+        <ul class="left">
+          <li><a href="#"><i>powered by Spring Boot and Cloud Foundry</i></a></li>
+        </ul>
+
         <!-- Right Nav Section -->
+        <li class="right"><label>&nbsp;</label></li>
         <ul class="right">
-          <li class="active"><a onclick="readMainMelody()">Compose</a></li>
+          <li><a onclick="initNoteflight()">Clear</a></li>
+        </ul>
+        <li class="right"><label>&nbsp;</label></li>
+        <ul class="right">
+          <li><a onclick="readMainMelody()">Compose</a></li>
         </ul>
         <li class="right"><label>&nbsp;</label></li>
         <ul class="right">
@@ -47,7 +57,8 @@
       </section>
     </nav>
 
-    <div class="row">
+    <!--div class="row--">
+    <div>
       <!--a href="#" data-reveal-id="noCounterpointModal">Click Me For A Modal</a-->
       <div id="noCounterpointModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
         <h2 id="modalTitle">I wasn't able to compute the counterpoint.</h2>
@@ -59,25 +70,35 @@
         <a class="close-reveal-modal" aria-label="Close">&#215;</a>
       </div>
       <div id="score1"></div>
+      <!--div class="row" id="score1"-->
         <script>
-          // Initialize the Noteflight client API.
-          NFClient.init(function(info) {
-            //alert("Noteflight API is ready, version " + info.version);
-          });
+          var scoreView;
 
-          var options = {
-            host: 'hacking.sites.noteflight.com',
-            width: 900,
-            height: 650,
-            viewParams: {
-              scale: 1.0,
-              role: 'template',
-              app: 'html5',
-              displayMode: 'flow'
-            }
-          };
+          initNoteflight();
 
-          var scoreView = new NFClient.ScoreView('score1', '3b88798c7533d46aa60c3c8077e44742c7c4027a', options);
+          function initNoteflight() {
+            // Initialize the Noteflight client API.
+            NFClient.init(function (info) {
+              //alert("Noteflight API is ready, version " + info.version);
+            });
+
+            var options = {
+              host: 'hacking.sites.noteflight.com',
+              width: 900,
+              height: 650,
+              viewParams: {
+                scale: 1.0,
+                role: 'template',
+                app: 'html5',
+                displayMode: 'flow'
+              }
+            };
+
+            options.width = window.innerWidth - 20;
+            options.height = window.innerHeight - 100;
+
+            scoreView = new NFClient.ScoreView('score1', '3b88798c7533d46aa60c3c8077e44742c7c4027a', options);
+          }
 
           function callCounterpointService(mainMelody, initialNotes, scaleModeSelection, speciesSelection) {
             var cantusFirmusJson = {
