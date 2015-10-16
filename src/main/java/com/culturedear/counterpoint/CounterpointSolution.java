@@ -1,5 +1,7 @@
 package com.culturedear.counterpoint;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
@@ -8,7 +10,11 @@ import java.util.stream.Collectors;
 /**
  * Created by jamesweaver on 9/25/15.
  */
+@Configuration
 public class CounterpointSolution {
+  @Value("${chordanalyzerservice.host}")
+  private String chordAnalyzerServiceHost;
+
   // Default beats per measure
   private static int beatsPerMeasure = 4;
 
