@@ -57,7 +57,6 @@
       </section>
     </nav>
 
-    <!--div class="row--">
     <div>
       <!--a href="#" data-reveal-id="noCounterpointModal">Click Me For A Modal</a-->
       <div id="noCounterpointModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
@@ -70,14 +69,15 @@
         <a class="close-reveal-modal" aria-label="Close">&#215;</a>
       </div>
       <div id="score1"></div>
-      <!--div class="row" id="score1"-->
         <script>
           var scoreView;
+          var widthMargin = 20;   // Margin between Noteflight client and right side of window
+          var heightMargin = 100; // Margin between Noteflight client and bottom of window
 
           initNoteflight();
 
           function initNoteflight() {
-            // Initialize the Noteflight client API.
+              // Initialize the Noteflight client API.
             NFClient.init(function (info) {
               //alert("Noteflight API is ready, version " + info.version);
             });
@@ -94,8 +94,8 @@
               }
             };
 
-            options.width = window.innerWidth - 20;
-            options.height = window.innerHeight - 100;
+            options.width = window.innerWidth - widthMargin;
+            options.height = window.innerHeight - heightMargin;
 
             scoreView = new NFClient.ScoreView('score1', '3b88798c7533d46aa60c3c8077e44742c7c4027a', options);
           }
@@ -252,6 +252,13 @@
         <script src="js/foundation.min.js"></script>
         <script>
           $(document).foundation();
+        </script>
+        <script>
+            // Throttled resize function
+            $(window).on('resize', Foundation.utils.throttle(function(e){
+                $( "#score1" ).attr("width",window.innerWidth - widthMargin).attr("height",window.innerHeight - heightMargin);
+            }, 300));
+
         </script>
       </div>
     </div>
