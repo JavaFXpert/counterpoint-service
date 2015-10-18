@@ -10,6 +10,7 @@
   </head>
 
   <body>
+    <!-- First top bar -->
     <nav class="top-bar" data-topbar role="navigation">
       <ul class="title-area">
         <li class="name">
@@ -18,22 +19,41 @@
       </ul>
 
       <section class="top-bar-section">
-        <!-- Left Nav Section -->
-        <ul class="left">
-          <li><a href="#"><i>powered by Spring Boot and Cloud Foundry</i></a></li>
+        <!-- Right Nav Section -->
+        <ul class="right">
+          <li><a href="http://pivotal.io/platform/" target="_blank"><img src="img/cloudfoundry-logo.png" ></a></li>
+        </ul>
+        <ul class="right">
+          <li><a href="http://pivotal.io/platform" target="_blank"><i>and Cloud Foundry</i></a></li>
+        </ul>
+        <ul class="right">
+          <li><a href="http://projects.spring.io/spring-boot/" target="_blank"><img src="img/spring-logo.png" ></a></li>
+        </ul>
+        <ul class="right">
+          <li><a href="http://projects.spring.io/spring-boot/" target="_blank"><i>powered by Spring Boot</i></a></li>
         </ul>
 
-        <!-- Right Nav Section -->
-        <li class="right"><label>&nbsp;</label></li>
-        <ul class="right">
-          <li><a onclick="initNoteflight()">Clear</a></li>
+      </section>
+    </nav>
+
+    <nav class="top-bar" data-topbar role="navigation">
+      <section class="top-bar-section">
+        <!-- Left Nav Section -->
+        <li class="left"><label>&nbsp;</label></li>
+
+        <ul class="left">
+          <select name="species" id="speciesIds">
+            <option value="1">First species</option>
+            <option value="2">Second species</option>
+            <option value="3">Third species</option>
+            <option value="4">Fourth species</option>
+            <option value="5">Fifth species</option>
+          </select>
         </ul>
-        <li class="right"><label>&nbsp;</label></li>
-        <ul class="right">
-          <li><a onclick="readMainMelody()">Compose</a></li>
-        </ul>
-        <li class="right"><label>&nbsp;</label></li>
-        <ul class="right">
+
+        <li class="left"><label>&nbsp;</label></li>
+
+        <ul class="left">
           <select name="modes" id="modeIds">
             <option value="0">Ionian mode</option>
             <option value="1">Dorian mode</option>
@@ -44,16 +64,19 @@
             <option value="6">Locrian mode</option>
           </select>
         </ul>
-        <li class="right"><label>&nbsp;</label></li>
-        <ul class="right">
-          <select name="species" id="speciesIds">
-            <option value="1">First species</option>
-            <option value="2">Second species</option>
-            <option value="3">Third species</option>
-            <option value="4">Fourth species</option>
-            <option value="5">Fifth species</option>
-          </select>
+
+        <li class="left"><label>&nbsp;</label></li>
+
+        <ul class="left">
+          <li><a onclick="readMainMelody()">Compose</a></li>
         </ul>
+
+        <li class="left"><label>&nbsp;</label></li>
+
+        <ul class="left">
+          <li><a onclick="initNoteflight()">Clear</a></li>
+        </ul>
+
       </section>
     </nav>
 
