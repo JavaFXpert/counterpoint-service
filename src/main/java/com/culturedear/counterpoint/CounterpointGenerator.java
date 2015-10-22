@@ -17,6 +17,7 @@ import java.util.List;
 @Component
 public class CounterpointGenerator {
   private CounterpointSolution counterpointSolution;
+  private RulePenalties rp;
 
   void arrBlt(int array[],int destIdx, int sourceOffset, int numToCopy) {
     int i;
@@ -583,87 +584,87 @@ public class CounterpointGenerator {
   static int bad = 100;
   static int realBad = 200;
 
-  static int unisonPenalty = bad;
-  static int directToFifthPenalty = realBad;
-  static int directToOctavePenalty = realBad;
-  static int parallelFifthPenalty = infinity;
-  static int parallelUnisonPenalty = infinity;
-  static int endOnPerfectPenalty = infinity;
-  static int noLeadingTonePenalty = infinity;
-  static int dissonancePenalty = infinity;
-  static int outOfRangePenalty = realBad;
-  static int outOfModePenalty = infinity;
-  static int twoSkipsPenalty = 1;
-  static int directMotionPenalty = 1;
-  static int perfectConsonancePenalty = 2;
-  static int compoundPenalty = 1;
-  static int tenthToOctavePenalty = 8;
-  static int skipTo8vePenalty = 8;
-  static int skipFromUnisonPenalty = 4;
-  static int skipPrecededBySameDirectionPenalty = 1;
-  static int fifthPrecededBySameDirectionPenalty = 3;
-  static int sixthPrecededBySameDirectionPenalty = 8;
-  static int skipFollowedBySameDirectionPenalty = 3;
-  static int fifthFollowedBySameDirectionPenalty = 8;
-  static int sixthFollowedBySameDirectionPenalty = 34;
-  static int twoSkipsNotInTriadPenalty = 3;
-  static int badMelodyPenalty = infinity;
-  static int extremeRangePenalty = 5;
-  static int lydianCadentialTritonePenalty = 13;
-  static int upperNeighborPenalty = 1;
-  static int lowerNeighborPenalty = 1;
-  static int overTwelfthPenalty = infinity;
-  static int overOctavePenalty = bad;
-  static int sixthLeapPenalty = 2;
-  static int octaveLeapPenalty = 5;
-  static int badCadencePenalty = infinity;
-  static int directPerfectOnDownbeatPenalty = infinity;
-  static int repetitionOnUpbeatPenalty = bad;
-  static int dissonanceNotFillingThirdPenalty = infinity;
-  static int unisonDownbeatPenalty = 3;
-  static int twoRepeatedNotesPenalty = 2;
-  static int threeRepeatedNotesPenalty = 4;
-  static int fourRepeatedNotesPenalty = 7;
-  static int leapAtCadencePenalty = 13;
-  static int notaCambiataPenalty = infinity;
-  static int notBestCadencePenalty = 8;
-  static int unisonOnBeat4Penalty = 3;
-  static int notaLigaturePenalty = 21;
-  static int lesserLigaturePenalty = 8;
-  static int unresolvedLigaturePenalty = infinity;
-  static int noTimeForaLigaturePenalty = infinity;
-  static int eighthJumpPenalty = bad;
-  static int halfUntiedPenalty = 13;
-  static int unisonUpbeatPenalty = 21;
-  static int melodicBoredomPenalty = 1;
-  static int skipToDownBeatPenalty = 1;
-  static int threeSkipsPenalty = 3;
-  static int downBeatUnisonPenalty = bad;
-  static int verticalTritonePenalty = 2;
-  static int melodicTritonePenalty = 8;
-  static int ascendingSixthPenalty = 1;
-  static int repeatedPitchPenalty = 1;
-  static int notContraryToOthersPenalty = 1;
-  static int notTriadPenalty = 34;
-  static int innerVoicesInDirectToPerfectPenalty = 21;
-  static int innerVoicesInDirectToTritonePenalty = 13;
-  static int sixFiveChordPenalty = infinity;
-  static int unpreparedSixFivePenalty = bad;
-  static int unresolvedSixFivePenalty = bad;
-  static int augmentedIntervalPenalty = infinity;
-  static int thirdDoubledPenalty = 5;
-  static int doubledLeadingTonePenalty = infinity;
-  static int doubledSixthPenalty = 5;
-  static int doubledFifthPenalty = 3;
-  static int tripledBassPenalty = 3;
-  static int upperVoicesTooFarApartPenalty = 1;
-  static int unresolvedLeadingTonePenalty = infinity;
-  static int allVoicesSkipPenalty = 8;
-  static int directToTritonePenalty = bad;
-  static int crossBelowBassPenalty = infinity;
+  int unisonPenalty = bad;
+  int directToFifthPenalty = realBad;
+  int directToOctavePenalty = realBad;
+  int parallelFifthPenalty = infinity;
+  int parallelUnisonPenalty = infinity;
+  int endOnPerfectPenalty = infinity;
+  int noLeadingTonePenalty = infinity;
+  int dissonancePenalty = infinity;
+  int outOfRangePenalty = realBad;
+  int outOfModePenalty = infinity;
+  int twoSkipsPenalty = 1;
+  int directMotionPenalty = 1;
+  int perfectConsonancePenalty = 2;
+  int compoundPenalty = 1;
+  int tenthToOctavePenalty = 8;
+  int skipTo8vePenalty = 8;
+  int skipFromUnisonPenalty = 4;
+  int skipPrecededBySameDirectionPenalty = 1;
+  int fifthPrecededBySameDirectionPenalty = 3;
+  int sixthPrecededBySameDirectionPenalty = 8;
+  int skipFollowedBySameDirectionPenalty = 3;
+  int fifthFollowedBySameDirectionPenalty = 8;
+  int sixthFollowedBySameDirectionPenalty = 34;
+  int twoSkipsNotInTriadPenalty = 3;
+  int badMelodyPenalty = infinity;
+  int extremeRangePenalty = 5;
+  int lydianCadentialTritonePenalty = 13;
+  int upperNeighborPenalty = 1;
+  int lowerNeighborPenalty = 1;
+  int overTwelfthPenalty = infinity;
+  int overOctavePenalty = bad;
+  int sixthLeapPenalty = 2;
+  int octaveLeapPenalty = 5;
+  int badCadencePenalty = infinity;
+  int directPerfectOnDownbeatPenalty = infinity;
+  int repetitionOnUpbeatPenalty = bad;
+  int dissonanceNotFillingThirdPenalty = infinity;
+  int unisonDownbeatPenalty = 3;
+  int twoRepeatedNotesPenalty = 2;
+  int threeRepeatedNotesPenalty = 4;
+  int fourRepeatedNotesPenalty = 7;
+  int leapAtCadencePenalty = 13;
+  int notaCambiataPenalty = infinity;
+  int notBestCadencePenalty = 8;
+  int unisonOnBeat4Penalty = 3;
+  int notaLigaturePenalty = 21;
+  int lesserLigaturePenalty = 8;
+  int unresolvedLigaturePenalty = infinity;
+  int noTimeForaLigaturePenalty = infinity;
+  int eighthJumpPenalty = bad;
+  int halfUntiedPenalty = 13;
+  int unisonUpbeatPenalty = 21;
+  int melodicBoredomPenalty = 1;
+  int skipToDownBeatPenalty = 1;
+  int threeSkipsPenalty = 3;
+  int downBeatUnisonPenalty = bad;
+  int verticalTritonePenalty = 2;
+  int melodicTritonePenalty = 8;
+  int ascendingSixthPenalty = 1;
+  int repeatedPitchPenalty = 1;
+  int notContraryToOthersPenalty = 1;
+  int notTriadPenalty = 34;
+  int innerVoicesInDirectToPerfectPenalty = 21;
+  int innerVoicesInDirectToTritonePenalty = 13;
+  int sixFiveChordPenalty = infinity;
+  int unpreparedSixFivePenalty = bad;
+  int unresolvedSixFivePenalty = bad;
+  int augmentedIntervalPenalty = infinity;
+  int thirdDoubledPenalty = 5;
+  int doubledLeadingTonePenalty = infinity;
+  int doubledSixthPenalty = 5;
+  int doubledFifthPenalty = 3;
+  int tripledBassPenalty = 3;
+  int upperVoicesTooFarApartPenalty = 1;
+  int unresolvedLeadingTonePenalty = infinity;
+  int allVoicesSkipPenalty = 8;
+  int directToTritonePenalty = bad;
+  int crossBelowBassPenalty = infinity;
 
-  static int crossAboveCantusPenalty = infinity;
-  static int noMotionAgainstOctavePenalty = 34;
+  int crossAboveCantusPenalty = infinity;
+  int noMotionAgainstOctavePenalty = 34;
 
   /**
    *
@@ -1961,7 +1962,9 @@ public class CounterpointGenerator {
    * @param species
    */
   public CounterpointSolution anySpecies(int ourMode, int[] startPitches,
-                  int cantusFirmusLength, int species) {
+                  int cantusFirmusLength, int species, RulePenalties rulePenalties) {
+    rp = rulePenalties;
+
     int curV = startPitches.length;
     int i, j, k, m, v, oldSpecies, currentMode, brLim;
     for (i = 0; i < mostNotes; i++) {

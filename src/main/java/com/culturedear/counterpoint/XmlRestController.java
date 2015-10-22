@@ -31,7 +31,7 @@ public class XmlRestController {
         int[] vbs = counterpointModel.getPartsInitialNotes();
 
         CounterpointSolution counterpointSolution = cg.anySpecies(counterpointModel.getScaleMode(),
-                vbs, cf.length, counterpointModel.getCounterpointSpecies());
+                vbs, cf.length, counterpointModel.getCounterpointSpecies(), counterpointModel.getRulePenalties());
 
         ScorePartwise scorePartwise = null;
 
