@@ -123,13 +123,15 @@
             scoreView = new NFClient.ScoreView('score1', '3b88798c7533d46aa60c3c8077e44742c7c4027a', options);
           }
 
-          function callCounterpointService(mainMelody, initialNotes, scaleModeSelection, speciesSelection) {
+          function callCounterpointService(mainMelody, initialNotes, scaleModeSelection,
+                                           speciesSelection, rulePenaltiesSelections) {
             var cantusFirmusJson = {
               "mainMelody" : mainMelody,
               "partsInitialNotes" : initialNotes,
               //"partsInitialNotes" : [48, 67, 72],
               "counterpointSpecies" : speciesSelection,
-              "scaleMode" : scaleModeSelection
+              "scaleMode" : scaleModeSelection,
+              "rulePenalties" : rulePenaltiesSelections
             };
             cantusFirmusJson = JSON.stringify(cantusFirmusJson);
             $.ajax({
@@ -191,7 +193,8 @@
                * the mainMelodyPitches needs to start with
                */
               mainMelodyPitches[0] = initialPitches.pop();
-              callCounterpointService(mainMelodyPitches, initialPitches, readModeSelection(), readSpeciesSelection());
+              callCounterpointService(mainMelodyPitches, initialPitches, readModeSelection(),
+                                      readSpeciesSelection(), readRulePenalties());
             });
           }
 
@@ -267,6 +270,14 @@
             var speciesVal = $('#speciesIds').val();
             var speciesValInt = isNaN(speciesVal) ? 1 : parseInt(speciesVal);
             return speciesValInt;
+          }
+
+          function readRulePenalties() {
+            var rulePenalties = {
+              //"endOnPerfectPenalty" : 1000000,
+              //"noLeadingTonePenalty" : 1000000
+            };
+            return rulePenalties;
           }
 
         </script>

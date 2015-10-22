@@ -580,92 +580,6 @@ public class CounterpointGenerator {
     return(false);
   }
 
-  static int infinity = 1000000;
-  static int bad = 100;
-  static int realBad = 200;
-
-  int unisonPenalty = bad;
-  int directToFifthPenalty = realBad;
-  int directToOctavePenalty = realBad;
-  int parallelFifthPenalty = infinity;
-  int parallelUnisonPenalty = infinity;
-  int endOnPerfectPenalty = infinity;
-  int noLeadingTonePenalty = infinity;
-  int dissonancePenalty = infinity;
-  int outOfRangePenalty = realBad;
-  int outOfModePenalty = infinity;
-  int twoSkipsPenalty = 1;
-  int directMotionPenalty = 1;
-  int perfectConsonancePenalty = 2;
-  int compoundPenalty = 1;
-  int tenthToOctavePenalty = 8;
-  int skipTo8vePenalty = 8;
-  int skipFromUnisonPenalty = 4;
-  int skipPrecededBySameDirectionPenalty = 1;
-  int fifthPrecededBySameDirectionPenalty = 3;
-  int sixthPrecededBySameDirectionPenalty = 8;
-  int skipFollowedBySameDirectionPenalty = 3;
-  int fifthFollowedBySameDirectionPenalty = 8;
-  int sixthFollowedBySameDirectionPenalty = 34;
-  int twoSkipsNotInTriadPenalty = 3;
-  int badMelodyPenalty = infinity;
-  int extremeRangePenalty = 5;
-  int lydianCadentialTritonePenalty = 13;
-  int upperNeighborPenalty = 1;
-  int lowerNeighborPenalty = 1;
-  int overTwelfthPenalty = infinity;
-  int overOctavePenalty = bad;
-  int sixthLeapPenalty = 2;
-  int octaveLeapPenalty = 5;
-  int badCadencePenalty = infinity;
-  int directPerfectOnDownbeatPenalty = infinity;
-  int repetitionOnUpbeatPenalty = bad;
-  int dissonanceNotFillingThirdPenalty = infinity;
-  int unisonDownbeatPenalty = 3;
-  int twoRepeatedNotesPenalty = 2;
-  int threeRepeatedNotesPenalty = 4;
-  int fourRepeatedNotesPenalty = 7;
-  int leapAtCadencePenalty = 13;
-  int notaCambiataPenalty = infinity;
-  int notBestCadencePenalty = 8;
-  int unisonOnBeat4Penalty = 3;
-  int notaLigaturePenalty = 21;
-  int lesserLigaturePenalty = 8;
-  int unresolvedLigaturePenalty = infinity;
-  int noTimeForaLigaturePenalty = infinity;
-  int eighthJumpPenalty = bad;
-  int halfUntiedPenalty = 13;
-  int unisonUpbeatPenalty = 21;
-  int melodicBoredomPenalty = 1;
-  int skipToDownBeatPenalty = 1;
-  int threeSkipsPenalty = 3;
-  int downBeatUnisonPenalty = bad;
-  int verticalTritonePenalty = 2;
-  int melodicTritonePenalty = 8;
-  int ascendingSixthPenalty = 1;
-  int repeatedPitchPenalty = 1;
-  int notContraryToOthersPenalty = 1;
-  int notTriadPenalty = 34;
-  int innerVoicesInDirectToPerfectPenalty = 21;
-  int innerVoicesInDirectToTritonePenalty = 13;
-  int sixFiveChordPenalty = infinity;
-  int unpreparedSixFivePenalty = bad;
-  int unresolvedSixFivePenalty = bad;
-  int augmentedIntervalPenalty = infinity;
-  int thirdDoubledPenalty = 5;
-  int doubledLeadingTonePenalty = infinity;
-  int doubledSixthPenalty = 5;
-  int doubledFifthPenalty = 3;
-  int tripledBassPenalty = 3;
-  int upperVoicesTooFarApartPenalty = 1;
-  int unresolvedLeadingTonePenalty = infinity;
-  int allVoicesSkipPenalty = 8;
-  int directToTritonePenalty = bad;
-  int crossBelowBassPenalty = infinity;
-
-  int crossAboveCantusPenalty = infinity;
-  int noMotionAgainstOctavePenalty = 34;
-
   /**
    *
    * @param cn
@@ -699,12 +613,12 @@ public class CounterpointGenerator {
       if ((nextToLastNote(cn, v)) && ((pitch == 11) || (pitch == 10))) {
         if ((mode != phrygian) || (interval >= 0)) {
           if (lastIntClass != fifth) {
-            val += badCadencePenalty;
+            val += rp.getBadCadencePenalty();
           }
         }
         else {
           if (lastIntClass != minorSixth) {
-            val += badCadencePenalty;
+            val += rp.getBadCadencePenalty();
           }
         }
       }
@@ -712,18 +626,18 @@ public class CounterpointGenerator {
     else {
       if (species == 4) {
         if ((downBeat(cn, v)) && (melInt != unison)) {
-          val += notaLigaturePenalty;
+          val += rp.getNotaLigaturePenalty();
         }
         if ((upBeat(cn, v)) && (dissonance[lastIntClass])) {
           if ((melInt != (-minorSecond)) && (melInt != (-majorSecond))) {
-            val += unresolvedLigaturePenalty;
+            val += rp.getUnresolvedLigaturePenalty();
           }
           if ((actInt == unison) && ((interval < 0) ||
               (((Math.abs(us(cn - 2, v) - other2)) % 12) == unison))) {
-            val += noTimeForaLigaturePenalty;
+            val += rp.getNoTimeForaLigaturePenalty();
           }
           if ((actInt == fifth) || (actInt == tritone)) {
-            val += noTimeForaLigaturePenalty;
+            val += rp.getNoTimeForaLigaturePenalty();
           }
         }
       }
@@ -733,13 +647,13 @@ public class CounterpointGenerator {
         /* added check to stop optimizer from changing 4th beat passing tones into repeated notes+skip */
         if (((beat8(onset[cn][v]) == 6) || (beat8(onset[cn][v]) == 7)) &&
             (cp == us(cn - 1, v))) {
-          val += unisonOnBeat4Penalty;
+          val += rp.getUnisonOnBeat4Penalty();
         }
 
         /* skip to down beat seems not so great */
         if (beat8(onset[cn][v]) == 0) {
           if (aSkip(melInt)) {
-            val += skipToDownBeatPenalty;
+            val += rp.getSkipToDownBeatPenalty();
           }
           if ((cn > 2) && ((actInt == unison) || (actInt == fifth))) {
             if (species == 5) {
@@ -752,7 +666,7 @@ public class CounterpointGenerator {
               i = (cn - 4);
             }
             if (((Math.abs(us(i, v) - bass(i, v))) % 12) == actInt) {
-              val += downBeatUnisonPenalty;
+              val += rp.getDownBeatUnisonPenalty();
             }
           }
         }
@@ -763,7 +677,7 @@ public class CounterpointGenerator {
             ((dissonance[(Math.abs(us(cn - 2, v) - other2)) % 12]) &&
             ((melInt < 0) || ((Math.abs(melInt) != majorSecond) &&
             (Math.abs(melInt) != minorSecond)))))) {
-          val += notaCambiataPenalty;
+          val += rp.getNotaCambiataPenalty();
         }
         if (val >= curLim) {
           return (val);
@@ -774,27 +688,27 @@ public class CounterpointGenerator {
             case 0: case 6:
               if ((!(aStep(melInt))) || ((!(aStep(lastMelInt))) ||
                   ((melInt * lastMelInt) <0 ))) {
-                val += dissonancePenalty;
+                val += rp.getDissonancePenalty();
               }
               break;
             case 2:
-              val += dissonancePenalty;
+              val += rp.getDissonancePenalty();
               break;
             case 4:
               if ((!(aStep(lastMelInt))) || ((Math.abs(melInt) > majorThird) ||
                   ((melInt == 0) || ((lastMelInt * melInt) < 0)))) {
-                val += dissonancePenalty;
+                val += rp.getDissonancePenalty();
               }
               else {
                 if (!(aStep(melInt))) {
                   if (above) {
                     if (!(aSeventh(lastIntClass))) {
-                      val += dissonancePenalty;
+                      val += rp.getDissonancePenalty();
                     }
                   }
                   else {
                     if (lastIntClass != fourth) {
-                      val += dissonancePenalty;
+                      val += rp.getDissonancePenalty();
                     }
                   }
                 }
@@ -806,17 +720,17 @@ public class CounterpointGenerator {
         if (species == 5) {
           if ((cn > 1) && ((beat8(onset[cn][v]) == 0) &&
               ((cp != us(cn-1, v)) && (dur[cn][v] <= dur[cn-1][v])))) {
-            val += lesserLigaturePenalty;
+            val += rp.getLesserLigaturePenalty();
           }
           if ((cn > 3) && ((dur[cn][v] == halfNote) &&
               ((beat8(onset[cn][v]) == 4) &&
               ((dur[cn-1][v] == quarterNote) &&
               (dur[cn - 2][v] == quarterNote))))) {
-            val += halfUntiedPenalty;
+            val += rp.getHalfUntiedPenalty();
           }
           if ((dur[cn][v] == eighthNote) && ((downBeat(cn, v)) &&
               (dissonance[actInt]))) {
-            val += dissonancePenalty;
+            val += rp.getDissonancePenalty();
           }
           if (val >= curLim) {
             return(val);
@@ -835,37 +749,37 @@ public class CounterpointGenerator {
                       ((dur[cn - 1][v] == eighthNote) ||
                       ((dur[cn - 1][v] == quarterNote) &&
                       (dur[cn - 2][v] == halfNote)))))) {
-                    val += dissonancePenalty;
+                    val += rp.getDissonancePenalty();
                   }
                 }
                 break;
               case 1: case 3: case 5: case 7:
                 if ((!(aStep(melInt))) || ((!(aStep(lastMelInt))) ||
                     ((melInt * lastMelInt) < 0))) {
-                  val += dissonancePenalty;
+                  val += rp.getDissonancePenalty();
                 }
                 break;
               case 0:
                 if ((dur[cn - 2][v] == eighthNote) ||
                     (dur[cn - 2][v] < dur[cn - 1][v])) {
-                  val += noTimeForaLigaturePenalty;
+                  val += rp.getNoTimeForaLigaturePenalty();
                 }
                 if ((melInt != (-minorSecond)) &&
                     (melInt != (-majorSecond))) {
-                  val += unresolvedLigaturePenalty;
+                  val += rp.getUnresolvedLigaturePenalty();
                 }
                 if ((actInt == fourth) || (actInt == tritone)) {
-                  val += noTimeForaLigaturePenalty;
+                  val += rp.getNoTimeForaLigaturePenalty();
                 }
                 if ((actInt == fifth) && (interval < 0)) {
-                  val += noTimeForaLigaturePenalty;
+                  val += rp.getNoTimeForaLigaturePenalty();
                 }
                 if ((actInt == 0) &&
                     (((Math.abs(us(cn - 2, v) - other2)) % 12) == 0)) {
-                  val += noTimeForaLigaturePenalty;
+                  val += rp.getNoTimeForaLigaturePenalty();
                 }
                 if (lastMelInt != unison) {
-                  val += dissonancePenalty;
+                  val += rp.getDissonancePenalty();
                 }
                 break;
               case 2:
@@ -873,18 +787,18 @@ public class CounterpointGenerator {
                     ((Math.abs(melInt) > majorThird) ||
                     ((melInt == 0) || ((dur[cn - 1][v] == eighthNote) ||
                     ((lastMelInt * melInt) < 0))))) {
-                  val += dissonancePenalty;
+                  val += rp.getDissonancePenalty();
                 }
                 else {
                   if (!(aStep(melInt))) {
                     if (above) {
                       if (!(aSeventh(lastIntClass))) {
-                        val += dissonancePenalty;
+                        val += rp.getDissonancePenalty();
                       }
                     }
                     else {
                       if (lastIntClass != fourth) {
-                        val += dissonancePenalty;
+                        val += rp.getDissonancePenalty();
                       }
                     }
                   }
@@ -894,11 +808,11 @@ public class CounterpointGenerator {
           }
           if ((cn > 1) && ((dur[cn - 1][v] == eighthNote) &&
               (!(aStep(melInt))))) {
-            val += eighthJumpPenalty;
+            val += rp.getEighthJumpPenalty();
           }
           if ((cn > 1) && ((dur[cn - 1][v] == halfNote) &&
               ((beat8(onset[cn][v]) == 4) && (melInt == unison)))) {
-            val += unisonUpbeatPenalty;
+            val += rp.getUnisonUpbeatPenalty();
           }
         }
       }
@@ -953,11 +867,11 @@ public class CounterpointGenerator {
     val = 0;
     curBass = bass(cn, v);
     if (cp <= curBass) {
-      val += crossBelowBassPenalty;
+      val += rp.getCrossBelowBassPenalty();
     }
     intBass = ((cp - curBass) % 12);
     if ((intBass == majorThird) && (!(inMode(curBass, mode)))) {
-      val += augmentedIntervalPenalty;
+      val += rp.getAugmentedIntervalPenalty();
     }
     actPitch = (cp % 12);
 
@@ -979,13 +893,13 @@ public class CounterpointGenerator {
       addInterval(other0 - curBass);	/* add up tones in chord */
       /* avoid unison with other voice */
       if ((!(lastNote(cn, v))) && (other0 == cp)) {
-        val += unisonPenalty;
+        val += rp.getUnisonPenalty();
       }
 
       /* keep upper voices closer together than lower */
       if ((other0 != curBass) &&
           ((Math.abs(cp - other0)) >= (octave + fifth))) {
-        val += upperVoicesTooFarApartPenalty;
+        val += rp.getUpperVoicesTooFarApartPenalty();
       }
 
       /* check for direct motion to perfect consonance between these two voices */
@@ -993,15 +907,15 @@ public class CounterpointGenerator {
       int1 = ((Math.abs(other1 - lastCp)) % 12);
       if (int1 == int0) {
         if (int0 == unison) {
-          val += parallelUnisonPenalty;
+          val += rp.getParallelUnisonPenalty();
         }
 	    else if (int0 == fifth) {
-          val += parallelFifthPenalty;
+          val += rp.getParallelFifthPenalty();
         }
 	  }
       if ((cn > 2) && ((int0 == unison) &&
           (((Math.abs(us(cn - 2, v) - other(cn - 2, v, k))) % 12) == unison))) {
-        val += parallelUnisonPenalty;
+        val += rp.getParallelUnisonPenalty();
       }
 
       if (val >= curLim) {
@@ -1010,7 +924,7 @@ public class CounterpointGenerator {
 
       /* penalize tritones between voices */
       if (int0 == tritone) {
-        val += verticalTritonePenalty;
+        val += rp.getVerticalTritonePenalty();
       }
 
       if (species == 5) {
@@ -1020,12 +934,12 @@ public class CounterpointGenerator {
             /* if unison, 6-6 somewhere else? */
             if (ourLastInt == fifth) {
               if ((aSkip(cp - lastCp)) || (cp >= lastCp)) {
-                val += unresolvedSixFivePenalty;
+                val += rp.getUnresolvedSixFivePenalty();
               }
 		    }
             else {
 		      if ((aSkip(other0 - other1)) || (other0 >= other1)) {
-                val += unresolvedSixFivePenalty;
+                val += rp.getUnresolvedSixFivePenalty();
               }
 		    }
 		  }
@@ -1034,7 +948,7 @@ public class CounterpointGenerator {
             (intBass != unison))) {
           if ((intBass == fifth && ((cp - lastCp) != unison)) ||
 		      ((intBass != fifth) && ((other0 - other1) != unison))) {
-		    val += unpreparedSixFivePenalty;
+		        val += rp.getUnpreparedSixFivePenalty();
           }
 	    }
 	  }
@@ -1042,7 +956,7 @@ public class CounterpointGenerator {
       /* penalize direct motion to perfect consonance except at the cadence */
       if ((!(lastNote(cn ,v))) &&
           (directMotionToPerfectConsonance(lastCp, cp, other1, other0))) {
-	    val += innerVoicesInDirectToPerfectPenalty;
+	      val += rp.getInnerVoicesInDirectToPerfectPenalty();
       }
 
       /* if we have an unraised leading tone it is possible that some other
@@ -1052,13 +966,13 @@ public class CounterpointGenerator {
        */
       if ((actPitch == 10) &&	 	        /* if 11 we've aready checked */
 	      ((other0 % 12) == 11)) {		/* They have the raised form */
-        val += doubledLeadingTonePenalty;
+        val += rp.getDoubledLeadingTonePenalty();
       }
 
       /* similarly for motion to a tritone */
       if ((motionType(lastCp, cp, other1, other0) == directMotion) &&
           (int0 == tritone)) {
-        val += innerVoicesInDirectToTritonePenalty;
+        val += rp.getInnerVoicesInDirectToTritonePenalty();
       }
 
       /* look for a common diminished fourth (when a raised leading tone is in
@@ -1066,50 +980,50 @@ public class CounterpointGenerator {
        * Similarly, an augmented fifth can be formed in other cases
        */
       if ((actPitch == 3) && ((other0 % 12) == 11)) {
-        val += augmentedIntervalPenalty;
+        val += rp.getAugmentedIntervalPenalty();
       }
 
       /* try to encourage voices not to move in parallel too much */
       if (motionType(lastCp, cp, other1, other0) != contraryMotion) {
-        val += notContraryToOthersPenalty;
+        val += rp.getNotContraryToOthersPenalty();
       }
     }
 
     /* check for doubled third */
     if (intervalsWithBass[3] > 1) {
-      val += thirdDoubledPenalty;
+      val += rp.getThirdDoubledPenalty();
     }
 
     /* check for doubled sixth */
     if ((intervalsWithBass[3] == 0) && (intervalsWithBass[6] > 1)) {
-      val += doubledSixthPenalty;
+      val += rp.getDoubledSixthPenalty();
     }
 
     /* check for too many voices at octaves */
     if (intervalsWithBass[0] > 2) {
-      val += tripledBassPenalty;
+      val += rp.getTripledBassPenalty();
     }
 
     /* check for doubled fifth */
     if (intervalsWithBass[5] > 1) {
-      val += doubledFifthPenalty;
+      val += rp.getDoubledFifthPenalty();
     }
 
     /* check that chord contains at least one third or sixth */
     if ((v == numParts) && ((!(lastNote(cn, v))) &&
         ((intervalsWithBass[3] == 0) && (intervalsWithBass[6] == 0)))) {
-      val += notTriadPenalty;
+      val += rp.getNotTriadPenalty();
     }
 
     /* discourage all voices from skipping at once */
     if ((v == numParts) && allSkip) {
-      val += allVoicesSkipPenalty;
+      val += rp.getAllVoicesSkipPenalty();
     }
 
     /* except in 5th species, disallow 6-5 chords altogether */
     if ((intervalsWithBass[5] > 0) && ((intervalsWithBass[6] > 0) &&
         (species != 5))) {
-      val += sixFiveChordPenalty;
+      val += rp.getSixFiveChordPenalty();
     }
     return(val);
   }
@@ -1146,32 +1060,32 @@ public class CounterpointGenerator {
 
     /* melody must stay in range */
     if (outOfRange(cp + basePitch)) {
-      val += outOfRangePenalty;
+      val += rp.getOutOfRangePenalty();
     }
 
     /* extremes of range are also bad (to be avoided) */
     if (extremeRange(cp + basePitch)) {
-      val += extremeRangePenalty;
+      val += rp.getExtremeRangePenalty();
     }
 
     /* two part with ctrpt below cantus -- keep it below */
     if ((numParts == 1) && ((us(1, v) < cantus(1, v)) &&
         (interval > unison))) {
-      val += crossAboveCantusPenalty;
+      val += rp.getCrossAboveCantusPenalty();
     }
 
     /* Chromatically altered notes are accepted only at the cadence.  Other alterations (such as ficta) will be handled later) */
     if (!(nextToLastNote(cn, v))) {
       if (species != 2) {
         if (!(inMode(pitch, mode))) {
-          val += outOfModePenalty;
+          val += rp.getOutOfModePenalty();
         }
 	  }
       else {
 	    if ((cn != totalNotes[v] - 2) || ((mode != aeolian) ||
             ((cp <= other0) || (intClass != fifth)))) {
           if (!(inMode(pitch, mode))) {
-            val += outOfModePenalty;
+            val += rp.getOutOfModePenalty();
           }
 	    }
 	  }
@@ -1181,21 +1095,21 @@ public class CounterpointGenerator {
                                 (mode == phrygian)));
       if (weHaveARealLeadingTone) {
 	    if (doubled(pitch, cn, v)) {
-          val += doubledLeadingTonePenalty;
+          val += rp.getDoubledLeadingTonePenalty();
         }
 	  }
       else {
 	    if (pitch == 10) {
-          val += badCadencePenalty;
+          val += rp.getBadCadencePenalty();
         }
         else {
 	      if (!(inMode(pitch, mode))) {
-            val += outOfModePenalty;
+            val += rp.getOutOfModePenalty();
           }
           else {
 		    if (v == numParts) {
 		      if ((!(doubled(11, cn, v))) && (!(doubled(10, cn, v)))) {
-                val += noLeadingTonePenalty;
+                val += rp.getNoLeadingTonePenalty();
               }
 		    }
 		  }
@@ -1220,7 +1134,7 @@ public class CounterpointGenerator {
       lastIntClass = ((Math.abs(lastCp - other1)) % 12);
     }
     if (aDissonance(intClass, cn, cp, v, species)) {
-      val += dissonancePenalty;
+      val += rp.getDissonancePenalty();
     }
     if (val >= curLim) {
       return(val);
@@ -1244,20 +1158,20 @@ public class CounterpointGenerator {
     if ((!(lastNote(cn, v))) || (numParts == 1)) {
       if (directMotionToPerfectConsonance(lastCp, cp, other1, other0)) {
         if (intClass == unison) {
-          val += directToOctavePenalty;
+          val += rp.getDirectToOctavePenalty();
         }
         else {
-          val += directToFifthPenalty;
+          val += rp.getDirectToFifthPenalty();
         }
       }
     }
 
     /* check for more blatant examples of the same error */
     if ((intClass == fifth) && (lastIntClass == fifth)) {
-      val += parallelFifthPenalty;
+      val += rp.getParallelFifthPenalty();
     }
     if ((intClass == unison) && (lastIntClass == unison)) {
-      val += parallelUnisonPenalty;
+      val += rp.getParallelUnisonPenalty();
     }
     if (val >= curLim) {
       return(val);
@@ -1265,12 +1179,12 @@ public class CounterpointGenerator {
 
     if ((cn > 1) && ((species == 1) && ((numParts == 1) &&
         ((intClass == lastIntClass) && (melInt == unison))))) {
-      val += noMotionAgainstOctavePenalty;
+      val += rp.getNoMotionAgainstOctavePenalty();
     }
 
     /* certain melodic intervals are disallowed */
     if (badMelody(melInt)) {
-      val += badMelodyPenalty;
+      val += rp.getBadMelodyPenalty();
     }
     if (val >= curLim) {
       return(val);
@@ -1280,75 +1194,75 @@ public class CounterpointGenerator {
        fifth and major third allowed in 3 and 4 part writing */
     if ((lastNote(cn, v)) && (intClass != unison)) {
       if ((numParts == 1) || (interval < 0)) {
-        val += endOnPerfectPenalty;
+        val += rp.getEndOnPerfectPenalty();
       }
       else {
         if ((intClass != fifth) && (intClass != majorThird)) {
-          val += endOnPerfectPenalty;
+          val += rp.getEndOnPerfectPenalty();
         }
 	  }
     }
 
     /* penalize direct motion any kind (contrary motion is better) */
     if (motionType(lastCp, cp, other1, other0) == directMotion) {
-      val += directMotionPenalty;
+      val += rp.getDirectMotionPenalty();
       if (intClass == tritone) {
-        val += directToFifthPenalty;
+        val += rp.getDirectToFifthPenalty();
       }
     }
 
     /* penalize compound intervals (close position is favored) */
     if ((Math.abs(interval)) > octave) {
-      val += compoundPenalty;
+      val += rp.getCompoundPenalty();
     }
 
     /* penalize consecutive skips in the same direction */
     if ((cn > 2) && (consecutiveSkipsInSameDirection(lastCp2, lastCp, cp))) {
-      val += twoSkipsPenalty;
+      val += rp.getTwoSkipsPenalty();
       totalJump = Math.abs(cp - lastCp2);
 
       /* do not let these skips traverse more than an octave, nor a seventh */
       if ((totalJump > majorSixth) && (totalJump < octave)) {
-        val += twoSkipsNotInTriadPenalty;
+        val += rp.getTwoSkipsNotInTriadPenalty();
       }
     }
 
     /* penalize a skip to an octave */
     if ((intClass == unison) && ((aSkip(melInt)) || (aSkip(other0 - other1)))) {
-      val += skipTo8vePenalty;
+      val += rp.getSkipTo8vePenalty();
     }
 
     /* do not skip from a unison (not a very important rule) */
     if ((other1 == lastCp) && (aSkip(melInt))) {
-      val += skipFromUnisonPenalty;
+      val += rp.getSkipFromUnisonPenalty();
     }
 
     /* penalize skips followed or preceded by motion in same direction */
     if ((cn > 2) && ((aSkip(melInt)) && sameDir)) {
       /* especially penalize fifths, sixths, and octaves of this sort */
       if ((Math.abs(melInt)) < fifth) {
-        val += skipPrecededBySameDirectionPenalty;
+        val += rp.getSkipPrecededBySameDirectionPenalty();
       }
       else {
         if (((Math.abs(melInt)) == fifth) || ((Math.abs(melInt)) == octave)) {
-	      val += fifthPrecededBySameDirectionPenalty;
+	      val += rp.getFifthPrecededBySameDirectionPenalty();
         }
 	    else {
-          val += sixthPrecededBySameDirectionPenalty;
+          val += rp.getSixthPrecededBySameDirectionPenalty();
         }
 	  }
     }
     if ((cn > 2) && ((aSkip(lastMelInt)) && sameDir)) {
       if ((Math.abs(lastMelInt)) < fifth) {
-        val += skipFollowedBySameDirectionPenalty;
+        val += rp.getSkipFollowedBySameDirectionPenalty();
       }
       else {
         if (((Math.abs(lastMelInt)) == fifth) ||
             ((Math.abs(lastMelInt)) == octave)) {
-          val += fifthFollowedBySameDirectionPenalty;
+          val += rp.getFifthFollowedBySameDirectionPenalty();
         }
         else {
-          val += sixthFollowedBySameDirectionPenalty;
+          val += rp.getSixthFollowedBySameDirectionPenalty();
         }
 	  }
     }
@@ -1356,32 +1270,32 @@ public class CounterpointGenerator {
     /* too many skips in a row -- favor a mix of steps and skips */
     if ((cn > 4) && ((aSkip(melInt)) && ((aSkip(lastMelInt)) &&
         (aSkip(lastCp2 - lastCp3))))) {
-      val += melodicBoredomPenalty;
+      val += rp.getMelodicBoredomPenalty();
     }
 
     /* avoid tritones melodically */
     if ((cn > 4) && (((Math.abs(cp - lastCp2)) == tritone) ||
         (((Math.abs(cp - lastCp3)) == tritone) ||
          ((Math.abs(cp - lastCp4)) == tritone)))) {
-      val += melodicTritonePenalty;
+      val += rp.getMelodicTritonePenalty();
     }
 
     /* do not allow movement from a tenth to an octave by contrary motion */
     if ((species != 5) && (numParts == 1)) {
       if (aTenth(other1 - lastCp) && (anOctave(interval))) {
-        val += tenthToOctavePenalty;
+        val += rp.getTenthToOctavePenalty();
       }
     }
 
     /* more range checks -- did we go over an octave recently */
     if ((cn > 2) && ((Math.abs(cp - lastCp2)) > octave)) {
-      val += overOctavePenalty;
+      val += rp.getOverOctavePenalty();
     }
 
     /* same for a twelfth */
     if (((cn > 30) || (species != 5)) &&
         (totalRange(cn, cp, v) > (octave + fifth))) {
-      val += overTwelfthPenalty;
+      val += rp.getOverTwelfthPenalty();
     }
     if (val >= curLim) {
       return(val);
@@ -1389,29 +1303,29 @@ public class CounterpointGenerator {
 
     /* slightly penalize repeated notes */
     if ((cn > 3) && ((cp == lastCp2) && (lastCp == lastCp3))) {
-      val += twoRepeatedNotesPenalty;
+      val += rp.getTwoRepeatedNotesPenalty();
     }
     if ((cn > 5) && ((cp == lastCp3) && ((lastCp == lastCp4) &&
         (lastCp2 == us(cn - 5, v))))) {
-      val += threeRepeatedNotesPenalty;
+      val += rp.getThreeRepeatedNotesPenalty();
     }
     if ((cn > 6) && ((cp == lastCp4) && ((lastCp == us(cn - 5, v)) &&
         (lastCp2 == us(cn - 6, v))))) {
-      val += (threeRepeatedNotesPenalty - 1);
+      val += (rp.getThreeRepeatedNotesPenalty() - 1);
     }
     if ((cn > 7) && ((cp == lastCp4) && ((lastCp == us(cn - 5, v)) &&
         ((lastCp2 == us(cn - 6, v)) && (lastCp3 == us(cn - 7, v)))))) {
-      val += fourRepeatedNotesPenalty;
+      val += rp.getFourRepeatedNotesPenalty();
     }
     if ((cn > 8) && ((cp == us(cn - 5, v)) && ((lastCp == us(cn - 6, v)) &&
         ((lastCp2 == us(cn - 7, v)) && (lastCp3 == us(cn - 8, v)))))) {
-      val += fourRepeatedNotesPenalty;
+      val += rp.getFourRepeatedNotesPenalty();
     }
     if (lastNote(cn, v)) {
       lastPitch = (lastCp % 12);
       if (((lastPitch == 11) || ((lastPitch == 10) &&
           (mode == phrygian))) && (pitch != 0)) {
-        val += unresolvedLeadingTonePenalty;
+        val += rp.getUnresolvedLeadingTonePenalty();
       }
     }
     if (val >= curLim) {
@@ -1420,12 +1334,12 @@ public class CounterpointGenerator {
 
     /* an imperfect consonance is better than a perfect consonance */
     if (perfectConsonance[intClass]) {
-      val += perfectConsonancePenalty;
+      val += rp.getPerfectConsonancePenalty();
     }
 
     /* no unisons allowed within counterpoint unless more than 2 parts */
     if ((numParts == 1) && (interval == unison)) {
-      val += unisonPenalty;
+      val += rp.getUnisonPenalty();
     }
     if (val >= curLim) {
       return(val);
@@ -1436,28 +1350,28 @@ public class CounterpointGenerator {
 
     /* penalize octave leaps a little */
     if (anOctave(melInt)) {
-      val += octaveLeapPenalty;
+      val += rp.getOctaveLeapPenalty();
     }
 
     /* similarly for minor sixth leaps */
     if (melInt == minorSixth) {
-      val += sixthLeapPenalty;
+      val += rp.getSixthLeapPenalty();
     }
 
     /* penalize upper neighbor notes slightly (also lower neighbors) */
     if ((cn > 2) && ((melInt < 0) && ((aStep(melInt)) && (cp == lastCp2)))) {
-      val += upperNeighborPenalty;
+      val += rp.getUpperNeighborPenalty();
     }
 
     if ((cn > 2) && ((melInt > 0) && ((aStep(melInt)) && (cp == lastCp2)))) {
-      val += lowerNeighborPenalty;
+      val += rp.getLowerNeighborPenalty();
     }
 
     /* do not allow normal leading tone to precede raised leading tone */
     /* also check here for augmented fifths and diminished fourths */
     if ((!(inMode(pitch, mode))) && ((melInt == minorSecond) ||
         ((melInt == minorSixth) || (melInt == (-majorThird))))) {
-      val += outOfModePenalty;
+      val += rp.getOutOfModePenalty();
     }
 
     /* slightly frown upon leap back in the opposite direction */
@@ -1465,14 +1379,14 @@ public class CounterpointGenerator {
         (!(sameDir))))) {
       val += (Math.max(0,((Math.abs(melInt) + Math.abs(lastMelInt)) - 8)));
       if ((cn > 3) && (aSkip(lastCp2 - lastCp3))) {
-        val += threeSkipsPenalty;
+        val += rp.getThreeSkipsPenalty();
       }
     }
 
     /* try to approach cadential passages by step */
     if ((numParts == 1) && ((cn >= (totalNotes[v] - 4)) &&
         ((Math.abs(melInt)) > 4))) {
-      val += leapAtCadencePenalty;
+      val += rp.getLeapAtCadencePenalty();
     }
 
     /* check for entangled voices */
@@ -1490,42 +1404,42 @@ public class CounterpointGenerator {
 
     /* don't repeat note on upbeat */
     if (upBeat(cn, v) && (melInt == unison)) {
-      val += repetitionOnUpbeatPenalty;
+      val += rp.getRepetitionOnUpbeatPenalty();
     }
 
     /* avoid tritones near Lydian cadence */
     if ((mode == lydian) && ((cn > (totalNotes[v] - 4)) && (pitch == 6))) {
-      val += lydianCadentialTritonePenalty;
+      val += rp.getLydianCadentialTritonePenalty();
     }
 
     /* various miscellaneous checks.  More elaborate dissonance resolution and cadential formula checks will be given under "Species definition" */
     if ((species != 1) && (downBeat(cn, v))) {
       if (species < 4) {
 	    if ((melInt == unison) && (!(lastNote(cn, v)))) {
-          val += unisonDownbeatPenalty;
+          val += rp.getUnisonDownbeatPenalty();
         }
 	    /* check for dissonance that doesn't fill a third as a passing tone */
 	    if ((dissonance[lastIntClass]) &&
             ((!(aStep(melInt))) || (!(sameDir)))) {
-          val += dissonanceNotFillingThirdPenalty;
+          val += rp.getDissonanceNotFillingThirdPenalty();
         }
 	  }
 
       /* check for Direct 8ve or 5 where the intervening interval is less than a fourth */
       if ((directMotionToPerfectConsonance(lastCp2, cp, other2, other0)) &&
           ((Math.abs(lastMelInt)) < fourth)) {
-	    val += directPerfectOnDownbeatPenalty;
+	    val += rp.getDirectPerfectOnDownbeatPenalty();
       }
     }
 
     /* check for tritone with cantus or bass */
     if (intClass == tritone) {
-      val += verticalTritonePenalty;
+      val += rp.getVerticalTritonePenalty();
     }
 
     /* check for melodic interval variety */
     if ((cn > 10) && (tooMuchOfInterval(cn, cp, v))) {
-      val += melodicBoredomPenalty;
+      val += rp.getMelodicBoredomPenalty();
     }
 
     return(val);
@@ -1751,7 +1665,7 @@ public class CounterpointGenerator {
     choiceIndex = endF;
     allDone = false;
     for (i = 0; i <= (field * numFields); i++) {
-      pens[i] = infinity;
+      pens[i] = RulePenalties.INFINITE;
     }
     for (i = 0; i <= numParts; i++) {
       is[i] = 0;
@@ -1765,9 +1679,9 @@ public class CounterpointGenerator {
       branches =0;
     }
 
-    curMin = infinity;
+    curMin = RulePenalties.INFINITE;
     lim = bestFitPenalty - currentPenalty;
-    nextTime = infinity;
+    nextTime = RulePenalties.INFINITE;
     for (i = 0; i <= numParts; i++) {
       ourTime = onset[vIndex(curTime , i) + 1][i];
       if (ourTime != 0) {
@@ -1790,7 +1704,7 @@ public class CounterpointGenerator {
     lim = look(0, i, numParts, species, lim, pens, is, curNotes);
 
     curMin = pens[choiceIndex];
-    if (curMin < infinity) {
+    if (curMin < RulePenalties.INFINITE) {
       allDone = false;
       while (!(allDone)) {
         if (curTime < totalTime) {
@@ -1822,7 +1736,7 @@ public class CounterpointGenerator {
           break;
         }
         curMin = pens[choiceIndex];
-        if (curMin == infinity) {
+        if (curMin == RulePenalties.INFINITE) {
           break;
         }
         if (curTime == 0) {
@@ -1980,8 +1894,8 @@ public class CounterpointGenerator {
     totalTime = ((cantusFirmusLength - 1) * 8);
     totalNotes[0] = cantusFirmusLength;
     basePitch = ((ctrpt[cantusFirmusLength][0]) % 12);
-    bestFitPenalty = infinity;
-    maxPenalty = infinity;
+    bestFitPenalty = RulePenalties.INFINITE;
+    maxPenalty = RulePenalties.INFINITE;
     allDone = false;
     branches = 0;
 
@@ -2043,10 +1957,10 @@ public class CounterpointGenerator {
       ctrpt[1][v] = (startPitches[v-1] - basePitch);
     }
     if (curV == 1) {
-      maxPenalty = (2 * realBad);
+      maxPenalty = (2 * RulePenalties.VERY_BAD);
     }
     else {
-      maxPenalty = infinity;
+      maxPenalty = RulePenalties.INFINITE;
     }
     bestFitFirst(0, 0, curV, species, brLim);
     return counterpointSolution;
