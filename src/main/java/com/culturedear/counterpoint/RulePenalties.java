@@ -32,7 +32,7 @@ public class RulePenalties implements Serializable {
   // Voices must stay within the mode of the cantus firmus.
   private int outOfModePenalty = INFINITE;
 
-  // ??? Some melodic intervals are not allowed.
+  // Some melodic intervals are not allowed.
   private int badMelodyPenalty = INFINITE;
 
   // A melody must stay within the range of a twelfth.

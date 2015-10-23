@@ -869,7 +869,7 @@ public class CounterpointGenerator {
     if (cp <= curBass) {
       val += rp.getCrossBelowBassPenalty();
     }
-    intBass = ((cp - curBass) % 12);
+    intBass = ((cp + 120 - curBass) % 12);
     if ((intBass == majorThird) && (!(inMode(curBass, mode)))) {
       val += rp.getAugmentedIntervalPenalty();
     }

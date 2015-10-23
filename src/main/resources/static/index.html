@@ -86,11 +86,11 @@
       </section>
     </nav>
 
-    <div>
-      <div id="counterpointRulesDialog" class="reveal-modal" data-reveal aria-labelledby="counterpointRulesDialogTitle" aria-hidden="true" role="dialog">
-        <h2 id="counterpointRulesDialogTitle">Counterpoint Rules Preferences</h2>
-        <p class="lead">What are your preferences for counterpoint rules?</p>
+    <div id="counterpointRulesDialog" class="reveal-modal" data-reveal aria-labelledby="counterpointRulesDialogTitle" aria-hidden="true" role="dialog">
+      <h2 id="counterpointRulesDialogTitle">Counterpoint Rules Preferences</h2>
+      <p class="lead">What are your preferences for counterpoint rules?</p>
 
+      <div id="" style="overflow-y: scroll; height:400px;">
         <p>Parallel fifths are not allowed</p>
         <div class="switch round small">
           <input id="parallelFifthPenalty" type="checkbox" checked>
@@ -127,244 +127,390 @@
           <label for="outOfModePenalty" onclick="toggleRulePenalty('outOfModePenalty')"></label>
         </div>
 
+        <p>Some melodic intervals are not allowed</p>
+        <div class="switch round small">
+          <input id="badMelodyPenalty" type="checkbox" checked>
+          <label for="badMelodyPenalty" onclick="toggleRulePenalty('badMelodyPenalty')"></label>
+        </div>
+
+        <p>A melody must stay within the range of a twelfth</p>
+        <div class="switch round small">
+          <input id="overTwelfthPenalty" type="checkbox" checked>
+          <label for="overTwelfthPenalty" onclick="toggleRulePenalty('overTwelfthPenalty')"></label>
+        </div>
+
+        <p>Cadences must be correct (this covers a host of rules)</p>
+        <div class="switch round small">
+          <input id="badCadencePenalty" type="checkbox" checked>
+          <label for="badCadencePenalty" onclick="toggleRulePenalty('badCadencePenalty')"></label>
+        </div>
+
+        <p>sixFiveChordPenalty</p>
+        <div class="switch round small">
+          <input id="sixFiveChordPenalty" type="checkbox" checked>
+          <label for="sixFiveChordPenalty" onclick="toggleRulePenalty('sixFiveChordPenalty')"></label>
+        </div>
+
         <p>A dissonance as a passing tone must fill in a third</p>
         <div class="switch round small">
           <input id="dissonanceNotFillingThirdPenalty" type="checkbox" checked>
           <label for="dissonanceNotFillingThirdPenalty" onclick="toggleRulePenalty('dissonanceNotFillingThirdPenalty')"></label>
         </div>
 
+        <p>A nota combiata must be resolved correctly</p>
+        <div class="switch round small">
+          <input id="notaCambiataPenalty" type="checkbox" checked>
+          <label for="notaCambiataPenalty" onclick="toggleRulePenalty('notaCambiataPenalty')"></label>
+        </div>
 
-        <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+        <p>A ligature must be resolved correctly</p>
+        <div class="switch round small">
+          <input id="unresolvedLigaturePenalty" type="checkbox" checked>
+          <label for="unresolvedLigaturePenalty" onclick="toggleRulePenalty('unresolvedLigaturePenalty')"></label>
+        </div>
+
+        <p>There are certain situations where a ligature is not allowed</p>
+        <div class="switch round small">
+          <input id="noTimeForaLigaturePenalty" type="checkbox" checked>
+          <label for="noTimeForaLigaturePenalty" onclick="toggleRulePenalty('noTimeForaLigaturePenalty')"></label>
+        </div>
+
+        <p>Augmented intervals are not allowed</p>
+        <div class="switch round small">
+          <input id="augmentedIntervalPenalty" type="checkbox" checked>
+          <label for="augmentedIntervalPenalty" onclick="toggleRulePenalty('augmentedIntervalPenalty')"></label>
+        </div>
+
+        <p>Doubled leading tones are not allowed</p>
+        <div class="switch round small">
+          <input id="doubledLeadingTonePenalty" type="checkbox" checked>
+          <label for="doubledLeadingTonePenalty" onclick="toggleRulePenalty('doubledLeadingTonePenalty')"></label>
+        </div>
+
+        <p>The leading tone must be resolved correctly</p>
+        <div class="switch round small">
+          <input id="unresolvedLeadingTonePenalty" type="checkbox" checked>
+          <label for="unresolvedLeadingTonePenalty" onclick="toggleRulePenalty('unresolvedLeadingTonePenalty')"></label>
+        </div>
+
+        <p>directPerfectOnDownbeatPenalty</p>
+        <div class="switch round small">
+          <input id="directPerfectOnDownbeatPenalty" type="checkbox" checked>
+          <label for="directPerfectOnDownbeatPenalty" onclick="toggleRulePenalty('directPerfectOnDownbeatPenalty')"></label>
+        </div>
+
+        <p>crossBelowBassPenalty</p>
+        <div class="switch round small">
+          <input id="crossBelowBassPenalty" type="checkbox" checked>
+          <label for="crossBelowBassPenalty" onclick="toggleRulePenalty('crossBelowBassPenalty')"></label>
+        </div>
+
+        <p>crossAboveCantusPenalty</p>
+        <div class="switch round small">
+          <input id="crossAboveCantusPenalty" type="checkbox" checked>
+          <label for="crossAboveCantusPenalty" onclick="toggleRulePenalty('crossAboveCantusPenalty')"></label>
+        </div>
+
+        <p>Avoid direct motion to a perfect fifth</p>
+        <div class="switch round small">
+          <input id="directToFifthPenalty" type="checkbox" checked>
+          <label for="directToFifthPenalty" onclick="toggleRulePenalty('directToFifthPenalty')"></label>
+        </div>
+
+        <p>Avoid direct motion to an octave</p>
+        <div class="switch round small">
+          <input id="directToOctavePenalty" type="checkbox" checked>
+          <label for="directToOctavePenalty" onclick="toggleRulePenalty('directToOctavePenalty')"></label>
+        </div>
+
+        <p>Voices should not move outside certain ranges</p>
+        <div class="switch round small">
+          <input id="outOfRangePenalty" type="checkbox" checked>
+          <label for="outOfRangePenalty" onclick="toggleRulePenalty('outOfRangePenalty')"></label>
+        </div>
+
+        <p>Avoid a unison on the down beat</p>
+        <div class="switch round small">
+          <input id="downBeatUnisonPenalty" type="checkbox" checked>
+          <label for="downBeatUnisonPenalty" onclick="toggleRulePenalty('downBeatUnisonPenalty')"></label>
+        </div>
+
+        <p>Avoid unisons in two part counterpoint</p>
+        <div class="switch round small">
+          <input id="unisonPenalty" type="checkbox" checked>
+          <label for="unisonPenalty" onclick="toggleRulePenalty('unisonPenalty')"></label>
+        </div>
+
+        <p>Try not to repeat a note on the upbeat</p>
+        <div class="switch round small">
+          <input id="repetitionOnUpbeatPenalty" type="checkbox" checked>
+          <label for="repetitionOnUpbeatPenalty" onclick="toggleRulePenalty('repetitionOnUpbeatPenalty')"></label>
+        </div>
+
+        <p>A melody should stay within the range of an octave</p>
+        <div class="switch round small">
+          <input id="overOctavePenalty" type="checkbox" checked>
+          <label for="overOctavePenalty" onclick="toggleRulePenalty('overOctavePenalty')"></label>
+        </div>
+
+        <p>Eighth notes should not skip</p>
+        <div class="switch round small">
+          <input id="eighthJumpPenalty" type="checkbox" checked>
+          <label for="eighthJumpPenalty" onclick="toggleRulePenalty('eighthJumpPenalty')"></label>
+        </div>
+
+        <p>A six-five chord must be prepared correctly</p>
+        <div class="switch round small">
+          <input id="unpreparedSixFivePenalty" type="checkbox" checked>
+          <label for="unpreparedSixFivePenalty" onclick="toggleRulePenalty('unpreparedSixFivePenalty')"></label>
+        </div>
+
+        <p>A six-five chord must be resolved correctly</p>
+        <div class="switch round small">
+          <input id="unresolvedSixFivePenalty" type="checkbox" checked>
+          <label for="unresolvedSixFivePenalty" onclick="toggleRulePenalty('unresolvedSixFivePenalty')"></label>
+        </div>
+
+        <p>Avoid direct motion to a tritone</p>
+        <div class="switch round small">
+          <input id="directToTritonePenalty" type="checkbox" checked>
+          <label for="directToTritonePenalty" onclick="toggleRulePenalty('directToTritonePenalty')"></label>
+        </div>
+
       </div>
 
-      <!--a href="#" data-reveal-id="noCounterpointModal">Click Me For A Modal</a-->
-      <div id="noCounterpointModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
-        <h2 id="modalTitle">I wasn't able to compute the counterpoint.</h2>
-        <p class="lead">I think you ought to know I'm feeling very depressed.</p>
-        <p>You can blame the Sirius Cybernetics Corporation for making androids with Genious People Personalities.
-          Seriously though, please try again, perhaps with a shorter cantus firmus, less complex initial chord, or different species. </p><br/>
-          Sincerely, <br/>
-          Marvin the Robot</p>
-        <a class="close-reveal-modal" aria-label="Close">&#215;</a>
-      </div>
-      <div id="score1"></div>
-        <script>
-          var scoreView;
-          var widthMargin = 20;   // Margin between Noteflight client and right side of window
-          var heightMargin = 100; // Margin between Noteflight client and bottom of window
+      <a class="close-reveal-modal" aria-label="Close">&#215;</a>
 
-          var rulePenalties = {};
-
-          initNoteflight();
-
-          function initNoteflight() {
-              // Initialize the Noteflight client API.
-            NFClient.init(function (info) {
-              //alert("Noteflight API is ready, version " + info.version);
-            });
-
-            var options = {
-              host: 'hacking.sites.noteflight.com',
-              width: 900,
-              height: 650,
-              viewParams: {
-                scale: 1.0,
-                role: 'template',
-                app: 'html5',
-                displayMode: 'flow'
-              }
-            };
-
-            options.width = window.innerWidth - widthMargin;
-            options.height = window.innerHeight - heightMargin;
-
-            scoreView = new NFClient.ScoreView('score1', '3b88798c7533d46aa60c3c8077e44742c7c4027a', options);
-          }
-
-          function callCounterpointService(mainMelody, initialNotes, scaleModeSelection,
-                                           speciesSelection, rulePenaltiesSelections) {
-            var cantusFirmusJson = {
-              "mainMelody" : mainMelody,
-              "partsInitialNotes" : initialNotes,
-              //"partsInitialNotes" : [48, 67, 72],
-              "counterpointSpecies" : speciesSelection,
-              "scaleMode" : scaleModeSelection,
-              "rulePenalties" : rulePenaltiesSelections
-            };
-            cantusFirmusJson = JSON.stringify(cantusFirmusJson);
-            alert("cantusFirmusJson == " + cantusFirmusJson);
-            $.ajax({
-              method: 'POST',
-              contentType: 'application/json',
-              //url: 'http://localhost:8080/counterpoint',
-              url: '/counterpoint',
-              data: cantusFirmusJson
-            }).done(function (doc) {
-              scoreView.loadMusicXML(doc.documentElement.outerHTML);
-            }).error(function (err) {
-              //alert(err.responseText);
-              $('#noCounterpointModal').foundation('reveal', 'open');
-            });
-          }
-
-          function readMainMelody() {
-
-            scoreView.getScore().done(function(scoreData) {
-              var mainMelodyPitches = [];
-              var initialPitches = [];
-              var initialNoteSet;
-              if (scoreData != null && scoreData.staves.length > 0) {
-                var curStaff = scoreData.staves[0];
-                for (var measIdx = 0; measIdx < curStaff.measures.length; measIdx++) {
-                  var curMeasure = curStaff.measures[measIdx];
-                  for (var noteSetIdx = 0; noteSetIdx < curMeasure.noteSets.length; noteSetIdx++) {
-                    var curNoteSet = curMeasure.noteSets[noteSetIdx];
-                    if (curNoteSet.notes.length > 0) {
-                      //var curNote = curNoteSet.notes[0];
-                      var curNote = curNoteSet.notes[curNoteSet.notes.length - 1];
-                      console.log("curNote.pitch:" + (curNote.pitch + 12));
-                      mainMelodyPitches.push(curNote.pitch + 12);
-
-                      //If we pushed the second note in the melody line, use it to reserve one of the initial pitches
-                      if (mainMelodyPitches.length == 2) {
-                        // If there is more than one note in the initial NoteSet of the first measure in the
-                        // first staff, then use this NoteSet to get initial pitches
-                        if (initialNoteSet.notes.length > 1) {
-                          initialPitches = getInitialNotesFromNoteset(initialNoteSet, curNote.pitch);
-                        }
-                        // otherwise, get the initial pitches from the first note of each staff
-                        else {
-                          initialPitches = getInitialNotesFromAllStaves(scoreData.staves, curNote.pitch);
-                        }
-                      }
-
-                      // If this is the first noteSet, save it
-                      if (measIdx == 0 && noteSetIdx == 0) {
-                        initialNoteSet = curNoteSet;
-                      }
-
-                    }
-                  }
-                }
-              }
-              /*
-               * As a result of calling getNotesFromOnset() the last element of initialPitches contains the pitch that
-               * the mainMelodyPitches needs to start with
-               */
-              mainMelodyPitches[0] = initialPitches.pop();
-              callCounterpointService(mainMelodyPitches, initialPitches, readModeSelection(),
-                                      readSpeciesSelection(), readRulePenalties());
-            });
-          }
-
-          // TODO: Factor out common code with getInitialNotesFromAllStaves method
-          function getInitialNotesFromNoteset(noteSet, secondPitchInCantus) {
-            var initialNotes = [];
-            var pitchToReserve = 0;
-            for (noteIdx = 0; noteIdx < noteSet.notes.length; noteIdx++) {
-              var curChordNote = noteSet.notes[noteIdx];
-              console.log("curChordNote.pitch:" + (curChordNote.pitch + 12));
-              if (Math.abs(secondPitchInCantus - curChordNote.pitch) <
-                      Math.abs(secondPitchInCantus - pitchToReserve)) {
-                if (pitchToReserve != 0) {
-                  initialNotes.push(pitchToReserve + 12);
-                }
-                pitchToReserve = curChordNote.pitch;
-              }
-              else {
-                initialNotes.push(curChordNote.pitch + 12);
-              }
-            }
-            if (initialNotes.length == 0) {
-              initialNotes.push(pitchToReserve - 12 + 12); //TODO: Handle the 12 tone difference between MIDI and Noteflight note pitches better everywhere
-            }
-
-            // Push the note being reserved for the first note in the cantus firmus
-            initialNotes.push(pitchToReserve + 12);
-            return initialNotes;
-          }
-
-          // TODO: Factor out common code with getInitialNotesFromNoteset method
-          function getInitialNotesFromAllStaves(staves, secondPitchInCantus) {
-            var initialNotes = [];
-            var pitchToReserve = 0;
-            for (staffIdx = 0; staffIdx < staves.length; staffIdx++) {
-              curStaff = staves[staffIdx];
-              if (curStaff.measures.length > 0) {
-                var curMeasure = curStaff.measures[0];
-                if (curMeasure.noteSets.length > 0) {
-                  var curNoteSet = curMeasure.noteSets[0];
-                  if (curNoteSet.notes.length > 0) {
-                    var curNote = curNoteSet.notes[0];
-                    if (Math.abs(secondPitchInCantus - curNote.pitch) <
-                            Math.abs(secondPitchInCantus - pitchToReserve)) {
-                      if (pitchToReserve != 0) {
-                        initialNotes.push(pitchToReserve + 12);
-                      }
-                      pitchToReserve = curNote.pitch;
-                    }
-                    else {
-                      initialNotes.push(curNote.pitch + 12);
-                    }
-                  }
-                }
-              }
-            }
-            if (initialNotes.length == 0) {
-              initialNotes.push(pitchToReserve - 12 + 12);
-            }
-
-            // Push the note being reserved for the first note in the cantus firmus
-            initialNotes.push(pitchToReserve + 12);
-            return initialNotes;
-          }
-
-          function readModeSelection() {
-            var modeVal = $('#modeIds').val();
-            var modeValInt = isNaN(modeVal) ? 0 : parseInt(modeVal);
-            return modeValInt;
-          }
-
-          function readSpeciesSelection() {
-            var speciesVal = $('#speciesIds').val();
-            var speciesValInt = isNaN(speciesVal) ? 1 : parseInt(speciesVal);
-            return speciesValInt;
-          }
-
-          function readRulePenalties() {
-            return rulePenalties;
-          }
-
-          function toggleRulePenalty(ruleName) {
-            if (rulePenalties.hasOwnProperty(ruleName)) {
-              delete rulePenalties[ruleName];
-            }
-            else {
-              rulePenalties[ruleName] = 0;
-            }
-          }
-
-          function configureCounterpointRules() {
-            $('#counterpointRulesDialog').foundation('reveal', 'open');
-          }
-
-
-        </script>
-
-        <script src="js/vendor/jquery.js"></script>
-        <script src="js/foundation.min.js"></script>
-        <script>
-          $(document).foundation();
-        </script>
-        <script>
-            // Throttled resize function
-            $(window).on('resize', Foundation.utils.throttle(function(e){
-                $( "#score1" ).attr("width",window.innerWidth - widthMargin).attr("height",window.innerHeight - heightMargin);
-            }, 300));
-
-        </script>
-      </div>
     </div>
+
+    <!--a href="#" data-reveal-id="noCounterpointModal">Click Me For A Modal</a-->
+    <div id="noCounterpointModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+      <h2 id="modalTitle">I wasn't able to compute the counterpoint.</h2>
+      <p class="lead">I think you ought to know I'm feeling very depressed.</p>
+      <p>You can blame the Sirius Cybernetics Corporation for making androids with Genious People Personalities.
+        Seriously though, please try again, perhaps with a shorter cantus firmus, less complex initial chord, or different species. </p><br/>
+        Sincerely, <br/>
+        Marvin the Robot</p>
+      <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+    </div>
+
+    <div id="noteflightScore"></div>
+
+    <script>
+      var scoreView;
+      var widthMargin = 20;   // Margin between Noteflight client and right side of window
+      var heightMargin = 100; // Margin between Noteflight client and bottom of window
+
+      var rulePenalties = {};
+
+      initNoteflight();
+
+      function initNoteflight() {
+          // Initialize the Noteflight client API.
+        NFClient.init(function (info) {
+          //alert("Noteflight API is ready, version " + info.version);
+        });
+
+        var options = {
+          host: 'hacking.sites.noteflight.com',
+          width: 900,
+          height: 650,
+          viewParams: {
+            scale: 1.0,
+            role: 'template',
+            app: 'html5',
+            displayMode: 'flow'
+          }
+        };
+
+        options.width = window.innerWidth - widthMargin;
+        options.height = window.innerHeight - heightMargin;
+
+        scoreView = new NFClient.ScoreView('noteflightScore', '3b88798c7533d46aa60c3c8077e44742c7c4027a', options);
+      }
+
+      function callCounterpointService(mainMelody, initialNotes, scaleModeSelection,
+                                       speciesSelection, rulePenaltiesSelections) {
+        var cantusFirmusJson = {
+          "mainMelody" : mainMelody,
+          "partsInitialNotes" : initialNotes,
+          //"partsInitialNotes" : [48, 67, 72],
+          "counterpointSpecies" : speciesSelection,
+          "scaleMode" : scaleModeSelection,
+          "rulePenalties" : rulePenaltiesSelections
+        };
+        cantusFirmusJson = JSON.stringify(cantusFirmusJson);
+        //alert("cantusFirmusJson == " + cantusFirmusJson);
+        $.ajax({
+          method: 'POST',
+          contentType: 'application/json',
+          //url: 'http://localhost:8080/counterpoint',
+          url: '/counterpoint',
+          data: cantusFirmusJson
+        }).done(function (doc) {
+          scoreView.loadMusicXML(doc.documentElement.outerHTML);
+        }).error(function (err) {
+          //alert(err.responseText);
+          $('#noCounterpointModal').foundation('reveal', 'open');
+        });
+      }
+
+      function readMainMelody() {
+
+        scoreView.getScore().done(function(scoreData) {
+          var mainMelodyPitches = [];
+          var initialPitches = [];
+          var initialNoteSet;
+          if (scoreData != null && scoreData.staves.length > 0) {
+            var curStaff = scoreData.staves[0];
+            for (var measIdx = 0; measIdx < curStaff.measures.length; measIdx++) {
+              var curMeasure = curStaff.measures[measIdx];
+              for (var noteSetIdx = 0; noteSetIdx < curMeasure.noteSets.length; noteSetIdx++) {
+                var curNoteSet = curMeasure.noteSets[noteSetIdx];
+                if (curNoteSet.notes.length > 0) {
+                  //var curNote = curNoteSet.notes[0];
+                  var curNote = curNoteSet.notes[curNoteSet.notes.length - 1];
+                  console.log("curNote.pitch:" + (curNote.pitch + 12));
+                  mainMelodyPitches.push(curNote.pitch + 12);
+
+                  //If we pushed the second note in the melody line, use it to reserve one of the initial pitches
+                  if (mainMelodyPitches.length == 2) {
+                    // If there is more than one note in the initial NoteSet of the first measure in the
+                    // first staff, then use this NoteSet to get initial pitches
+                    if (initialNoteSet.notes.length > 1) {
+                      initialPitches = getInitialNotesFromNoteset(initialNoteSet, curNote.pitch);
+                    }
+                    // otherwise, get the initial pitches from the first note of each staff
+                    else {
+                      initialPitches = getInitialNotesFromAllStaves(scoreData.staves, curNote.pitch);
+                    }
+                  }
+
+                  // If this is the first noteSet, save it
+                  if (measIdx == 0 && noteSetIdx == 0) {
+                    initialNoteSet = curNoteSet;
+                  }
+
+                }
+              }
+            }
+          }
+          /*
+           * As a result of calling getNotesFromOnset() the last element of initialPitches contains the pitch that
+           * the mainMelodyPitches needs to start with
+           */
+          mainMelodyPitches[0] = initialPitches.pop();
+          callCounterpointService(mainMelodyPitches, initialPitches, readModeSelection(),
+                                  readSpeciesSelection(), readRulePenalties());
+        });
+      }
+
+      // TODO: Factor out common code with getInitialNotesFromAllStaves method
+      function getInitialNotesFromNoteset(noteSet, secondPitchInCantus) {
+        var initialNotes = [];
+        var pitchToReserve = 0;
+        for (noteIdx = 0; noteIdx < noteSet.notes.length; noteIdx++) {
+          var curChordNote = noteSet.notes[noteIdx];
+          console.log("curChordNote.pitch:" + (curChordNote.pitch + 12));
+          if (Math.abs(secondPitchInCantus - curChordNote.pitch) <
+                  Math.abs(secondPitchInCantus - pitchToReserve)) {
+            if (pitchToReserve != 0) {
+              initialNotes.push(pitchToReserve + 12);
+            }
+            pitchToReserve = curChordNote.pitch;
+          }
+          else {
+            initialNotes.push(curChordNote.pitch + 12);
+          }
+        }
+        if (initialNotes.length == 0) {
+          initialNotes.push(pitchToReserve - 12 + 12); //TODO: Handle the 12 tone difference between MIDI and Noteflight note pitches better everywhere
+        }
+
+        // Push the note being reserved for the first note in the cantus firmus
+        initialNotes.push(pitchToReserve + 12);
+        return initialNotes;
+      }
+
+      // TODO: Factor out common code with getInitialNotesFromNoteset method
+      function getInitialNotesFromAllStaves(staves, secondPitchInCantus) {
+        var initialNotes = [];
+        var pitchToReserve = 0;
+        for (staffIdx = 0; staffIdx < staves.length; staffIdx++) {
+          curStaff = staves[staffIdx];
+          if (curStaff.measures.length > 0) {
+            var curMeasure = curStaff.measures[0];
+            if (curMeasure.noteSets.length > 0) {
+              var curNoteSet = curMeasure.noteSets[0];
+              if (curNoteSet.notes.length > 0) {
+                var curNote = curNoteSet.notes[0];
+                if (Math.abs(secondPitchInCantus - curNote.pitch) <
+                        Math.abs(secondPitchInCantus - pitchToReserve)) {
+                  if (pitchToReserve != 0) {
+                    initialNotes.push(pitchToReserve + 12);
+                  }
+                  pitchToReserve = curNote.pitch;
+                }
+                else {
+                  initialNotes.push(curNote.pitch + 12);
+                }
+              }
+            }
+          }
+        }
+        if (initialNotes.length == 0) {
+          initialNotes.push(pitchToReserve - 12 + 12);
+        }
+
+        // Push the note being reserved for the first note in the cantus firmus
+        initialNotes.push(pitchToReserve + 12);
+        return initialNotes;
+      }
+
+      function readModeSelection() {
+        var modeVal = $('#modeIds').val();
+        var modeValInt = isNaN(modeVal) ? 0 : parseInt(modeVal);
+        return modeValInt;
+      }
+
+      function readSpeciesSelection() {
+        var speciesVal = $('#speciesIds').val();
+        var speciesValInt = isNaN(speciesVal) ? 1 : parseInt(speciesVal);
+        return speciesValInt;
+      }
+
+      function readRulePenalties() {
+        return rulePenalties;
+      }
+
+      function toggleRulePenalty(ruleName) {
+        if (rulePenalties.hasOwnProperty(ruleName)) {
+          delete rulePenalties[ruleName];
+        }
+        else {
+          rulePenalties[ruleName] = 0;
+        }
+      }
+
+      function configureCounterpointRules() {
+        $('#counterpointRulesDialog').foundation('reveal', 'open');
+      }
+
+
+    </script>
+
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
+    <script>
+        // Throttled resize function
+        $(window).on('resize', Foundation.utils.throttle(function(e){
+            $( "#noteflightScore" ).attr("width",window.innerWidth - widthMargin).attr("height",window.innerHeight - heightMargin);
+        }, 300));
+
+    </script>
 
   </body>
 </html>
