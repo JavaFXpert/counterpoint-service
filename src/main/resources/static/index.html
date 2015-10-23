@@ -74,23 +74,22 @@
         <li class="left"><label>&nbsp;</label></li>
 
         <ul class="left">
-          <li><a onclick="initNoteflight()">Clear</a></li>
+          <li><a onclick="configureCounterpointRules()">Rules</a></li>
         </ul>
 
         <li class="left"><label>&nbsp;</label></li>
 
         <ul class="left">
-          <li><a onclick="configureCounterpointRules()">Rules</a></li>
+          <li><a onclick="initNoteflight()">Clear</a></li>
         </ul>
 
       </section>
     </nav>
 
     <div id="counterpointRulesDialog" class="reveal-modal" data-reveal aria-labelledby="counterpointRulesDialogTitle" aria-hidden="true" role="dialog">
-      <h2 id="counterpointRulesDialogTitle">Counterpoint Rules Preferences</h2>
-      <p class="lead">What are your preferences for counterpoint rules?</p>
+      <h3 id="counterpointRulesDialogTitle">Counterpoint Rules Preferences</h3>
 
-      <div id="" style="overflow-y: scroll; height:400px;">
+      <div id="counterpointRulesDialogScroll" style="overflow-y: scroll; height:300px;">
         <p>Parallel fifths are not allowed</p>
         <div class="switch round small">
           <input id="parallelFifthPenalty" type="checkbox" checked>
@@ -145,7 +144,7 @@
           <label for="badCadencePenalty" onclick="toggleRulePenalty('badCadencePenalty')"></label>
         </div>
 
-        <p>sixFiveChordPenalty</p>
+        <p>Avoid six-five chord penalty</p>
         <div class="switch round small">
           <input id="sixFiveChordPenalty" type="checkbox" checked>
           <label for="sixFiveChordPenalty" onclick="toggleRulePenalty('sixFiveChordPenalty')"></label>
@@ -193,19 +192,19 @@
           <label for="unresolvedLeadingTonePenalty" onclick="toggleRulePenalty('unresolvedLeadingTonePenalty')"></label>
         </div>
 
-        <p>directPerfectOnDownbeatPenalty</p>
+        <p>Direct perfect on downbeat penalty</p>
         <div class="switch round small">
           <input id="directPerfectOnDownbeatPenalty" type="checkbox" checked>
           <label for="directPerfectOnDownbeatPenalty" onclick="toggleRulePenalty('directPerfectOnDownbeatPenalty')"></label>
         </div>
 
-        <p>crossBelowBassPenalty</p>
+        <p>Avoid cross below bass penalty</p>
         <div class="switch round small">
           <input id="crossBelowBassPenalty" type="checkbox" checked>
           <label for="crossBelowBassPenalty" onclick="toggleRulePenalty('crossBelowBassPenalty')"></label>
         </div>
 
-        <p>crossAboveCantusPenalty</p>
+        <p>Avoid cross above cantus penalty</p>
         <div class="switch round small">
           <input id="crossAboveCantusPenalty" type="checkbox" checked>
           <label for="crossAboveCantusPenalty" onclick="toggleRulePenalty('crossAboveCantusPenalty')"></label>
@@ -289,7 +288,7 @@
           <label for="notTriadPenalty" onclick="toggleRulePenalty('notTriadPenalty')"></label>
         </div>
 
-        <p>noMotionAgainstOctavePenalty</p>
+        <p>No motion against octave penalty</p>
         <div class="switch round small">
           <input id="noMotionAgainstOctavePenalty" type="checkbox" checked>
           <label for="noMotionAgainstOctavePenalty" onclick="toggleRulePenalty('noMotionAgainstOctavePenalty')"></label>
@@ -307,7 +306,7 @@
           <label for="innerVoicesInDirectToPerfectPenalty" onclick="toggleRulePenalty('innerVoicesInDirectToPerfectPenalty')"></label>
         </div>
 
-        <p>unisonUpbeatPenalty</p>
+        <p>Avoid unison up-beat penalty</p>
         <div class="switch round small">
           <input id="unisonUpbeatPenalty" type="checkbox" checked>
           <label for="unisonUpbeatPenalty" onclick="toggleRulePenalty('unisonUpbeatPenalty')"></label>
@@ -325,7 +324,7 @@
           <label for="leapAtCadencePenalty" onclick="toggleRulePenalty('leapAtCadencePenalty')"></label>
         </div>
 
-        <p>halfUntiedPenalty</p>
+        <p>Avoid half untied penalty</p>
         <div class="switch round small">
           <input id="halfUntiedPenalty" type="checkbox" checked>
           <label for="halfUntiedPenalty" onclick="toggleRulePenalty('halfUntiedPenalty')"></label>
@@ -367,7 +366,7 @@
           <label for="fifthFollowedBySameDirectionPenalty" onclick="toggleRulePenalty('fifthFollowedBySameDirectionPenalty')"></label>
         </div>
 
-        <p>lesserLigaturePenalty</p>
+        <p>Avoid lesser ligature penalty</p>
         <div class="switch round small">
           <input id="lesserLigaturePenalty" type="checkbox" checked>
           <label for="lesserLigaturePenalty" onclick="toggleRulePenalty('lesserLigaturePenalty')"></label>
@@ -559,14 +558,18 @@
 
     </div>
 
-    <!--a href="#" data-reveal-id="noCounterpointModal">Click Me For A Modal</a-->
     <div id="noCounterpointModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
-      <h2 id="modalTitle">I wasn't able to compute the counterpoint.</h2>
+      <h3 id="modalTitle">I wasn't able to compute the counterpoint.</h3>
       <p class="lead">I think you ought to know I'm feeling very depressed.</p>
       <p>You can blame the Sirius Cybernetics Corporation for making androids with Genious People Personalities.
         Seriously though, please try again, perhaps with a shorter cantus firmus, less complex initial chord, or different species. </p><br/>
         Sincerely, <br/>
         Marvin the Robot</p>
+      <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+    </div>
+
+    <div id="busyDialog" class="reveal-modal" data-reveal aria-labelledby="busyDialogTitle" aria-hidden="true" role="dialog">
+      <h3 id="busyDialogTitle">Computing Counterpoint...</h3>
       <a class="close-reveal-modal" aria-label="Close">&#215;</a>
     </div>
 
@@ -616,7 +619,7 @@
           "rulePenalties" : rulePenaltiesSelections
         };
         cantusFirmusJson = JSON.stringify(cantusFirmusJson);
-        //alert("cantusFirmusJson == " + cantusFirmusJson);
+        $('#busyDialog').foundation('reveal', 'open');
         $.ajax({
           method: 'POST',
           contentType: 'application/json',
@@ -625,8 +628,9 @@
           data: cantusFirmusJson
         }).done(function (doc) {
           scoreView.loadMusicXML(doc.documentElement.outerHTML);
+          $('#busyDialog').foundation('reveal', 'close');
         }).error(function (err) {
-          //alert(err.responseText);
+          $('#busyDialog').foundation('reveal', 'close');
           $('#noCounterpointModal').foundation('reveal', 'open');
         });
       }
@@ -783,7 +787,10 @@
     <script>
         // Throttled resize function
         $(window).on('resize', Foundation.utils.throttle(function(e){
-            $( "#noteflightScore" ).attr("width",window.innerWidth - widthMargin).attr("height",window.innerHeight - heightMargin);
+          $( "#noteflightScore" ).attr("width",window.innerWidth - widthMargin).attr("height",window.innerHeight - heightMargin);
+          $( "#counterpointRulesDialog" ).attr("width",(window.innerWidth - widthMargin) * 0.5).attr("height",(window.innerHeight - heightMargin) * 0.6);
+          var styleStr = "overflow-y: scroll; height:" + ((window.innerHeight - heightMargin) * 0.6) + "px;";
+          $( "#counterpointRulesDialogScroll" ).attr("style",styleStr);
         }, 300));
 
     </script>
