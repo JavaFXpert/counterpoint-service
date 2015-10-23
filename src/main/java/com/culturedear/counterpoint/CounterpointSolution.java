@@ -86,10 +86,15 @@ public class CounterpointSolution {
                     List<Note> notes = measure.getNotes();
                     if (notes.size() > 0) {
                         Note firstNoteInMeasure = notes.get(0);
+                        if (measureNum == 0 && firstNoteInMeasure.getPitch().octave <= 3) {
+                          // First note in measure is below middle C, so use bass clef
+                          Clef clef = new Clef("F", 4);
+                          MeasureAttributes measureAttributes = new MeasureAttributes(clef);
+                          measure.setMeasureAttributes(measureAttributes);
+                        }
                         if (topMeasureFirstNote == null) {
                             topMeasureFirstNote = firstNoteInMeasure;
                         }
-                        //System.out.println("- note: " + firstNoteInMeasure.getPitch());
                         chordNotes.add(firstNoteInMeasure);
                     } else {
                         // Unexpected, as all measures should have at least one note
@@ -110,7 +115,6 @@ public class CounterpointSolution {
                 // Call the Chord Analyzer service
                 RestTemplate restTemplate = new RestTemplate();
                 Lyric lyric = null;
-                // TODO: Identify best practice (e.g. env variable, application.properties, yaml) for representing the URL for the following service
                 try {
 
                     ClientMusicChord clientMusicChord =

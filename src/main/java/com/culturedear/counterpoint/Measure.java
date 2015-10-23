@@ -14,8 +14,19 @@ public class Measure {
   @JacksonXmlProperty(localName="number", isAttribute=true)
   private String measure;
 
+  @JacksonXmlProperty(localName="attributes")
+  private MeasureAttributes measureAttributes;
+
   public Measure(String measure) {
     this.measure = measure;
+  }
+
+  public MeasureAttributes getMeasureAttributes() {
+    return measureAttributes;
+  }
+
+  public void setMeasureAttributes(MeasureAttributes measureAttributes) {
+    this.measureAttributes = measureAttributes;
   }
 
   @JacksonXmlElementWrapper(useWrapping = false)
