@@ -1554,9 +1554,6 @@ public class CounterpointGenerator {
       }
     }
 
-    //System.out.println();
-    //System.out.println("[" + bestFitPenalty + "]");
-
     counterpointSolution = new CounterpointSolution();
 
     List<Note> cantusFirmusVoiceNotes = new ArrayList<Note>(cantusFirmus.length);
@@ -1568,7 +1565,7 @@ public class CounterpointGenerator {
     //System.out.println();
     counterpointSolution.addVoice(cantusFirmusVoiceNotes);
 
-    for (v = 1; v <= v1; v++) {
+    for (v = v1; v >= 1; v--) { // Iterate in reverse order so that lowest melodies tend to be on the bottom
       List<Note> computedVoiceNotes = new ArrayList<Note>(totalNotes[v]);
       for (i = 1; i <= totalNotes[v]; i++) {
 	      //System.out.print(bestFit[i][v] + " ");
@@ -1579,16 +1576,6 @@ public class CounterpointGenerator {
       //System.out.println();
       counterpointSolution.addVoice(computedVoiceNotes);
     }
-
-    /*
-    for (v = 1; v <= v1; v++) {
-      for (i = 1; i <= totalNotes[v]; i++) {
-        System.out.print(ctrpt[i][v] + " ");
-      }
-      System.out.println();
-    }
-    */
-
   }
 
   int indx[] = {0,1,-1,2,-2,3,-3,0,4,-4,5,7,-5,8,12,-7,-12};
