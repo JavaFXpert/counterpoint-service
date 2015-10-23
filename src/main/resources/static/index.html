@@ -77,10 +77,66 @@
           <li><a onclick="initNoteflight()">Clear</a></li>
         </ul>
 
+        <li class="left"><label>&nbsp;</label></li>
+
+        <ul class="left">
+          <li><a onclick="configureCounterpointRules()">Rules</a></li>
+        </ul>
+
       </section>
     </nav>
 
     <div>
+      <div id="counterpointRulesDialog" class="reveal-modal" data-reveal aria-labelledby="counterpointRulesDialogTitle" aria-hidden="true" role="dialog">
+        <h2 id="counterpointRulesDialogTitle">Counterpoint Rules Preferences</h2>
+        <p class="lead">What are your preferences for counterpoint rules?</p>
+
+        <p>Parallel fifths are not allowed</p>
+        <div class="switch round small">
+          <input id="parallelFifthPenalty" type="checkbox" checked>
+          <label for="parallelFifthPenalty" onclick="toggleRulePenalty('parallelFifthPenalty')"></label>
+        </div>
+
+        <p>Parallel unisons are not allowed</p>
+        <div class="switch round small">
+          <input id="parallelUnisonPenalty" type="checkbox" checked>
+          <label for="parallelUnisonPenalty" onclick="toggleRulePenalty('parallelUnisonPenalty')"></label>
+        </div>
+
+        <p>In two part counterpoint the final chord must be a unison or an octave; it can include the third or fifth when there are more than two parts</p>
+        <div class="switch round small">
+          <input id="endOnPerfectPenalty" type="checkbox" checked>
+          <label for="endOnPerfectPenalty" onclick="toggleRulePenalty('endOnPerfectPenalty')"></label>
+        </div>
+
+        <p>The next to last chord must have a leading tone</p>
+        <div class="switch round small">
+          <input id="noLeadingTonePenalty" type="checkbox" checked>
+          <label for="noLeadingTonePenalty" onclick="toggleRulePenalty('noLeadingTonePenalty')"></label>
+        </div>
+
+        <p>Dissonances must be handled correctly (this covers a host of rules)</p>
+        <div class="switch round small">
+          <input id="dissonancePenalty" type="checkbox" checked>
+          <label for="dissonancePenalty" onclick="toggleRulePenalty('dissonancePenalty')"></label>
+        </div>
+
+        <p>Voices must stay within the mode of the cantus firmus</p>
+        <div class="switch round small">
+          <input id="outOfModePenalty" type="checkbox" checked>
+          <label for="outOfModePenalty" onclick="toggleRulePenalty('outOfModePenalty')"></label>
+        </div>
+
+        <p>A dissonance as a passing tone must fill in a third</p>
+        <div class="switch round small">
+          <input id="dissonanceNotFillingThirdPenalty" type="checkbox" checked>
+          <label for="dissonanceNotFillingThirdPenalty" onclick="toggleRulePenalty('dissonanceNotFillingThirdPenalty')"></label>
+        </div>
+
+
+        <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+      </div>
+
       <!--a href="#" data-reveal-id="noCounterpointModal">Click Me For A Modal</a-->
       <div id="noCounterpointModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
         <h2 id="modalTitle">I wasn't able to compute the counterpoint.</h2>
@@ -96,6 +152,8 @@
           var scoreView;
           var widthMargin = 20;   // Margin between Noteflight client and right side of window
           var heightMargin = 100; // Margin between Noteflight client and bottom of window
+
+          var rulePenalties = {};
 
           initNoteflight();
 
@@ -134,6 +192,7 @@
               "rulePenalties" : rulePenaltiesSelections
             };
             cantusFirmusJson = JSON.stringify(cantusFirmusJson);
+            alert("cantusFirmusJson == " + cantusFirmusJson);
             $.ajax({
               method: 'POST',
               contentType: 'application/json',
@@ -273,12 +332,22 @@
           }
 
           function readRulePenalties() {
-            var rulePenalties = {
-              //"endOnPerfectPenalty" : 1000000,
-              //"noLeadingTonePenalty" : 1000000
-            };
             return rulePenalties;
           }
+
+          function toggleRulePenalty(ruleName) {
+            if (rulePenalties.hasOwnProperty(ruleName)) {
+              delete rulePenalties[ruleName];
+            }
+            else {
+              rulePenalties[ruleName] = 0;
+            }
+          }
+
+          function configureCounterpointRules() {
+            $('#counterpointRulesDialog').foundation('reveal', 'open');
+          }
+
 
         </script>
 
