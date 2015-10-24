@@ -1,8 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * CounterpointGenerator.java
+ *
+ * TODO: Modify the returned CounterpointSolution returned from anySpecies() so that the voices, including the
+ * cantus firmus, are sorted by their initial notes.  This will ensure that a bass clef is never rendered above
+ * a treble clef.
+ *
  */
+
 package com.culturedear.counterpoint;
 
 import org.springframework.stereotype.Component;
