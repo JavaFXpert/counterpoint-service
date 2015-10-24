@@ -104,7 +104,7 @@
         <a name="critical"></a>
         <h4>Rules with critical importance:</h4>
 
-        <table>
+        <table width="100%">
           <tr>
             <td>
               <p>Parallel fifths are not allowed</p>
@@ -349,7 +349,144 @@
         <a name="high"></a>
         <h4>Rules with high importance:</h4>
 
+        <table width="100%">
+          <tr>
+            <td>
+              <p>Avoid direct motion to a perfect fifth</p>
+            </td>
+            <td>
+              <div class="switch round small">
+                <input id="directToFifthPenalty" type="checkbox" checked>
+                <label for="directToFifthPenalty" onclick="toggleRulePenalty('directToFifthPenalty')"></label>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <p>Avoid direct motion to an octave</p>
+            </td>
+            <td>
+              <div class="switch round small">
+                <input id="directToOctavePenalty" type="checkbox" checked>
+                <label for="directToOctavePenalty" onclick="toggleRulePenalty('directToOctavePenalty')"></label>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <p>Voices should not move outside certain ranges</p>
+            </td>
+            <td>
+              <div class="switch round small">
+                <input id="outOfRangePenalty" type="checkbox" checked>
+                <label for="outOfRangePenalty" onclick="toggleRulePenalty('outOfRangePenalty')"></label>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <p>Avoid a unison on the down beat</p>
+            </td>
+            <td>
+              <div class="switch round small">
+                <input id="downBeatUnisonPenalty" type="checkbox" checked>
+                <label for="downBeatUnisonPenalty" onclick="toggleRulePenalty('downBeatUnisonPenalty')"></label>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <a name="medium"></a>
+        <h4>Rules with medium importance:</h4>
+
         <table>
+          <tr>
+            <td>
+              <p>Avoid unisons in two part counterpoint</p>
+            </td>
+            <td>
+              <div class="switch round small">
+                <input id="unisonPenalty" type="checkbox" checked>
+                <label for="unisonPenalty" onclick="toggleRulePenalty('unisonPenalty')"></label>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <p>Try not to repeat a note on the upbeat</p>
+            </td>
+            <td>
+              <div class="switch round small">
+                <input id="repetitionOnUpbeatPenalty" type="checkbox" checked>
+                <label for="repetitionOnUpbeatPenalty" onclick="toggleRulePenalty('repetitionOnUpbeatPenalty')"></label>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <p>A melody should stay within the range of an octave</p>
+            </td>
+            <td>
+              <div class="switch round small">
+                <input id="overOctavePenalty" type="checkbox" checked>
+                <label for="overOctavePenalty" onclick="toggleRulePenalty('overOctavePenalty')"></label>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <p>Eighth notes should not skip</p>
+            </td>
+            <td>
+              <div class="switch round small">
+                <input id="eighthJumpPenalty" type="checkbox" checked>
+                <label for="eighthJumpPenalty" onclick="toggleRulePenalty('eighthJumpPenalty')"></label>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <p>A six-five chord must be prepared correctly</p>
+            </td>
+            <td>
+              <div class="switch round small">
+                <input id="unpreparedSixFivePenalty" type="checkbox" checked>
+                <label for="unpreparedSixFivePenalty" onclick="toggleRulePenalty('unpreparedSixFivePenalty')"></label>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <p>A six-five chord must be resolved correctly</p>
+            </td>
+            <td>
+              <div class="switch round small">
+                <input id="unresolvedSixFivePenalty" type="checkbox" checked>
+                <label for="unresolvedSixFivePenalty" onclick="toggleRulePenalty('unresolvedSixFivePenalty')"></label>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <p>Avoid direct motion to a tritone</p>
+            </td>
+            <td>
+              <div class="switch round small">
+                <input id="directToTritonePenalty" type="checkbox" checked>
+                <label for="directToTritonePenalty" onclick="toggleRulePenalty('directToTritonePenalty')"></label>
+              </div>
+            </td>
+          </tr>
+
           <tr>
             <td>
               <p></p>
@@ -376,77 +513,36 @@
 
         </table>
 
-        <p>Avoid direct motion to a perfect fifth</p>
-        <div class="switch round small">
-          <input id="directToFifthPenalty" type="checkbox" checked>
-          <label for="directToFifthPenalty" onclick="toggleRulePenalty('directToFifthPenalty')"></label>
-        </div>
-
-        <p>Avoid direct motion to an octave</p>
-        <div class="switch round small">
-          <input id="directToOctavePenalty" type="checkbox" checked>
-          <label for="directToOctavePenalty" onclick="toggleRulePenalty('directToOctavePenalty')"></label>
-        </div>
-
-        <p>Voices should not move outside certain ranges</p>
-        <div class="switch round small">
-          <input id="outOfRangePenalty" type="checkbox" checked>
-          <label for="outOfRangePenalty" onclick="toggleRulePenalty('outOfRangePenalty')"></label>
-        </div>
-
-        <p>Avoid a unison on the down beat</p>
-        <div class="switch round small">
-          <input id="downBeatUnisonPenalty" type="checkbox" checked>
-          <label for="downBeatUnisonPenalty" onclick="toggleRulePenalty('downBeatUnisonPenalty')"></label>
-        </div>
-
-        <a name="medium"></a>
-        <h4>Rules with medium importance:</h4>
-
-        <p>Avoid unisons in two part counterpoint</p>
-        <div class="switch round small">
-          <input id="unisonPenalty" type="checkbox" checked>
-          <label for="unisonPenalty" onclick="toggleRulePenalty('unisonPenalty')"></label>
-        </div>
-
-        <p>Try not to repeat a note on the upbeat</p>
-        <div class="switch round small">
-          <input id="repetitionOnUpbeatPenalty" type="checkbox" checked>
-          <label for="repetitionOnUpbeatPenalty" onclick="toggleRulePenalty('repetitionOnUpbeatPenalty')"></label>
-        </div>
-
-        <p>A melody should stay within the range of an octave</p>
-        <div class="switch round small">
-          <input id="overOctavePenalty" type="checkbox" checked>
-          <label for="overOctavePenalty" onclick="toggleRulePenalty('overOctavePenalty')"></label>
-        </div>
-
-        <p>Eighth notes should not skip</p>
-        <div class="switch round small">
-          <input id="eighthJumpPenalty" type="checkbox" checked>
-          <label for="eighthJumpPenalty" onclick="toggleRulePenalty('eighthJumpPenalty')"></label>
-        </div>
-
-        <p>A six-five chord must be prepared correctly</p>
-        <div class="switch round small">
-          <input id="unpreparedSixFivePenalty" type="checkbox" checked>
-          <label for="unpreparedSixFivePenalty" onclick="toggleRulePenalty('unpreparedSixFivePenalty')"></label>
-        </div>
-
-        <p>A six-five chord must be resolved correctly</p>
-        <div class="switch round small">
-          <input id="unresolvedSixFivePenalty" type="checkbox" checked>
-          <label for="unresolvedSixFivePenalty" onclick="toggleRulePenalty('unresolvedSixFivePenalty')"></label>
-        </div>
-
-        <p>Avoid direct motion to a tritone</p>
-        <div class="switch round small">
-          <input id="directToTritonePenalty" type="checkbox" checked>
-          <label for="directToTritonePenalty" onclick="toggleRulePenalty('directToTritonePenalty')"></label>
-        </div>
-
         <a name="low"></a>
         <h4>Rules with relatively low importance:</h4>
+
+        <table>
+          <tr>
+            <td>
+              <p></p>
+            </td>
+            <td>
+              <div class="">
+                <input id="" type="" checked>
+                <label for="" onclick=""></label>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <p></p>
+            </td>
+            <td>
+              <div class="">
+                <input id="" type="" checked>
+                <label for="" onclick=""></label>
+              </div>
+            </td>
+          </tr>
+
+
+        </table>
 
         <p>Avoid a sixth followed by motion in the same direction</p>
         <div class="switch round small">
