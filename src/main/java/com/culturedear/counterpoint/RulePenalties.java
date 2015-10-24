@@ -51,7 +51,7 @@ public class RulePenalties implements Serializable {
   private int dissonanceNotFillingThirdPenalty = INFINITE;
 
   // A nota combiata must be resolved correctly.
-  private int notaCambiataPenalty = INFINITE;
+  private int notaCombiataPenalty = INFINITE;
 
   // A ligature must be resolved correctly.
   private int unresolvedLigaturePenalty = INFINITE;
@@ -274,7 +274,7 @@ public class RulePenalties implements Serializable {
   public RulePenalties(int parallelFifthPenalty, int parallelUnisonPenalty, int endOnPerfectPenalty,
                        int noLeadingTonePenalty, int dissonancePenalty, int outOfModePenalty, int badMelodyPenalty,
                        int overTwelfthPenalty, int badCadencePenalty, int sixFiveChordPenalty,
-                       int dissonanceNotFillingThirdPenalty, int notaCambiataPenalty, int unresolvedLigaturePenalty,
+                       int dissonanceNotFillingThirdPenalty, int notaCombiataPenalty, int unresolvedLigaturePenalty,
                        int noTimeForaLigaturePenalty, int augmentedIntervalPenalty, int doubledLeadingTonePenalty,
                        int unresolvedLeadingTonePenalty, int directPerfectOnDownbeatPenalty, int crossBelowBassPenalty,
                        int crossAboveCantusPenalty, int directToFifthPenalty, int directToOctavePenalty,
@@ -308,7 +308,7 @@ public class RulePenalties implements Serializable {
     this.badCadencePenalty = badCadencePenalty;
     this.sixFiveChordPenalty = sixFiveChordPenalty;
     this.dissonanceNotFillingThirdPenalty = dissonanceNotFillingThirdPenalty;
-    this.notaCambiataPenalty = notaCambiataPenalty;
+    this.notaCombiataPenalty = notaCombiataPenalty;
     this.unresolvedLigaturePenalty = unresolvedLigaturePenalty;
     this.noTimeForaLigaturePenalty = noTimeForaLigaturePenalty;
     this.augmentedIntervalPenalty = augmentedIntervalPenalty;
@@ -464,12 +464,12 @@ public class RulePenalties implements Serializable {
     this.dissonanceNotFillingThirdPenalty = dissonanceNotFillingThirdPenalty;
   }
 
-  public int getNotaCambiataPenalty() {
-    return notaCambiataPenalty;
+  public int getNotaCombiataPenalty() {
+    return notaCombiataPenalty;
   }
 
-  public void setNotaCambiataPenalty(int notaCambiataPenalty) {
-    this.notaCambiataPenalty = notaCambiataPenalty;
+  public void setNotaCombiataPenalty(int notaCombiataPenalty) {
+    this.notaCombiataPenalty = notaCombiataPenalty;
   }
 
   public int getUnresolvedLigaturePenalty() {

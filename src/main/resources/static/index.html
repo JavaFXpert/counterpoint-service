@@ -155,120 +155,226 @@
 
           <tr>
             <td>
-              <p></p>
+              <p>Dissonances must be handled correctly (this covers a host of rules)</p>
             </td>
             <td>
               <div class="switch round small">
-                <input id="" type="checkbox" checked>
-                <label for="" onclick="toggleRulePenalty('')"></label>
+                <input id="dissonancePenalty" type="checkbox" checked>
+                <label for="dissonancePenalty" onclick="toggleRulePenalty('dissonancePenalty')"></label>
               </div>
             </td>
           </tr>
 
+          <tr>
+            <td>
+              <p>Voices must stay within the mode of the cantus firmus</p>
+            </td>
+            <td>
+              <div class="switch round small">
+                <input id="outOfModePenalty" type="checkbox" checked>
+                <label for="outOfModePenalty" onclick="toggleRulePenalty('outOfModePenalty')"></label>
+              </div>
+            </td>
+          </tr>
 
+          <tr>
+            <td>
+              <p>Some melodic intervals are not allowed</p>
+            </td>
+            <td>
+              <div class="switch round small">
+                <input id="badMelodyPenalty" type="checkbox" checked>
+                <label for="badMelodyPenalty" onclick="toggleRulePenalty('badMelodyPenalty')"></label>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <p>A melody must stay within the range of a twelfth</p>
+            </td>
+            <td>
+              <div class="switch round small">
+                <input id="overTwelfthPenalty" type="checkbox" checked>
+                <label for="overTwelfthPenalty" onclick="toggleRulePenalty('overTwelfthPenalty')"></label>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <p>Cadences must be correct (this covers a host of rules)</p>
+            </td>
+            <td>
+              <div class="switch round small">
+                <input id="badCadencePenalty" type="checkbox" checked>
+                <label for="badCadencePenalty" onclick="toggleRulePenalty('badCadencePenalty')"></label>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <p>Avoid six-five chord penalty</p>
+            </td>
+            <td>
+              <div class="switch round small">
+                <input id="sixFiveChordPenalty" type="checkbox" checked>
+                <label for="sixFiveChordPenalty" onclick="toggleRulePenalty('sixFiveChordPenalty')"></label>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <p>A dissonance as a passing tone must fill in a third</p>
+            </td>
+            <td>
+              <div class="switch round small">
+                <input id="dissonanceNotFillingThirdPenalty" type="checkbox" checked>
+                <label for="dissonanceNotFillingThirdPenalty" onclick="toggleRulePenalty('dissonanceNotFillingThirdPenalty')"></label>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <p>A nota combiata must be resolved correctly</p>
+            </td>
+            <td>
+              <div class="switch round small">
+                <input id="notaCombiataPenalty" type="checkbox" checked>
+                <label for="notaCombiataPenalty" onclick="toggleRulePenalty('notaCombiataPenalty')"></label>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <p>A ligature must be resolved correctly</p>
+            </td>
+            <td>
+              <div class="switch round small">
+                <input id="unresolvedLigaturePenalty" type="checkbox" checked>
+                <label for="unresolvedLigaturePenalty" onclick="toggleRulePenalty('unresolvedLigaturePenalty')"></label>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <p>There are certain situations where a ligature is not allowed</p>
+            </td>
+            <td>
+              <div class="switch round small">
+                <input id="noTimeForaLigaturePenalty" type="checkbox" checked>
+                <label for="noTimeForaLigaturePenalty" onclick="toggleRulePenalty('noTimeForaLigaturePenalty')"></label>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <p>Augmented intervals are not allowed</p>
+            </td>
+            <td>
+              <div class="switch round small">
+                <input id="augmentedIntervalPenalty" type="checkbox" checked>
+                <label for="augmentedIntervalPenalty" onclick="toggleRulePenalty('augmentedIntervalPenalty')"></label>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <p>Doubled leading tones are not allowed</p>
+            </td>
+            <td>
+              <div class="switch round small">
+                <input id="doubledLeadingTonePenalty" type="checkbox" checked>
+                <label for="doubledLeadingTonePenalty" onclick="toggleRulePenalty('doubledLeadingTonePenalty')"></label>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <p>The leading tone must be resolved correctly</p>
+            </td>
+            <td>
+              <div class="switch round small">
+                <input id="unresolvedLeadingTonePenalty" type="checkbox" checked>
+                <label for="unresolvedLeadingTonePenalty" onclick="toggleRulePenalty('unresolvedLeadingTonePenalty')"></label>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <p>Direct perfect on downbeat penalty</p>
+            </td>
+            <td>
+              <div class="switch round small">
+                <input id="directPerfectOnDownbeatPenalty" type="checkbox" checked>
+                <label for="directPerfectOnDownbeatPenalty" onclick="toggleRulePenalty('directPerfectOnDownbeatPenalty')"></label>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <p>Avoid cross below bass penalty</p>
+            </td>
+            <td>
+              <div class="switch round small">
+                <input id="crossBelowBassPenalty" type="checkbox" checked>
+                <label for="crossBelowBassPenalty" onclick="toggleRulePenalty('crossBelowBassPenalty')"></label>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <p>Avoid cross above cantus penalty</p>
+            </td>
+            <td>
+              <div class="switch round small">
+                <input id="crossAboveCantusPenalty" type="checkbox" checked>
+                <label for="crossAboveCantusPenalty" onclick="toggleRulePenalty('crossAboveCantusPenalty')"></label>
+              </div>
+            </td>
+          </tr>
         </table>
-
-
-
-
-        <p>Dissonances must be handled correctly (this covers a host of rules)</p>
-        <div class="switch round small">
-          <input id="dissonancePenalty" type="checkbox" checked>
-          <label for="dissonancePenalty" onclick="toggleRulePenalty('dissonancePenalty')"></label>
-        </div>
-
-        <p>Voices must stay within the mode of the cantus firmus</p>
-        <div class="switch round small">
-          <input id="outOfModePenalty" type="checkbox" checked>
-          <label for="outOfModePenalty" onclick="toggleRulePenalty('outOfModePenalty')"></label>
-        </div>
-
-        <p>Some melodic intervals are not allowed</p>
-        <div class="switch round small">
-          <input id="badMelodyPenalty" type="checkbox" checked>
-          <label for="badMelodyPenalty" onclick="toggleRulePenalty('badMelodyPenalty')"></label>
-        </div>
-
-        <p>A melody must stay within the range of a twelfth</p>
-        <div class="switch round small">
-          <input id="overTwelfthPenalty" type="checkbox" checked>
-          <label for="overTwelfthPenalty" onclick="toggleRulePenalty('overTwelfthPenalty')"></label>
-        </div>
-
-        <p>Cadences must be correct (this covers a host of rules)</p>
-        <div class="switch round small">
-          <input id="badCadencePenalty" type="checkbox" checked>
-          <label for="badCadencePenalty" onclick="toggleRulePenalty('badCadencePenalty')"></label>
-        </div>
-
-        <p>Avoid six-five chord penalty</p>
-        <div class="switch round small">
-          <input id="sixFiveChordPenalty" type="checkbox" checked>
-          <label for="sixFiveChordPenalty" onclick="toggleRulePenalty('sixFiveChordPenalty')"></label>
-        </div>
-
-        <p>A dissonance as a passing tone must fill in a third</p>
-        <div class="switch round small">
-          <input id="dissonanceNotFillingThirdPenalty" type="checkbox" checked>
-          <label for="dissonanceNotFillingThirdPenalty" onclick="toggleRulePenalty('dissonanceNotFillingThirdPenalty')"></label>
-        </div>
-
-        <p>A nota combiata must be resolved correctly</p>
-        <div class="switch round small">
-          <input id="notaCambiataPenalty" type="checkbox" checked>
-          <label for="notaCambiataPenalty" onclick="toggleRulePenalty('notaCambiataPenalty')"></label>
-        </div>
-
-        <p>A ligature must be resolved correctly</p>
-        <div class="switch round small">
-          <input id="unresolvedLigaturePenalty" type="checkbox" checked>
-          <label for="unresolvedLigaturePenalty" onclick="toggleRulePenalty('unresolvedLigaturePenalty')"></label>
-        </div>
-
-        <p>There are certain situations where a ligature is not allowed</p>
-        <div class="switch round small">
-          <input id="noTimeForaLigaturePenalty" type="checkbox" checked>
-          <label for="noTimeForaLigaturePenalty" onclick="toggleRulePenalty('noTimeForaLigaturePenalty')"></label>
-        </div>
-
-        <p>Augmented intervals are not allowed</p>
-        <div class="switch round small">
-          <input id="augmentedIntervalPenalty" type="checkbox" checked>
-          <label for="augmentedIntervalPenalty" onclick="toggleRulePenalty('augmentedIntervalPenalty')"></label>
-        </div>
-
-        <p>Doubled leading tones are not allowed</p>
-        <div class="switch round small">
-          <input id="doubledLeadingTonePenalty" type="checkbox" checked>
-          <label for="doubledLeadingTonePenalty" onclick="toggleRulePenalty('doubledLeadingTonePenalty')"></label>
-        </div>
-
-        <p>The leading tone must be resolved correctly</p>
-        <div class="switch round small">
-          <input id="unresolvedLeadingTonePenalty" type="checkbox" checked>
-          <label for="unresolvedLeadingTonePenalty" onclick="toggleRulePenalty('unresolvedLeadingTonePenalty')"></label>
-        </div>
-
-        <p>Direct perfect on downbeat penalty</p>
-        <div class="switch round small">
-          <input id="directPerfectOnDownbeatPenalty" type="checkbox" checked>
-          <label for="directPerfectOnDownbeatPenalty" onclick="toggleRulePenalty('directPerfectOnDownbeatPenalty')"></label>
-        </div>
-
-        <p>Avoid cross below bass penalty</p>
-        <div class="switch round small">
-          <input id="crossBelowBassPenalty" type="checkbox" checked>
-          <label for="crossBelowBassPenalty" onclick="toggleRulePenalty('crossBelowBassPenalty')"></label>
-        </div>
-
-        <p>Avoid cross above cantus penalty</p>
-        <div class="switch round small">
-          <input id="crossAboveCantusPenalty" type="checkbox" checked>
-          <label for="crossAboveCantusPenalty" onclick="toggleRulePenalty('crossAboveCantusPenalty')"></label>
-        </div>
 
         <a name="high"></a>
         <h4>Rules with high importance:</h4>
+
+        <table>
+          <tr>
+            <td>
+              <p></p>
+            </td>
+            <td>
+              <div class="">
+                <input id="" type="" checked>
+                <label for="" onclick=""></label>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <p></p>
+            </td>
+            <td>
+              <div class="">
+                <input id="" type="" checked>
+                <label for="" onclick=""></label>
+              </div>
+            </td>
+          </tr>
+
+        </table>
 
         <p>Avoid direct motion to a perfect fifth</p>
         <div class="switch round small">
