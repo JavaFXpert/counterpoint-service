@@ -677,7 +677,7 @@ public class CounterpointGenerator {
             ((dissonance[(Math.abs(us(cn - 2, v) - other2)) % 12]) &&
             ((melInt < 0) || ((Math.abs(melInt) != majorSecond) &&
             (Math.abs(melInt) != minorSecond)))))) {
-          val += rp.getNotaCambiataPenalty();
+          val += rp.getNotaCombiataPenalty();
         }
         if (val >= curLim) {
           return (val);
