@@ -1,4 +1,5 @@
 <!doctype html>
+<!-- TODO: Identify best way to modularize this large HTML file -->
 <html class="no-js" lang="en">
   <head>
     <meta charset="utf-8" />
@@ -89,30 +90,86 @@
     <div id="counterpointRulesDialog" class="reveal-modal" data-reveal aria-labelledby="counterpointRulesDialogTitle" aria-hidden="true" role="dialog">
       <h3 id="counterpointRulesDialogTitle">Counterpoint Rules Preferences</h3>
 
+      <dl class="sub-nav">
+        <dt>Importance:</dt>
+        <dd><a href="#critical">Critical</a></dd>
+        <dd><a href="#high">High</a></dd>
+        <dd><a href="#medium">Medium</a></dd>
+        <dd><a href="#low">Low</a></dd>
+      </dl>
+
+
       <div id="counterpointRulesDialogScroll" style="overflow-y: scroll; height:300px;">
-        <p>Parallel fifths are not allowed</p>
-        <div class="switch round small">
-          <input id="parallelFifthPenalty" type="checkbox" checked>
-          <label for="parallelFifthPenalty" onclick="toggleRulePenalty('parallelFifthPenalty')"></label>
-        </div>
 
-        <p>Parallel unisons are not allowed</p>
-        <div class="switch round small">
-          <input id="parallelUnisonPenalty" type="checkbox" checked>
-          <label for="parallelUnisonPenalty" onclick="toggleRulePenalty('parallelUnisonPenalty')"></label>
-        </div>
+        <a name="critical"></a>
+        <h4>Rules with critical importance:</h4>
 
-        <p>In two part counterpoint the final chord must be a unison or an octave; it can include the third or fifth when there are more than two parts</p>
-        <div class="switch round small">
-          <input id="endOnPerfectPenalty" type="checkbox" checked>
-          <label for="endOnPerfectPenalty" onclick="toggleRulePenalty('endOnPerfectPenalty')"></label>
-        </div>
+        <table>
+          <tr>
+            <td>
+              <p>Parallel fifths are not allowed</p>
+            </td>
+            <td>
+              <div class="switch round small">
+                <input id="parallelFifthPenalty" type="checkbox" checked>
+                <label for="parallelFifthPenalty" onclick="toggleRulePenalty('parallelFifthPenalty')"></label>
+              </div>
+            </td>
+          </tr>
 
-        <p>The next to last chord must have a leading tone</p>
-        <div class="switch round small">
-          <input id="noLeadingTonePenalty" type="checkbox" checked>
-          <label for="noLeadingTonePenalty" onclick="toggleRulePenalty('noLeadingTonePenalty')"></label>
-        </div>
+          <tr>
+            <td>
+              <p>Parallel unisons are not allowed</p>
+            </td>
+            <td>
+              <div class="switch round small">
+                <input id="parallelUnisonPenalty" type="checkbox" checked>
+                <label for="parallelUnisonPenalty" onclick="toggleRulePenalty('parallelUnisonPenalty')"></label>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <p>In two part counterpoint the final chord must be a unison or an octave; it can include the third or fifth when there are more than two parts</p>
+            </td>
+            <td>
+              <div class="switch round small">
+                <input id="endOnPerfectPenalty" type="checkbox" checked>
+                <label for="endOnPerfectPenalty" onclick="toggleRulePenalty('endOnPerfectPenalty')"></label>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <p>The next to last chord must have a leading tone</p>
+            </td>
+            <td>
+              <div class="switch round small">
+                <input id="noLeadingTonePenalty" type="checkbox" checked>
+                <label for="noLeadingTonePenalty" onclick="toggleRulePenalty('noLeadingTonePenalty')"></label>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <p></p>
+            </td>
+            <td>
+              <div class="switch round small">
+                <input id="" type="checkbox" checked>
+                <label for="" onclick="toggleRulePenalty('')"></label>
+              </div>
+            </td>
+          </tr>
+
+
+        </table>
+
+
+
 
         <p>Dissonances must be handled correctly (this covers a host of rules)</p>
         <div class="switch round small">
@@ -210,6 +267,9 @@
           <label for="crossAboveCantusPenalty" onclick="toggleRulePenalty('crossAboveCantusPenalty')"></label>
         </div>
 
+        <a name="high"></a>
+        <h4>Rules with high importance:</h4>
+
         <p>Avoid direct motion to a perfect fifth</p>
         <div class="switch round small">
           <input id="directToFifthPenalty" type="checkbox" checked>
@@ -233,6 +293,9 @@
           <input id="downBeatUnisonPenalty" type="checkbox" checked>
           <label for="downBeatUnisonPenalty" onclick="toggleRulePenalty('downBeatUnisonPenalty')"></label>
         </div>
+
+        <a name="medium"></a>
+        <h4>Rules with medium importance:</h4>
 
         <p>Avoid unisons in two part counterpoint</p>
         <div class="switch round small">
@@ -275,6 +338,9 @@
           <input id="directToTritonePenalty" type="checkbox" checked>
           <label for="directToTritonePenalty" onclick="toggleRulePenalty('directToTritonePenalty')"></label>
         </div>
+
+        <a name="low"></a>
+        <h4>Rules with relatively low importance:</h4>
 
         <p>Avoid a sixth followed by motion in the same direction</p>
         <div class="switch round small">
