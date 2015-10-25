@@ -1301,29 +1301,32 @@
     var initialNotes = [];
     var pitchToReserve = 0;
     var staffIdx = 0;
-    //for (staffIdx = 0; staffIdx < staves.length; staffIdx++) {
-      var curStaff = staves[staffIdx];
-      if (curStaff.measures.length > 0) {
-        var curMeasure = curStaff.measures[0];
-        if (curMeasure.noteSets.length > 0) {
-          var curNoteSet = curMeasure.noteSets[0];
-          if (curNoteSet.notes.length > 0) {
-            var curNote = curNoteSet.notes[0];
-            if (Math.abs(secondPitchInCantus - curNote.pitch) <
-                Math.abs(secondPitchInCantus - pitchToReserve)) {
-              if (pitchToReserve != 0) {
-                initialNotes.push(pitchToReserve + 12);
-              }
-              pitchToReserve = curNote.pitch;
+
+    // TODO: Refactor this block with the same block a few lines below into a common method
+    var curStaff = staves[staffIdx];
+    if (curStaff.measures.length > 0) {
+      var curMeasure = curStaff.measures[0];
+      if (curMeasure.noteSets.length > 0) {
+        var curNoteSet = curMeasure.noteSets[0];
+        if (curNoteSet.notes.length > 0) {
+          var curNote = curNoteSet.notes[0];
+          if (Math.abs(secondPitchInCantus - curNote.pitch) <
+              Math.abs(secondPitchInCantus - pitchToReserve)) {
+            if (pitchToReserve != 0) {
+              initialNotes.push(pitchToReserve + 12);
             }
-            else {
-              initialNotes.push(curNote.pitch + 12);
-            }
+            pitchToReserve = curNote.pitch;
+          }
+          else {
+            initialNotes.push(curNote.pitch + 12);
           }
         }
       }
-    //}
+    }
+
     for (staffIdx = staves.length - 1; staffIdx >= 1; staffIdx--) {
+
+      // TODO: Refactor this block with the same block a few lines above into a common method
       var curStaff = staves[staffIdx];
       if (curStaff.measures.length > 0) {
         var curMeasure = curStaff.measures[0];
@@ -1344,6 +1347,7 @@
           }
         }
       }
+
     }
     if (initialNotes.length == 0) {
       initialNotes.push(pitchToReserve - 12 + 12);
