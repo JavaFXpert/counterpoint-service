@@ -1,1293 +1,1397 @@
 <!doctype html>
 <!-- TODO: Identify best way to modularize this large HTML file -->
 <html class="no-js" lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Counterpoint Composer</title>
-    <link rel="stylesheet" href="css/foundation.css" />
-    <script src="js/vendor/modernizr.js"></script>
-    <script src="js/nfclient.js"></script>
-  </head>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Counterpoint Composer</title>
+  <link rel="stylesheet" href="css/foundation.css" />
+  <script src="js/vendor/modernizr.js"></script>
+  <script src="js/nfclient.js"></script>
+</head>
 
-  <body>
-    <!-- First top bar -->
-    <nav class="top-bar" data-topbar role="navigation">
-      <ul class="title-area">
-        <li class="name">
-          <h1><a href="#">Counterpoint Composer</a></h1>
-        </li>
-      </ul>
+<body>
+<!-- First top bar -->
+<nav class="top-bar" data-topbar role="navigation">
+  <ul class="title-area">
+    <li class="name">
+      <h1><a href="#">Counterpoint Composer</a></h1>
+    </li>
+  </ul>
 
-      <section class="top-bar-section">
-        <!-- Right Nav Section -->
-        <ul class="right">
-          <li><a href="http://pivotal.io/platform/" target="_blank"><img src="img/cloudfoundry-logo.png" ></a></li>
-        </ul>
-        <ul class="right">
-          <li><a href="http://pivotal.io/platform" target="_blank"><i>and Cloud Foundry</i></a></li>
-        </ul>
-        <ul class="right">
-          <li><a href="http://projects.spring.io/spring-boot/" target="_blank"><img src="img/spring-logo.png" ></a></li>
-        </ul>
-        <ul class="right">
-          <li><a href="http://projects.spring.io/spring-boot/" target="_blank"><i>powered by Spring Boot</i></a></li>
-        </ul>
+  <section class="top-bar-section">
+    <!-- Right Nav Section -->
+    <ul class="right">
+      <li><a href="http://pivotal.io/platform/" target="_blank"><img src="img/cloudfoundry-logo.png" ></a></li>
+    </ul>
+    <ul class="right">
+      <li><a href="http://pivotal.io/platform" target="_blank"><i>and Cloud Foundry</i></a></li>
+    </ul>
+    <ul class="right">
+      <li><a href="http://projects.spring.io/spring-boot/" target="_blank"><img src="img/spring-logo.png" ></a></li>
+    </ul>
+    <ul class="right">
+      <li><a href="http://projects.spring.io/spring-boot/" target="_blank"><i>powered by Spring Boot</i></a></li>
+    </ul>
 
-      </section>
-    </nav>
+  </section>
+</nav>
 
-    <nav class="top-bar" data-topbar role="navigation">
-      <section class="top-bar-section">
-        <!-- Left Nav Section -->
-        <li class="left"><label>&nbsp;</label></li>
+<nav class="top-bar" data-topbar role="navigation">
+  <section class="top-bar-section">
+    <!-- Left Nav Section -->
+    <li class="left"><label>&nbsp;</label></li>
 
-        <ul class="left">
-          <select name="species" id="speciesIds">
-            <option value="1">First species</option>
-            <option value="2">Second species</option>
-            <option value="3">Third species</option>
-            <option value="4">Fourth species</option>
-            <option value="5">Fifth species</option>
-          </select>
-        </ul>
+    <ul class="left">
+      <select name="species" id="speciesIds">
+        <option value="1">First species</option>
+        <option value="2">Second species</option>
+        <option value="3">Third species</option>
+        <option value="4">Fourth species</option>
+        <option value="5">Fifth species</option>
+      </select>
+    </ul>
 
-        <li class="left"><label>&nbsp;</label></li>
+    <li class="left"><label>&nbsp;</label></li>
 
-        <ul class="left">
-          <select name="modes" id="modeIds">
-            <option value="0">Ionian mode</option>
-            <option value="1">Dorian mode</option>
-            <option value="2">Phrygian mode</option>
-            <option value="3">Lydian mode</option>
-            <option value="4">Mixolydian mode</option>
-            <option value="5">Aeolian mode</option>
-            <option value="6">Locrian mode</option>
-          </select>
-        </ul>
+    <ul class="left">
+      <select name="modes" id="modeIds">
+        <option value="0">Ionian mode</option>
+        <option value="1">Dorian mode</option>
+        <option value="2">Phrygian mode</option>
+        <option value="3">Lydian mode</option>
+        <option value="4">Mixolydian mode</option>
+        <option value="5">Aeolian mode</option>
+        <option value="6">Locrian mode</option>
+      </select>
+    </ul>
 
-        <li class="left"><label>&nbsp;</label></li>
+    <li class="left"><label>&nbsp;</label></li>
 
-        <ul class="left">
-          <li><a onclick="readMainMelody()">Compose</a></li>
-        </ul>
+    <ul class="left">
+      <li><a onclick="readMainMelody()">Compose</a></li>
+    </ul>
 
-        <li class="left"><label>&nbsp;</label></li>
+    <li class="left"><label>&nbsp;</label></li>
 
-        <ul class="left">
-          <li><a onclick="configureCounterpointRules()">Rules</a></li>
-        </ul>
+    <ul class="left">
+      <li><a onclick="configureCounterpointRules()">Rules</a></li>
+    </ul>
 
-        <li class="left"><label>&nbsp;</label></li>
+    <li class="left"><label>&nbsp;</label></li>
 
-        <ul class="left">
-          <li><a onclick="initNoteflight()">Clear</a></li>
-        </ul>
+    <ul class="left">
+      <li><a onclick="initNoteflight()">Clear</a></li>
+    </ul>
 
-      </section>
-    </nav>
+  </section>
+</nav>
 
-    <div id="counterpointRulesDialog" class="reveal-modal" data-reveal aria-labelledby="counterpointRulesDialogTitle" aria-hidden="true" role="dialog">
+<div id="counterpointRulesDialog" class="reveal-modal" data-reveal aria-labelledby="counterpointRulesDialogTitle" aria-hidden="true" role="dialog">
+  <div class="row">
+    <div class="medium-6 columns">
       <h3 id="counterpointRulesDialogTitle">Counterpoint Rules Preferences</h3>
-
-      <!-- TODO: Investigate how to provide sub-navigation similar to the commented code below, without annoying side effects -->
-      <!--dl class="sub-nav">
-        <dt>Importance:</dt>
-        <dd><a href="#critical">Critical</a></dd>
-        <dd><a href="#high">High</a></dd>
-        <dd><a href="#medium">Medium</a></dd>
-        <dd><a href="#low">Low</a></dd>
-      </dl-->
-
-
-      <div id="counterpointRulesDialogScroll" style="overflow-y: scroll; height:300px;">
-
-        <a name="critical"></a>
-        <h4>Rules with critical importance:</h4>
-
-        <table>
-          <col width="100%">
-          <tr>
-            <td>
-              <p>Parallel fifths are not allowed</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="parallelFifthPenalty" type="checkbox" checked>
-                <label for="parallelFifthPenalty" onclick="toggleRulePenalty('parallelFifthPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Parallel unisons are not allowed</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="parallelUnisonPenalty" type="checkbox" checked>
-                <label for="parallelUnisonPenalty" onclick="toggleRulePenalty('parallelUnisonPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>In two part counterpoint the final chord must be a unison or an octave; it can include the third or fifth when there are more than two parts</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="endOnPerfectPenalty" type="checkbox" checked>
-                <label for="endOnPerfectPenalty" onclick="toggleRulePenalty('endOnPerfectPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>The next to last chord must have a leading tone</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="noLeadingTonePenalty" type="checkbox" checked>
-                <label for="noLeadingTonePenalty" onclick="toggleRulePenalty('noLeadingTonePenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Dissonances must be handled correctly (this covers a host of rules)</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="dissonancePenalty" type="checkbox" checked>
-                <label for="dissonancePenalty" onclick="toggleRulePenalty('dissonancePenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Voices must stay within the mode of the cantus firmus</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="outOfModePenalty" type="checkbox" checked>
-                <label for="outOfModePenalty" onclick="toggleRulePenalty('outOfModePenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Some melodic intervals are not allowed</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="badMelodyPenalty" type="checkbox" checked>
-                <label for="badMelodyPenalty" onclick="toggleRulePenalty('badMelodyPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>A melody must stay within the range of a twelfth</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="overTwelfthPenalty" type="checkbox" checked>
-                <label for="overTwelfthPenalty" onclick="toggleRulePenalty('overTwelfthPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Cadences must be correct (this covers a host of rules)</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="badCadencePenalty" type="checkbox" checked>
-                <label for="badCadencePenalty" onclick="toggleRulePenalty('badCadencePenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid six-five chord penalty</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="sixFiveChordPenalty" type="checkbox" checked>
-                <label for="sixFiveChordPenalty" onclick="toggleRulePenalty('sixFiveChordPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>A dissonance as a passing tone must fill in a third</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="dissonanceNotFillingThirdPenalty" type="checkbox" checked>
-                <label for="dissonanceNotFillingThirdPenalty" onclick="toggleRulePenalty('dissonanceNotFillingThirdPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>A nota combiata must be resolved correctly</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="notaCombiataPenalty" type="checkbox" checked>
-                <label for="notaCombiataPenalty" onclick="toggleRulePenalty('notaCombiataPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>A ligature must be resolved correctly</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="unresolvedLigaturePenalty" type="checkbox" checked>
-                <label for="unresolvedLigaturePenalty" onclick="toggleRulePenalty('unresolvedLigaturePenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>There are certain situations where a ligature is not allowed</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="noTimeForaLigaturePenalty" type="checkbox" checked>
-                <label for="noTimeForaLigaturePenalty" onclick="toggleRulePenalty('noTimeForaLigaturePenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Augmented intervals are not allowed</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="augmentedIntervalPenalty" type="checkbox" checked>
-                <label for="augmentedIntervalPenalty" onclick="toggleRulePenalty('augmentedIntervalPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Doubled leading tones are not allowed</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="doubledLeadingTonePenalty" type="checkbox" checked>
-                <label for="doubledLeadingTonePenalty" onclick="toggleRulePenalty('doubledLeadingTonePenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>The leading tone must be resolved correctly</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="unresolvedLeadingTonePenalty" type="checkbox" checked>
-                <label for="unresolvedLeadingTonePenalty" onclick="toggleRulePenalty('unresolvedLeadingTonePenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Direct perfect on downbeat penalty</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="directPerfectOnDownbeatPenalty" type="checkbox" checked>
-                <label for="directPerfectOnDownbeatPenalty" onclick="toggleRulePenalty('directPerfectOnDownbeatPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid cross below bass penalty</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="crossBelowBassPenalty" type="checkbox" checked>
-                <label for="crossBelowBassPenalty" onclick="toggleRulePenalty('crossBelowBassPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid cross above cantus penalty</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="crossAboveCantusPenalty" type="checkbox" checked>
-                <label for="crossAboveCantusPenalty" onclick="toggleRulePenalty('crossAboveCantusPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-        </table>
-
-        <a name="high"></a>
-        <h4>Rules with high importance:</h4>
-
-        <table>
-          <col width="100%">
-          <tr>
-            <td>
-              <p>Avoid direct motion to a perfect fifth</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="directToFifthPenalty" type="checkbox" checked>
-                <label for="directToFifthPenalty" onclick="toggleRulePenalty('directToFifthPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid direct motion to an octave</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="directToOctavePenalty" type="checkbox" checked>
-                <label for="directToOctavePenalty" onclick="toggleRulePenalty('directToOctavePenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Voices should not move outside certain ranges</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="outOfRangePenalty" type="checkbox" checked>
-                <label for="outOfRangePenalty" onclick="toggleRulePenalty('outOfRangePenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid a unison on the down beat</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="downBeatUnisonPenalty" type="checkbox" checked>
-                <label for="downBeatUnisonPenalty" onclick="toggleRulePenalty('downBeatUnisonPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-        </table>
-
-        <a name="medium"></a>
-        <h4>Rules with medium importance:</h4>
-
-        <table>
-          <col width="100%">
-          <tr>
-            <td>
-              <p>Avoid unisons in two part counterpoint</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="unisonPenalty" type="checkbox" checked>
-                <label for="unisonPenalty" onclick="toggleRulePenalty('unisonPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Try not to repeat a note on the upbeat</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="repetitionOnUpbeatPenalty" type="checkbox" checked>
-                <label for="repetitionOnUpbeatPenalty" onclick="toggleRulePenalty('repetitionOnUpbeatPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>A melody should stay within the range of an octave</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="overOctavePenalty" type="checkbox" checked>
-                <label for="overOctavePenalty" onclick="toggleRulePenalty('overOctavePenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Eighth notes should not skip</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="eighthJumpPenalty" type="checkbox" checked>
-                <label for="eighthJumpPenalty" onclick="toggleRulePenalty('eighthJumpPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>A six-five chord must be prepared correctly</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="unpreparedSixFivePenalty" type="checkbox" checked>
-                <label for="unpreparedSixFivePenalty" onclick="toggleRulePenalty('unpreparedSixFivePenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>A six-five chord must be resolved correctly</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="unresolvedSixFivePenalty" type="checkbox" checked>
-                <label for="unresolvedSixFivePenalty" onclick="toggleRulePenalty('unresolvedSixFivePenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid direct motion to a tritone</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="directToTritonePenalty" type="checkbox" checked>
-                <label for="directToTritonePenalty" onclick="toggleRulePenalty('directToTritonePenalty')"></label>
-              </div>
-            </td>
-          </tr>
-        </table>
-
-        <a name="low"></a>
-        <h4>Rules with relatively low importance:</h4>
-
-        <table>
-          <col width="100%">
-          <tr>
-            <td>
-              <p>Avoid a sixth followed by motion in the same direction</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="sixthFollowedBySameDirectionPenalty" type="checkbox" checked>
-                <label for="sixthFollowedBySameDirectionPenalty" onclick="toggleRulePenalty('sixthFollowedBySameDirectionPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Strive for triads</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="notTriadPenalty" type="checkbox" checked>
-                <label for="notTriadPenalty" onclick="toggleRulePenalty('notTriadPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>No motion against octave penalty</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="noMotionAgainstOctavePenalty" type="checkbox" checked>
-                <label for="noMotionAgainstOctavePenalty" onclick="toggleRulePenalty('noMotionAgainstOctavePenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>In fourth species, avoid passages without ligatures</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="notaLigaturePenalty" type="checkbox" checked>
-                <label for="notaLigaturePenalty" onclick="toggleRulePenalty('notaLigaturePenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid direct motion to a perfect consonance in the inner voices</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="innerVoicesInDirectToPerfectPenalty" type="checkbox" checked>
-                <label for="innerVoicesInDirectToPerfectPenalty" onclick="toggleRulePenalty('innerVoicesInDirectToPerfectPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid unison up-beat penalty</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="unisonUpbeatPenalty" type="checkbox" checked>
-                <label for="unisonUpbeatPenalty" onclick="toggleRulePenalty('unisonUpbeatPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid tritones near the cadence in lydian mode</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="lydianCadentialTritonePenalty" type="checkbox" checked>
-                <label for="lydianCadentialTritonePenalty" onclick="toggleRulePenalty('lydianCadentialTritonePenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid a leap to the cadence</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="leapAtCadencePenalty" type="checkbox" checked>
-                <label for="leapAtCadencePenalty" onclick="toggleRulePenalty('leapAtCadencePenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid half untied penalty</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="halfUntiedPenalty" type="checkbox" checked>
-                <label for="halfUntiedPenalty" onclick="toggleRulePenalty('halfUntiedPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid moving from a tenth to an octave</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="tenthToOctavePenalty" type="checkbox" checked>
-                <label for="tenthToOctavePenalty" onclick="toggleRulePenalty('tenthToOctavePenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid a skip to an octave</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="skipTo8vePenalty" type="checkbox" checked>
-                <label for="skipTo8vePenalty" onclick="toggleRulePenalty('skipTo8vePenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid a sixth preceded by motion in the same direction</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="sixthPrecededBySameDirectionPenalty" type="checkbox" checked>
-                <label for="sixthPrecededBySameDirectionPenalty" onclick="toggleRulePenalty('sixthPrecededBySameDirectionPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid a tritone outlined by a melody</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="melodicTritonePenalty" type="checkbox" checked>
-                <label for="melodicTritonePenalty" onclick="toggleRulePenalty('melodicTritonePenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid skips in all voices at once</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="allVoicesSkipPenalty" type="checkbox" checked>
-                <label for="allVoicesSkipPenalty" onclick="toggleRulePenalty('allVoicesSkipPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid a fifth or octave followed by motion in the same direction</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="fifthFollowedBySameDirectionPenalty" type="checkbox" checked>
-                <label for="fifthFollowedBySameDirectionPenalty" onclick="toggleRulePenalty('fifthFollowedBySameDirectionPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid lesser ligature penalty</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="lesserLigaturePenalty" type="checkbox" checked>
-                <label for="lesserLigaturePenalty" onclick="toggleRulePenalty('lesserLigaturePenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid a repeated pattern of four notes</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="fourRepeatedNotesPenalty" type="checkbox" checked>
-                <label for="fourRepeatedNotesPenalty" onclick="toggleRulePenalty('fourRepeatedNotesPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid notes on the outer edges of the ranges</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="extremeRangePenalty" type="checkbox" checked>
-                <label for="extremeRangePenalty" onclick="toggleRulePenalty('extremeRangePenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid leaps of an octave</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="octaveLeapPenalty" type="checkbox" checked>
-                <label for="octaveLeapPenalty" onclick="toggleRulePenalty('octaveLeapPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid doubling the third</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="thirdDoubledPenalty" type="checkbox" checked>
-                <label for="thirdDoubledPenalty" onclick="toggleRulePenalty('thirdDoubledPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid doubling the sixth</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="doubledSixthPenalty" type="checkbox" checked>
-                <label for="doubledSixthPenalty" onclick="toggleRulePenalty('doubledSixthPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Try not to skip from a unison</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="skipFromUnisonPenalty" type="checkbox" checked>
-                <label for="skipFromUnisonPenalty" onclick="toggleRulePenalty('skipFromUnisonPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid a repeated pattern of three notes</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="threeRepeatedNotesPenalty" type="checkbox" checked>
-                <label for="threeRepeatedNotesPenalty" onclick="toggleRulePenalty('threeRepeatedNotesPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid a fifth or octave preceded by motion in the same direction</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="fifthPrecededBySameDirectionPenalty" type="checkbox" checked>
-                <label for="fifthPrecededBySameDirectionPenalty" onclick="toggleRulePenalty('fifthPrecededBySameDirectionPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid any skip followed by motion in the same direction</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="skipFollowedBySameDirectionPenalty" type="checkbox" checked>
-                <label for="skipFollowedBySameDirectionPenalty" onclick="toggleRulePenalty('skipFollowedBySameDirectionPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid two skips that do not fill in a triad</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="twoSkipsNotInTriadPenalty" type="checkbox" checked>
-                <label for="twoSkipsNotInTriadPenalty" onclick="toggleRulePenalty('twoSkipsNotInTriadPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Do not repeat a note on the down beat</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="unisonDownbeatPenalty" type="checkbox" checked>
-                <label for="unisonDownbeatPenalty" onclick="toggleRulePenalty('unisonDownbeatPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid a repeated note on the fourth beat</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="unisonOnBeat4Penalty" type="checkbox" checked>
-                <label for="unisonOnBeat4Penalty" onclick="toggleRulePenalty('unisonOnBeat4Penalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>threeSkipsPenalty</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="threeSkipsPenalty" type="checkbox" checked>
-                <label for="threeSkipsPenalty" onclick="toggleRulePenalty('threeSkipsPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid direct motion to a tritone in the inner voices</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="innerVoicesInDirectToTritonePenalty" type="checkbox" checked>
-                <label for="innerVoicesInDirectToTritonePenalty" onclick="toggleRulePenalty('innerVoicesInDirectToTritonePenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid doubling the fifth</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="doubledFifthPenalty" type="checkbox" checked>
-                <label for="doubledFifthPenalty" onclick="toggleRulePenalty('doubledFifthPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid doubling the bass twice</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="tripledBassPenalty" type="checkbox" checked>
-                <label for="tripledBassPenalty" onclick="toggleRulePenalty('tripledBassPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid a repeated pattern of two notes</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="twoRepeatedNotesPenalty" type="checkbox" checked>
-                <label for="twoRepeatedNotesPenalty" onclick="toggleRulePenalty('twoRepeatedNotesPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid perfect consonances</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="perfectConsonancePenalty" type="checkbox" checked>
-                <label for="perfectConsonancePenalty" onclick="toggleRulePenalty('perfectConsonancePenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid leaps of a sixth</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="sixthLeapPenalty" type="checkbox" checked>
-                <label for="sixthLeapPenalty" onclick="toggleRulePenalty('sixthLeapPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid a tritone between voices</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="verticalTritonePenalty" type="checkbox" checked>
-                <label for="verticalTritonePenalty" onclick="toggleRulePenalty('verticalTritonePenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid a skip followed by a skip</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="twoSkipsPenalty" type="checkbox" checked>
-                <label for="twoSkipsPenalty" onclick="toggleRulePenalty('twoSkipsPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid direct motion</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="directMotionPenalty" type="checkbox" checked>
-                <label for="directMotionPenalty" onclick="toggleRulePenalty('directMotionPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid compound intervals</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="compoundPenalty" type="checkbox" checked>
-                <label for="compoundPenalty" onclick="toggleRulePenalty('compoundPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid any skip preceded by motion in the same direction</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="skipPrecededBySameDirectionPenalty" type="checkbox" checked>
-                <label for="skipPrecededBySameDirectionPenalty" onclick="toggleRulePenalty('skipPrecededBySameDirectionPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid upper neighbor notes</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="upperNeighborPenalty" type="checkbox" checked>
-                <label for="upperNeighborPenalty" onclick="toggleRulePenalty('upperNeighborPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid lower neighbor notes</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="lowerNeighborPenalty" type="checkbox" checked>
-                <label for="lowerNeighborPenalty" onclick="toggleRulePenalty('lowerNeighborPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Strive for variety in a melody</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="melodicBoredomPenalty" type="checkbox" checked>
-                <label for="melodicBoredomPenalty" onclick="toggleRulePenalty('melodicBoredomPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Avoid skips to a down beat</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="skipToDownBeatPenalty" type="checkbox" checked>
-                <label for="skipToDownBeatPenalty" onclick="toggleRulePenalty('skipToDownBeatPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Strive for contrary motion</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="notContraryToOthersPenalty" type="checkbox" checked>
-                <label for="notContraryToOthersPenalty" onclick="toggleRulePenalty('notContraryToOthersPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <p>Try to keep the upper voices from wandering far apart</p>
-            </td>
-            <td>
-              <div class="switch round small">
-                <input id="upperVoicesTooFarApartPenalty" type="checkbox" checked>
-                <label for="upperVoicesTooFarApartPenalty" onclick="toggleRulePenalty('upperVoicesTooFarApartPenalty')"></label>
-              </div>
-            </td>
-          </tr>
-        </table>
-
-      </div>
-
-      <a class="close-reveal-modal" aria-label="Close">&#215;</a>
-
     </div>
-
-    <div id="busyDialog" class="reveal-modal" data-reveal aria-labelledby="busyDialogTitle" aria-hidden="true" role="dialog">
-      <h3 id="busyDialogTitle">Computing Counterpoint...</h3>
-      <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+    <div class="medium-3 columns">
+      <a class="button" onclick="turnAllPenaltiesOff()">Set All Off</a>
     </div>
-
-    <div id="noCounterpointModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
-      <h3 id="modalTitle">Couldn't compute the counterpoint</h3>
-      <p>Please try again, perhaps with a shorter cantus firmus, less complex initial chord, or different species.</p>
-      <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+    <div class="medium-3 columns">
+      <a class="button" onclick="turnAllPenaltiesOn()">Set All On</a>
     </div>
+  </div>
 
-    <div id="noteflightScore"></div>
+  <!-- TODO: Investigate how to provide sub-navigation similar to the commented code below, without annoying side effects -->
+  <!--dl class="sub-nav">
+    <dt>Importance:</dt>
+    <dd><a href="#critical">Critical</a></dd>
+    <dd><a href="#high">High</a></dd>
+    <dd><a href="#medium">Medium</a></dd>
+    <dd><a href="#low">Low</a></dd>
+  </dl-->
 
-    <script>
-      var scoreView;
-      var widthMargin = 20;   // Margin between Noteflight client and right side of window
-      var heightMargin = 100; // Margin between Noteflight client and bottom of window
 
-      var rulePenalties = {};
+  <div id="counterpointRulesDialogScroll" style="overflow-y: scroll; height:300px;">
 
-      initNoteflight();
+    <a name="critical"></a>
+    <h4>Rules with critical importance:</h4>
 
-      function initNoteflight() {
-          // Initialize the Noteflight client API.
-        NFClient.init(function (info) {
-          //alert("Noteflight API is ready, version " + info.version);
-        });
+    <table>
+      <col width="100%">
+      <tr>
+        <td>
+          <p>Parallel fifths are not allowed</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="parallelFifthPenalty" type="checkbox" checked>
+            <label for="parallelFifthPenalty" onclick="toggleRulePenalty('parallelFifthPenalty')"></label>
+          </div>
+        </td>
+      </tr>
 
-        var options = {
-          host: 'hacking.sites.noteflight.com',
-          width: 900,
-          height: 650,
-          viewParams: {
-            scale: 1.0,
-            role: 'template',
-            app: 'html5',
-            displayMode: 'flow'
-          }
-        };
+      <tr>
+        <td>
+          <p>Parallel unisons are not allowed</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="parallelUnisonPenalty" type="checkbox" checked>
+            <label for="parallelUnisonPenalty" onclick="toggleRulePenalty('parallelUnisonPenalty')"></label>
+          </div>
+        </td>
+      </tr>
 
-        options.width = window.innerWidth - widthMargin;
-        options.height = window.innerHeight - heightMargin;
+      <tr>
+        <td>
+          <p>In two part counterpoint the final chord must be a unison or an octave; it can include the third or fifth when there are more than two parts</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="endOnPerfectPenalty" type="checkbox" checked>
+            <label for="endOnPerfectPenalty" onclick="toggleRulePenalty('endOnPerfectPenalty')"></label>
+          </div>
+        </td>
+      </tr>
 
-        scoreView = new NFClient.ScoreView('noteflightScore', '3b88798c7533d46aa60c3c8077e44742c7c4027a', options);
+      <tr>
+        <td>
+          <p>The next to last chord must have a leading tone</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="noLeadingTonePenalty" type="checkbox" checked>
+            <label for="noLeadingTonePenalty" onclick="toggleRulePenalty('noLeadingTonePenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Dissonances must be handled correctly (this covers a host of rules)</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="dissonancePenalty" type="checkbox" checked>
+            <label for="dissonancePenalty" onclick="toggleRulePenalty('dissonancePenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Voices must stay within the mode of the cantus firmus</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="outOfModePenalty" type="checkbox" checked>
+            <label for="outOfModePenalty" onclick="toggleRulePenalty('outOfModePenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Some melodic intervals are not allowed</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="badMelodyPenalty" type="checkbox" checked>
+            <label for="badMelodyPenalty" onclick="toggleRulePenalty('badMelodyPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>A melody must stay within the range of a twelfth</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="overTwelfthPenalty" type="checkbox" checked>
+            <label for="overTwelfthPenalty" onclick="toggleRulePenalty('overTwelfthPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Cadences must be correct (this covers a host of rules)</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="badCadencePenalty" type="checkbox" checked>
+            <label for="badCadencePenalty" onclick="toggleRulePenalty('badCadencePenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid six-five chord penalty</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="sixFiveChordPenalty" type="checkbox" checked>
+            <label for="sixFiveChordPenalty" onclick="toggleRulePenalty('sixFiveChordPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>A dissonance as a passing tone must fill in a third</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="dissonanceNotFillingThirdPenalty" type="checkbox" checked>
+            <label for="dissonanceNotFillingThirdPenalty" onclick="toggleRulePenalty('dissonanceNotFillingThirdPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>A nota combiata must be resolved correctly</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="notaCombiataPenalty" type="checkbox" checked>
+            <label for="notaCombiataPenalty" onclick="toggleRulePenalty('notaCombiataPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>A ligature must be resolved correctly</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="unresolvedLigaturePenalty" type="checkbox" checked>
+            <label for="unresolvedLigaturePenalty" onclick="toggleRulePenalty('unresolvedLigaturePenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>There are certain situations where a ligature is not allowed</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="noTimeForaLigaturePenalty" type="checkbox" checked>
+            <label for="noTimeForaLigaturePenalty" onclick="toggleRulePenalty('noTimeForaLigaturePenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Augmented intervals are not allowed</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="augmentedIntervalPenalty" type="checkbox" checked>
+            <label for="augmentedIntervalPenalty" onclick="toggleRulePenalty('augmentedIntervalPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Doubled leading tones are not allowed</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="doubledLeadingTonePenalty" type="checkbox" checked>
+            <label for="doubledLeadingTonePenalty" onclick="toggleRulePenalty('doubledLeadingTonePenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>The leading tone must be resolved correctly</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="unresolvedLeadingTonePenalty" type="checkbox" checked>
+            <label for="unresolvedLeadingTonePenalty" onclick="toggleRulePenalty('unresolvedLeadingTonePenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Direct perfect on downbeat penalty</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="directPerfectOnDownbeatPenalty" type="checkbox" checked>
+            <label for="directPerfectOnDownbeatPenalty" onclick="toggleRulePenalty('directPerfectOnDownbeatPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid cross below bass penalty</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="crossBelowBassPenalty" type="checkbox" checked>
+            <label for="crossBelowBassPenalty" onclick="toggleRulePenalty('crossBelowBassPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid cross above cantus penalty</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="crossAboveCantusPenalty" type="checkbox" checked>
+            <label for="crossAboveCantusPenalty" onclick="toggleRulePenalty('crossAboveCantusPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+    <a name="high"></a>
+    <h4>Rules with high importance:</h4>
+
+    <table>
+      <col width="100%">
+      <tr>
+        <td>
+          <p>Avoid direct motion to a perfect fifth</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="directToFifthPenalty" type="checkbox" checked>
+            <label for="directToFifthPenalty" onclick="toggleRulePenalty('directToFifthPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid direct motion to an octave</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="directToOctavePenalty" type="checkbox" checked>
+            <label for="directToOctavePenalty" onclick="toggleRulePenalty('directToOctavePenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Voices should not move outside certain ranges</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="outOfRangePenalty" type="checkbox" checked>
+            <label for="outOfRangePenalty" onclick="toggleRulePenalty('outOfRangePenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid a unison on the down beat</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="downBeatUnisonPenalty" type="checkbox" checked>
+            <label for="downBeatUnisonPenalty" onclick="toggleRulePenalty('downBeatUnisonPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+    <a name="medium"></a>
+    <h4>Rules with medium importance:</h4>
+
+    <table>
+      <col width="100%">
+      <tr>
+        <td>
+          <p>Avoid unisons in two part counterpoint</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="unisonPenalty" type="checkbox" checked>
+            <label for="unisonPenalty" onclick="toggleRulePenalty('unisonPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Try not to repeat a note on the upbeat</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="repetitionOnUpbeatPenalty" type="checkbox" checked>
+            <label for="repetitionOnUpbeatPenalty" onclick="toggleRulePenalty('repetitionOnUpbeatPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>A melody should stay within the range of an octave</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="overOctavePenalty" type="checkbox" checked>
+            <label for="overOctavePenalty" onclick="toggleRulePenalty('overOctavePenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Eighth notes should not skip</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="eighthJumpPenalty" type="checkbox" checked>
+            <label for="eighthJumpPenalty" onclick="toggleRulePenalty('eighthJumpPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>A six-five chord must be prepared correctly</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="unpreparedSixFivePenalty" type="checkbox" checked>
+            <label for="unpreparedSixFivePenalty" onclick="toggleRulePenalty('unpreparedSixFivePenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>A six-five chord must be resolved correctly</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="unresolvedSixFivePenalty" type="checkbox" checked>
+            <label for="unresolvedSixFivePenalty" onclick="toggleRulePenalty('unresolvedSixFivePenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid direct motion to a tritone</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="directToTritonePenalty" type="checkbox" checked>
+            <label for="directToTritonePenalty" onclick="toggleRulePenalty('directToTritonePenalty')"></label>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+    <a name="low"></a>
+    <h4>Rules with relatively low importance:</h4>
+
+    <table>
+      <col width="100%">
+      <tr>
+        <td>
+          <p>Avoid a sixth followed by motion in the same direction</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="sixthFollowedBySameDirectionPenalty" type="checkbox" checked>
+            <label for="sixthFollowedBySameDirectionPenalty" onclick="toggleRulePenalty('sixthFollowedBySameDirectionPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Strive for triads</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="notTriadPenalty" type="checkbox" checked>
+            <label for="notTriadPenalty" onclick="toggleRulePenalty('notTriadPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>No motion against octave penalty</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="noMotionAgainstOctavePenalty" type="checkbox" checked>
+            <label for="noMotionAgainstOctavePenalty" onclick="toggleRulePenalty('noMotionAgainstOctavePenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>In fourth species, avoid passages without ligatures</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="notaLigaturePenalty" type="checkbox" checked>
+            <label for="notaLigaturePenalty" onclick="toggleRulePenalty('notaLigaturePenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid direct motion to a perfect consonance in the inner voices</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="innerVoicesInDirectToPerfectPenalty" type="checkbox" checked>
+            <label for="innerVoicesInDirectToPerfectPenalty" onclick="toggleRulePenalty('innerVoicesInDirectToPerfectPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid unison up-beat penalty</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="unisonUpbeatPenalty" type="checkbox" checked>
+            <label for="unisonUpbeatPenalty" onclick="toggleRulePenalty('unisonUpbeatPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid tritones near the cadence in lydian mode</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="lydianCadentialTritonePenalty" type="checkbox" checked>
+            <label for="lydianCadentialTritonePenalty" onclick="toggleRulePenalty('lydianCadentialTritonePenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid a leap to the cadence</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="leapAtCadencePenalty" type="checkbox" checked>
+            <label for="leapAtCadencePenalty" onclick="toggleRulePenalty('leapAtCadencePenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid half untied penalty</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="halfUntiedPenalty" type="checkbox" checked>
+            <label for="halfUntiedPenalty" onclick="toggleRulePenalty('halfUntiedPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid moving from a tenth to an octave</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="tenthToOctavePenalty" type="checkbox" checked>
+            <label for="tenthToOctavePenalty" onclick="toggleRulePenalty('tenthToOctavePenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid a skip to an octave</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="skipTo8vePenalty" type="checkbox" checked>
+            <label for="skipTo8vePenalty" onclick="toggleRulePenalty('skipTo8vePenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid a sixth preceded by motion in the same direction</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="sixthPrecededBySameDirectionPenalty" type="checkbox" checked>
+            <label for="sixthPrecededBySameDirectionPenalty" onclick="toggleRulePenalty('sixthPrecededBySameDirectionPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid a tritone outlined by a melody</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="melodicTritonePenalty" type="checkbox" checked>
+            <label for="melodicTritonePenalty" onclick="toggleRulePenalty('melodicTritonePenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid skips in all voices at once</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="allVoicesSkipPenalty" type="checkbox" checked>
+            <label for="allVoicesSkipPenalty" onclick="toggleRulePenalty('allVoicesSkipPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid a fifth or octave followed by motion in the same direction</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="fifthFollowedBySameDirectionPenalty" type="checkbox" checked>
+            <label for="fifthFollowedBySameDirectionPenalty" onclick="toggleRulePenalty('fifthFollowedBySameDirectionPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid lesser ligature penalty</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="lesserLigaturePenalty" type="checkbox" checked>
+            <label for="lesserLigaturePenalty" onclick="toggleRulePenalty('lesserLigaturePenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid a repeated pattern of four notes</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="fourRepeatedNotesPenalty" type="checkbox" checked>
+            <label for="fourRepeatedNotesPenalty" onclick="toggleRulePenalty('fourRepeatedNotesPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid notes on the outer edges of the ranges</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="extremeRangePenalty" type="checkbox" checked>
+            <label for="extremeRangePenalty" onclick="toggleRulePenalty('extremeRangePenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid leaps of an octave</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="octaveLeapPenalty" type="checkbox" checked>
+            <label for="octaveLeapPenalty" onclick="toggleRulePenalty('octaveLeapPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid doubling the third</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="thirdDoubledPenalty" type="checkbox" checked>
+            <label for="thirdDoubledPenalty" onclick="toggleRulePenalty('thirdDoubledPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid doubling the sixth</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="doubledSixthPenalty" type="checkbox" checked>
+            <label for="doubledSixthPenalty" onclick="toggleRulePenalty('doubledSixthPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Try not to skip from a unison</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="skipFromUnisonPenalty" type="checkbox" checked>
+            <label for="skipFromUnisonPenalty" onclick="toggleRulePenalty('skipFromUnisonPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid a repeated pattern of three notes</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="threeRepeatedNotesPenalty" type="checkbox" checked>
+            <label for="threeRepeatedNotesPenalty" onclick="toggleRulePenalty('threeRepeatedNotesPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid a fifth or octave preceded by motion in the same direction</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="fifthPrecededBySameDirectionPenalty" type="checkbox" checked>
+            <label for="fifthPrecededBySameDirectionPenalty" onclick="toggleRulePenalty('fifthPrecededBySameDirectionPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid any skip followed by motion in the same direction</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="skipFollowedBySameDirectionPenalty" type="checkbox" checked>
+            <label for="skipFollowedBySameDirectionPenalty" onclick="toggleRulePenalty('skipFollowedBySameDirectionPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid two skips that do not fill in a triad</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="twoSkipsNotInTriadPenalty" type="checkbox" checked>
+            <label for="twoSkipsNotInTriadPenalty" onclick="toggleRulePenalty('twoSkipsNotInTriadPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Do not repeat a note on the down beat</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="unisonDownbeatPenalty" type="checkbox" checked>
+            <label for="unisonDownbeatPenalty" onclick="toggleRulePenalty('unisonDownbeatPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid a repeated note on the fourth beat</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="unisonOnBeat4Penalty" type="checkbox" checked>
+            <label for="unisonOnBeat4Penalty" onclick="toggleRulePenalty('unisonOnBeat4Penalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>threeSkipsPenalty</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="threeSkipsPenalty" type="checkbox" checked>
+            <label for="threeSkipsPenalty" onclick="toggleRulePenalty('threeSkipsPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid direct motion to a tritone in the inner voices</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="innerVoicesInDirectToTritonePenalty" type="checkbox" checked>
+            <label for="innerVoicesInDirectToTritonePenalty" onclick="toggleRulePenalty('innerVoicesInDirectToTritonePenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid doubling the fifth</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="doubledFifthPenalty" type="checkbox" checked>
+            <label for="doubledFifthPenalty" onclick="toggleRulePenalty('doubledFifthPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid doubling the bass twice</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="tripledBassPenalty" type="checkbox" checked>
+            <label for="tripledBassPenalty" onclick="toggleRulePenalty('tripledBassPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid a repeated pattern of two notes</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="twoRepeatedNotesPenalty" type="checkbox" checked>
+            <label for="twoRepeatedNotesPenalty" onclick="toggleRulePenalty('twoRepeatedNotesPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid perfect consonances</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="perfectConsonancePenalty" type="checkbox" checked>
+            <label for="perfectConsonancePenalty" onclick="toggleRulePenalty('perfectConsonancePenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid leaps of a sixth</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="sixthLeapPenalty" type="checkbox" checked>
+            <label for="sixthLeapPenalty" onclick="toggleRulePenalty('sixthLeapPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid a tritone between voices</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="verticalTritonePenalty" type="checkbox" checked>
+            <label for="verticalTritonePenalty" onclick="toggleRulePenalty('verticalTritonePenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid a skip followed by a skip</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="twoSkipsPenalty" type="checkbox" checked>
+            <label for="twoSkipsPenalty" onclick="toggleRulePenalty('twoSkipsPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid direct motion</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="directMotionPenalty" type="checkbox" checked>
+            <label for="directMotionPenalty" onclick="toggleRulePenalty('directMotionPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid compound intervals</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="compoundPenalty" type="checkbox" checked>
+            <label for="compoundPenalty" onclick="toggleRulePenalty('compoundPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid any skip preceded by motion in the same direction</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="skipPrecededBySameDirectionPenalty" type="checkbox" checked>
+            <label for="skipPrecededBySameDirectionPenalty" onclick="toggleRulePenalty('skipPrecededBySameDirectionPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid upper neighbor notes</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="upperNeighborPenalty" type="checkbox" checked>
+            <label for="upperNeighborPenalty" onclick="toggleRulePenalty('upperNeighborPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid lower neighbor notes</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="lowerNeighborPenalty" type="checkbox" checked>
+            <label for="lowerNeighborPenalty" onclick="toggleRulePenalty('lowerNeighborPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Strive for variety in a melody</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="melodicBoredomPenalty" type="checkbox" checked>
+            <label for="melodicBoredomPenalty" onclick="toggleRulePenalty('melodicBoredomPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Avoid skips to a down beat</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="skipToDownBeatPenalty" type="checkbox" checked>
+            <label for="skipToDownBeatPenalty" onclick="toggleRulePenalty('skipToDownBeatPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Strive for contrary motion</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="notContraryToOthersPenalty" type="checkbox" checked>
+            <label for="notContraryToOthersPenalty" onclick="toggleRulePenalty('notContraryToOthersPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Try to keep the upper voices from wandering far apart</p>
+        </td>
+        <td>
+          <div class="switch round small">
+            <input id="upperVoicesTooFarApartPenalty" type="checkbox" checked>
+            <label for="upperVoicesTooFarApartPenalty" onclick="toggleRulePenalty('upperVoicesTooFarApartPenalty')"></label>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+
+  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+
+</div>
+
+<div id="busyDialog" class="reveal-modal" data-reveal aria-labelledby="busyDialogTitle" aria-hidden="true" role="dialog">
+  <h3 id="busyDialogTitle">Computing Counterpoint...</h3>
+  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+</div>
+
+<div id="noCounterpointModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+  <h3 id="modalTitle">Couldn't compute the counterpoint</h3>
+  <p>Please try again, perhaps with a shorter cantus firmus, less complex initial chord, or different species.</p>
+  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+</div>
+
+<div id="noteflightScore"></div>
+
+<script>
+  var scoreView;
+  var widthMargin = 20;   // Margin between Noteflight client and right side of window
+  var heightMargin = 100; // Margin between Noteflight client and bottom of window
+
+  var allPenalties = [
+    "parallelFifthPenalty",
+    "parallelUnisonPenalty",
+    "endOnPerfectPenalty",
+    "noLeadingTonePenalty",
+    "dissonancePenalty",
+    "outOfModePenalty",
+    "badMelodyPenalty",
+    "overTwelfthPenalty",
+    "badCadencePenalty",
+    "sixFiveChordPenalty",
+    "dissonanceNotFillingThirdPenalty",
+    "notaCombiataPenalty",
+    "unresolvedLigaturePenalty",
+    "noTimeForaLigaturePenalty",
+    "augmentedIntervalPenalty",
+    "doubledLeadingTonePenalty",
+    "unresolvedLeadingTonePenalty",
+    "directPerfectOnDownbeatPenalty",
+    "crossBelowBassPenalty",
+    "crossAboveCantusPenalty",
+    "directToFifthPenalty",
+    "directToOctavePenalty",
+    "outOfRangePenalty",
+    "downBeatUnisonPenalty",
+    "unisonPenalty",
+    "repetitionOnUpbeatPenalty",
+    "overOctavePenalty",
+    "eighthJumpPenalty",
+    "unpreparedSixFivePenalty",
+    "unresolvedSixFivePenalty",
+    "directToTritonePenalty",
+    "sixthFollowedBySameDirectionPenalty",
+    "notTriadPenalty",
+    "noMotionAgainstOctavePenalty",
+    "notaLigaturePenalty",
+    "innerVoicesInDirectToPerfectPenalty",
+    "unisonUpbeatPenalty",
+    "lydianCadentialTritonePenalty",
+    "leapAtCadencePenalty",
+    "halfUntiedPenalty",
+    "tenthToOctavePenalty",
+    "skipTo8vePenalty",
+    "sixthPrecededBySameDirectionPenalty",
+    "melodicTritonePenalty",
+    "allVoicesSkipPenalty",
+    "fifthFollowedBySameDirectionPenalty",
+    "lesserLigaturePenalty",
+    "fourRepeatedNotesPenalty",
+    "extremeRangePenalty",
+    "octaveLeapPenalty",
+    "thirdDoubledPenalty",
+    "doubledSixthPenalty",
+    "skipFromUnisonPenalty",
+    "threeRepeatedNotesPenalty",
+    "fifthPrecededBySameDirectionPenalty",
+    "skipFollowedBySameDirectionPenalty",
+    "twoSkipsNotInTriadPenalty",
+    "unisonDownbeatPenalty",
+    "unisonOnBeat4Penalty",
+    "threeSkipsPenalty",
+    "innerVoicesInDirectToTritonePenalty",
+    "doubledFifthPenalty",
+    "tripledBassPenalty",
+    "twoRepeatedNotesPenalty",
+    "perfectConsonancePenalty",
+    "sixthLeapPenalty",
+    "verticalTritonePenalty",
+    "twoSkipsPenalty",
+    "directMotionPenalty",
+    "compoundPenalty",
+    "skipPrecededBySameDirectionPenalty",
+    "upperNeighborPenalty",
+    "lowerNeighborPenalty",
+    "melodicBoredomPenalty",
+    "skipToDownBeatPenalty",
+    "notContraryToOthersPenalty",
+    "upperVoicesTooFarApartPenalty"
+  ];
+
+  var rulePenalties = {};
+
+  initNoteflight();
+
+  function initNoteflight() {
+    // Initialize the Noteflight client API.
+    NFClient.init(function (info) {
+      //alert("Noteflight API is ready, version " + info.version);
+    });
+
+    var options = {
+      host: 'hacking.sites.noteflight.com',
+      width: 900,
+      height: 650,
+      viewParams: {
+        scale: 1.0,
+        role: 'template',
+        app: 'html5',
+        displayMode: 'flow'
       }
+    };
 
-      function callCounterpointService(mainMelody, initialNotes, scaleModeSelection,
-                                       speciesSelection, rulePenaltiesSelections) {
-        var cantusFirmusJson = {
-          "mainMelody" : mainMelody,
-          "partsInitialNotes" : initialNotes,
-          //"partsInitialNotes" : [48, 67, 72],
-          "counterpointSpecies" : speciesSelection,
-          "scaleMode" : scaleModeSelection,
-          "rulePenalties" : rulePenaltiesSelections
-        };
-        cantusFirmusJson = JSON.stringify(cantusFirmusJson);
-        $('#busyDialog').foundation('reveal', 'open');
-        $.ajax({
-          method: 'POST',
-          contentType: 'application/json',
-          //url: 'http://localhost:8080/counterpoint',
-          url: '/counterpoint',
-          data: cantusFirmusJson
-        }).done(function (doc) {
-          scoreView.loadMusicXML(doc.documentElement.outerHTML);
-          $('#busyDialog').foundation('reveal', 'close');
-        }).error(function (err) {
-          $('#busyDialog').foundation('reveal', 'close');
-          $('#noCounterpointModal').foundation('reveal', 'open');
-        });
-      }
+    options.width = window.innerWidth - widthMargin;
+    options.height = window.innerHeight - heightMargin;
 
-      function readMainMelody() {
+    scoreView = new NFClient.ScoreView('noteflightScore', '3b88798c7533d46aa60c3c8077e44742c7c4027a', options);
+  }
 
-        scoreView.getScore().done(function(scoreData) {
-          var mainMelodyPitches = [];
-          var initialPitches = [];
-          var initialNoteSet;
-          if (scoreData != null && scoreData.staves.length > 0) {
-            var curStaff = scoreData.staves[0];
-            for (var measIdx = 0; measIdx < curStaff.measures.length; measIdx++) {
-              var curMeasure = curStaff.measures[measIdx];
-              for (var noteSetIdx = 0; noteSetIdx < curMeasure.noteSets.length; noteSetIdx++) {
-                var curNoteSet = curMeasure.noteSets[noteSetIdx];
-                if (curNoteSet.notes.length > 0) {
-                  //var curNote = curNoteSet.notes[0];
-                  var curNote = curNoteSet.notes[curNoteSet.notes.length - 1];
-                  console.log("curNote.pitch:" + (curNote.pitch + 12));
-                  mainMelodyPitches.push(curNote.pitch + 12);
+  function callCounterpointService(mainMelody, initialNotes, scaleModeSelection,
+                                   speciesSelection, rulePenaltiesSelections) {
+    var cantusFirmusJson = {
+      "mainMelody" : mainMelody,
+      "partsInitialNotes" : initialNotes,
+      //"partsInitialNotes" : [48, 67, 72],
+      "counterpointSpecies" : speciesSelection,
+      "scaleMode" : scaleModeSelection,
+      "rulePenalties" : rulePenaltiesSelections
+    };
+    cantusFirmusJson = JSON.stringify(cantusFirmusJson);
+    //alert(cantusFirmusJson);
+    $('#busyDialog').foundation('reveal', 'open');
+    $.ajax({
+      method: 'POST',
+      contentType: 'application/json',
+      url: '/counterpoint',
+      data: cantusFirmusJson
+    }).done(function (doc) {
+      scoreView.loadMusicXML(doc.documentElement.outerHTML);
+      $('#busyDialog').foundation('reveal', 'close');
+    }).error(function (err) {
+      $('#busyDialog').foundation('reveal', 'close');
+      $('#noCounterpointModal').foundation('reveal', 'open');
+    });
+  }
 
-                  //If we pushed the second note in the melody line, use it to reserve one of the initial pitches
-                  if (mainMelodyPitches.length == 2) {
-                    // If there is more than one note in the initial NoteSet of the first measure in the
-                    // first staff, then use this NoteSet to get initial pitches
-                    if (initialNoteSet.notes.length > 1) {
-                      initialPitches = getInitialNotesFromNoteset(initialNoteSet, curNote.pitch);
-                    }
-                    // otherwise, get the initial pitches from the first note of each staff
-                    else {
-                      initialPitches = getInitialNotesFromAllStaves(scoreData.staves, curNote.pitch);
-                    }
-                  }
+  function readMainMelody() {
 
-                  // If this is the first noteSet, save it
-                  if (measIdx == 0 && noteSetIdx == 0) {
-                    initialNoteSet = curNoteSet;
-                  }
+    scoreView.getScore().done(function(scoreData) {
+      var mainMelodyPitches = [];
+      var initialPitches = [];
+      var initialNoteSet;
+      if (scoreData != null && scoreData.staves.length > 0) {
+        var curStaff = scoreData.staves[0];
+        for (var measIdx = 0; measIdx < curStaff.measures.length; measIdx++) {
+          var curMeasure = curStaff.measures[measIdx];
+          for (var noteSetIdx = 0; noteSetIdx < curMeasure.noteSets.length; noteSetIdx++) {
+            var curNoteSet = curMeasure.noteSets[noteSetIdx];
+            if (curNoteSet.notes.length > 0) {
+              //var curNote = curNoteSet.notes[0];
+              var curNote = curNoteSet.notes[curNoteSet.notes.length - 1];
+              console.log("curNote.pitch:" + (curNote.pitch + 12));
+              mainMelodyPitches.push(curNote.pitch + 12);
 
+              //If we pushed the second note in the melody line, use it to reserve one of the initial pitches
+              if (mainMelodyPitches.length == 2) {
+                // If there is more than one note in the initial NoteSet of the first measure in the
+                // first staff, then use this NoteSet to get initial pitches
+                if (initialNoteSet.notes.length > 1) {
+                  initialPitches = getInitialNotesFromNoteset(initialNoteSet, curNote.pitch);
                 }
-              }
-            }
-          }
-          /*
-           * As a result of calling getNotesFromOnset() the last element of initialPitches contains the pitch that
-           * the mainMelodyPitches needs to start with
-           */
-          mainMelodyPitches[0] = initialPitches.pop();
-          callCounterpointService(mainMelodyPitches, initialPitches, readModeSelection(),
-                                  readSpeciesSelection(), readRulePenalties());
-        });
-      }
-
-      // TODO: Factor out common code with getInitialNotesFromAllStaves method
-      function getInitialNotesFromNoteset(noteSet, secondPitchInCantus) {
-        var initialNotes = [];
-        var pitchToReserve = 0;
-        for (noteIdx = 0; noteIdx < noteSet.notes.length; noteIdx++) {
-          var curChordNote = noteSet.notes[noteIdx];
-          console.log("curChordNote.pitch:" + (curChordNote.pitch + 12));
-          if (Math.abs(secondPitchInCantus - curChordNote.pitch) <
-                  Math.abs(secondPitchInCantus - pitchToReserve)) {
-            if (pitchToReserve != 0) {
-              initialNotes.push(pitchToReserve + 12);
-            }
-            pitchToReserve = curChordNote.pitch;
-          }
-          else {
-            initialNotes.push(curChordNote.pitch + 12);
-          }
-        }
-        if (initialNotes.length == 0) {
-          initialNotes.push(pitchToReserve - 12 + 12); //TODO: Handle the 12 tone difference between MIDI and Noteflight note pitches better everywhere
-        }
-
-        // Push the note being reserved for the first note in the cantus firmus
-        initialNotes.push(pitchToReserve + 12);
-        return initialNotes;
-      }
-
-      // TODO: Factor out common code with getInitialNotesFromNoteset method
-      function getInitialNotesFromAllStaves(staves, secondPitchInCantus) {
-        var initialNotes = [];
-        var pitchToReserve = 0;
-        for (staffIdx = 0; staffIdx < staves.length; staffIdx++) {
-          curStaff = staves[staffIdx];
-          if (curStaff.measures.length > 0) {
-            var curMeasure = curStaff.measures[0];
-            if (curMeasure.noteSets.length > 0) {
-              var curNoteSet = curMeasure.noteSets[0];
-              if (curNoteSet.notes.length > 0) {
-                var curNote = curNoteSet.notes[0];
-                if (Math.abs(secondPitchInCantus - curNote.pitch) <
-                        Math.abs(secondPitchInCantus - pitchToReserve)) {
-                  if (pitchToReserve != 0) {
-                    initialNotes.push(pitchToReserve + 12);
-                  }
-                  pitchToReserve = curNote.pitch;
-                }
+                // otherwise, get the initial pitches from the first note of each staff
                 else {
-                  initialNotes.push(curNote.pitch + 12);
+                  initialPitches = getInitialNotesFromAllStaves(scoreData.staves, curNote.pitch);
                 }
               }
+
+              // If this is the first noteSet, save it
+              if (measIdx == 0 && noteSetIdx == 0) {
+                initialNoteSet = curNoteSet;
+              }
+
             }
           }
         }
-        if (initialNotes.length == 0) {
-          initialNotes.push(pitchToReserve - 12 + 12);
+      }
+      /*
+       * As a result of calling getNotesFromOnset() the last element of initialPitches contains the pitch that
+       * the mainMelodyPitches needs to start with
+       */
+      mainMelodyPitches[0] = initialPitches.pop();
+      callCounterpointService(mainMelodyPitches, initialPitches, readModeSelection(),
+          readSpeciesSelection(), readRulePenalties());
+    });
+  }
+
+  // TODO: Factor out common code with getInitialNotesFromAllStaves method
+  function getInitialNotesFromNoteset(noteSet, secondPitchInCantus) {
+    var initialNotes = [];
+    var pitchToReserve = 0;
+    for (noteIdx = 0; noteIdx < noteSet.notes.length; noteIdx++) {
+      var curChordNote = noteSet.notes[noteIdx];
+      console.log("curChordNote.pitch:" + (curChordNote.pitch + 12));
+      if (Math.abs(secondPitchInCantus - curChordNote.pitch) <
+          Math.abs(secondPitchInCantus - pitchToReserve)) {
+        if (pitchToReserve != 0) {
+          initialNotes.push(pitchToReserve + 12);
         }
-
-        // Push the note being reserved for the first note in the cantus firmus
-        initialNotes.push(pitchToReserve + 12);
-        return initialNotes;
+        pitchToReserve = curChordNote.pitch;
       }
-
-      function readModeSelection() {
-        var modeVal = $('#modeIds').val();
-        var modeValInt = isNaN(modeVal) ? 0 : parseInt(modeVal);
-        return modeValInt;
+      else {
+        initialNotes.push(curChordNote.pitch + 12);
       }
+    }
+    if (initialNotes.length == 0) {
+      initialNotes.push(pitchToReserve - 12 + 12); //TODO: Handle the 12 tone difference between MIDI and Noteflight note pitches better everywhere
+    }
 
-      function readSpeciesSelection() {
-        var speciesVal = $('#speciesIds').val();
-        var speciesValInt = isNaN(speciesVal) ? 1 : parseInt(speciesVal);
-        return speciesValInt;
-      }
+    // Push the note being reserved for the first note in the cantus firmus
+    initialNotes.push(pitchToReserve + 12);
+    return initialNotes;
+  }
 
-      function readRulePenalties() {
-        return rulePenalties;
-      }
-
-      function toggleRulePenalty(ruleName) {
-        if (rulePenalties.hasOwnProperty(ruleName)) {
-          delete rulePenalties[ruleName];
+  // TODO: Factor out common code with getInitialNotesFromNoteset method
+  function getInitialNotesFromAllStaves(staves, secondPitchInCantus) {
+    var initialNotes = [];
+    var pitchToReserve = 0;
+    for (staffIdx = 0; staffIdx < staves.length; staffIdx++) {
+      curStaff = staves[staffIdx];
+      if (curStaff.measures.length > 0) {
+        var curMeasure = curStaff.measures[0];
+        if (curMeasure.noteSets.length > 0) {
+          var curNoteSet = curMeasure.noteSets[0];
+          if (curNoteSet.notes.length > 0) {
+            var curNote = curNoteSet.notes[0];
+            if (Math.abs(secondPitchInCantus - curNote.pitch) <
+                Math.abs(secondPitchInCantus - pitchToReserve)) {
+              if (pitchToReserve != 0) {
+                initialNotes.push(pitchToReserve + 12);
+              }
+              pitchToReserve = curNote.pitch;
+            }
+            else {
+              initialNotes.push(curNote.pitch + 12);
+            }
+          }
         }
-        else {
-          rulePenalties[ruleName] = 0;
-        }
       }
+    }
+    if (initialNotes.length == 0) {
+      initialNotes.push(pitchToReserve - 12 + 12);
+    }
 
-      function configureCounterpointRules() {
-        $('#counterpointRulesDialog').foundation('reveal', 'open');
-      }
+    // Push the note being reserved for the first note in the cantus firmus
+    initialNotes.push(pitchToReserve + 12);
+    return initialNotes;
+  }
+
+  function readModeSelection() {
+    var modeVal = $('#modeIds').val();
+    var modeValInt = isNaN(modeVal) ? 0 : parseInt(modeVal);
+    return modeValInt;
+  }
+
+  function readSpeciesSelection() {
+    var speciesVal = $('#speciesIds').val();
+    var speciesValInt = isNaN(speciesVal) ? 1 : parseInt(speciesVal);
+    return speciesValInt;
+  }
+
+  function readRulePenalties() {
+    return rulePenalties;
+  }
+
+  function toggleRulePenalty(ruleName) {
+    if (rulePenalties.hasOwnProperty(ruleName)) {
+      delete rulePenalties[ruleName];
+    }
+    else {
+      rulePenalties[ruleName] = 0;
+    }
+  }
+
+  function turnAllPenaltiesOn() {
+    rulePenalties = {};
+    for (idx = 0; idx < allPenalties.length; idx++) {
+      $("#" + allPenalties[idx]).prop("checked", true);
+    }
+  }
+
+  function turnAllPenaltiesOff() {
+    for (idx = 0; idx < allPenalties.length; idx++) {
+      rulePenalties[allPenalties[idx]] = 0;
+      $("#" + allPenalties[idx]).prop("checked", false);
+    }
+  }
+
+  function configureCounterpointRules() {
+    $('#counterpointRulesDialog').foundation('reveal', 'open');
+  }
 
 
-    </script>
+</script>
 
-    <script src="js/vendor/jquery.js"></script>
-    <script src="js/foundation.min.js"></script>
-    <script>
-      $(document).foundation();
-    </script>
-    <script>
-        // Throttled resize function
-        $(window).on('resize', Foundation.utils.throttle(function(e){
-          $( "#noteflightScore" ).attr("width",window.innerWidth - widthMargin).attr("height",window.innerHeight - heightMargin);
-          $( "#counterpointRulesDialog" ).attr("width",(window.innerWidth - widthMargin) * 0.5).attr("height",(window.innerHeight - heightMargin) * 0.6);
-          var styleStr = "overflow-y: scroll; height:" + ((window.innerHeight - heightMargin) * 0.6) + "px;";
-          $( "#counterpointRulesDialogScroll" ).attr("style",styleStr);
-        }, 300));
+<script src="js/vendor/jquery.js"></script>
+<script src="js/foundation.min.js"></script>
+<script>
+  $(document).foundation();
+</script>
+<script>
+  // Throttled resize function
+  $(window).on('resize', Foundation.utils.throttle(function(e){
+    $( "#noteflightScore" ).attr("width",window.innerWidth - widthMargin).attr("height",window.innerHeight - heightMargin);
+    $( "#counterpointRulesDialog" ).attr("width",(window.innerWidth - widthMargin) * 0.5).attr("height",(window.innerHeight - heightMargin) * 0.6);
+    var styleStr = "overflow-y: scroll; height:" + ((window.innerHeight - heightMargin) * 0.6) + "px;";
+    $( "#counterpointRulesDialogScroll" ).attr("style",styleStr);
+  }, 300));
 
-    </script>
+</script>
 
-  </body>
+</body>
 </html>
