@@ -84,6 +84,10 @@
       <li><a onclick="initNoteflight()">Clear</a></li>
     </ul>
 
+    <ul class="right">
+      <li class="active"><a href="#" data-reveal-id="gettingStartedDialog">Getting Started</a></li>
+    </ul>
+
   </section>
 </nav>
 
@@ -1071,9 +1075,15 @@
   <a class="close-reveal-modal" aria-label="Close">&#215;</a>
 </div>
 
+<!-- TODO: Consider changing this to a Foundation Alert -->
 <div id="noCounterpointModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
   <h3 id="modalTitle">Couldn't compute the counterpoint</h3>
   <p>Please try again, perhaps with a shorter cantus firmus, less complex initial chord, or different species.</p>
+  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+</div>
+
+<div id="gettingStartedDialog" class="reveal-modal full" data-reveal aria-labelledby="gettingStartedDialogTitle" aria-hidden="true" role="dialog">
+  <iframe id="gettingStartedInnerFrame" src="//slides.com/javafxpert/counterpoint-composer-getting-started/embed" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
   <a class="close-reveal-modal" aria-label="Close">&#215;</a>
 </div>
 
@@ -1082,7 +1092,7 @@
 <script>
   var scoreView;
   var widthMargin = 20;   // Margin between Noteflight client and right side of window
-  var heightMargin = 100; // Margin between Noteflight client and bottom of window
+  var heightMargin = 150; // Margin between Noteflight client and bottom of window
 
   var allPenalties = [
     "parallelFifthPenalty",
@@ -1413,9 +1423,11 @@
   // Throttled resize function
   $(window).on('resize', Foundation.utils.throttle(function(e){
     $( "#noteflightScore" ).attr("width",window.innerWidth - widthMargin).attr("height",window.innerHeight - heightMargin);
-    $( "#counterpointRulesDialog" ).attr("width",(window.innerWidth - widthMargin) * 0.5).attr("height",(window.innerHeight - heightMargin) * 0.6);
+    //$( "#counterpointRulesDialog" ).attr("width",(window.innerWidth - widthMargin) * 0.5).attr("height",(window.innerHeight - heightMargin) * 0.6);
     var styleStr = "overflow-y: scroll; height:" + ((window.innerHeight - heightMargin) * 0.6) + "px;";
     $( "#counterpointRulesDialogScroll" ).attr("style",styleStr);
+    $( "#helpInnerFrame" ).attr("width",window.innerWidth - 80).attr("height",window.innerHeight - 100);
+    $( "#gettingStartedInnerFrame" ).attr("width",window.innerWidth - 80).attr("height",window.innerHeight - 100);
   }, 300));
 
 </script>
