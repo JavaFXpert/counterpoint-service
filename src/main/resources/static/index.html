@@ -1,5 +1,20 @@
+<!--
+ Copyright 2015 the original author or authors.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
 <!doctype html>
-<!-- TODO: Identify best way to modularize this large HTML file -->
+
 <html class="no-js" lang="en">
 <head>
   <meta charset="utf-8" />
@@ -84,8 +99,16 @@
       <li><a onclick="initNoteflight()">Clear</a></li>
     </ul>
 
-    <ul class="right">
-      <li class="active"><a href="#" data-reveal-id="gettingStartedDialog">Getting Started</a></li>
+    <li class="left"><label>&nbsp;</label></li>
+
+    <ul class="left">
+      <li class="has-dropdown">
+        <a href="#">Help</a>
+        <ul class="dropdown">
+          <li><a href="#" data-reveal-id="aboutDialog">About</a></li>
+          <li><a href="#" data-reveal-id="gettingStartedDialog">Getting Started</a></li>
+        </ul>
+      </li>
     </ul>
 
   </section>
@@ -103,16 +126,6 @@
       <a class="button" onclick="turnAllPenaltiesOn()">Set All On</a>
     </div>
   </div>
-
-  <!-- TODO: Investigate how to provide sub-navigation similar to the commented code below, without annoying side effects -->
-  <!--dl class="sub-nav">
-    <dt>Importance:</dt>
-    <dd><a href="#critical">Critical</a></dd>
-    <dd><a href="#high">High</a></dd>
-    <dd><a href="#medium">Medium</a></dd>
-    <dd><a href="#low">Low</a></dd>
-  </dl-->
-
 
   <div id="counterpointRulesDialogScroll" style="overflow-y: scroll; height:300px;">
 
@@ -1077,9 +1090,31 @@
 
 <!-- TODO: Consider changing this to a Foundation Alert -->
 <div id="noCounterpointModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+  <div class="small-centered">
   <h3 id="modalTitle">Couldn't compute the counterpoint</h3>
   <p>Please try again, perhaps with a shorter cantus firmus, less complex initial chord, or different species.</p>
   <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+    </div>
+</div>
+
+<div id="aboutDialog" class="reveal-modal medium" data-reveal aria-labelledby="aboutDialogTitle" aria-hidden="true" role="dialog">
+  <div align="center">
+    <h3 id="aboutDialogTitle">About Counterpoint Composer</h3>
+    <img src="img/counterpoint-composer-icon-90x90.png" >
+    <p>Version 1.0</p>
+    <p>Developed by <a href="https://twitter.com/javafxpert"
+                       target="_blank">James L. Weaver</a></p>
+    <h4>Acknowledgements:</h4>
+    <p><a href="https://en.wikipedia.org/wiki/Johann_Joseph_Fux" target="_blank">Johann Joseph Fux</a> (c. 1660 – 13 February 1741) for writing an exhaustive exposition of species counterpoint.</p>
+    <p>William Gardner Schottstaedt for <a href="https://github.com/namin/metasolfeggio/blob/master/classics/fux.md"
+                                           target="_blank">expressing the rules of species counterpoint</a> in the SAIL, and then C, programming languages in the 1980s.</p>
+    <p>David Koelle for adding chord analysis faclities to his <a href="http://www.jfugue.org"
+                                                                  target="_blank">JFugue Java library</a> which Counterpoint Composer uses for chord annotation.</p>
+    <p>Andrew Clay Shafer, Brian Clozel, Joshua Long, Kenny Bastini, Mark Heckler, Bridget Kromhout and other colleagues at <a href="http://www.pivotal.io"
+                                                     target="_blank">Pivotal Software</a> for their wise counsel.</p>
+    <p>Licensed under the Apache License, Version 2.0</p>
+    <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+  </div>
 </div>
 
 <div id="gettingStartedDialog" class="reveal-modal full" data-reveal aria-labelledby="gettingStartedDialogTitle" aria-hidden="true" role="dialog">
