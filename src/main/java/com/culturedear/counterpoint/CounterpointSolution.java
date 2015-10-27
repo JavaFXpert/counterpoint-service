@@ -61,7 +61,7 @@ public class CounterpointSolution {
         if (notesAllVoices.size() > 0) {
             scorePartwise.getScoreParts().add(new ScorePart("Cantus firmus", "P1"));
             for (int voiceIdxA = 1; voiceIdxA < notesAllVoices.size(); voiceIdxA++) {
-                scorePartwise.getScoreParts().add(new ScorePart("Melody " + voiceIdxA, "P" + (voiceIdxA + 1)));
+                scorePartwise.getScoreParts().add(new ScorePart("Melody " + (voiceIdxA + 1), "P" + (voiceIdxA + 1)));
             }
 
             for (int voiceIdxB = 0; voiceIdxB < notesAllVoices.size(); voiceIdxB++) {
