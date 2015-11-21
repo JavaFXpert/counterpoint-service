@@ -24,45 +24,45 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by jamesweaver on 9/26/15.
+ * @author James Weaver
  */
 public class Measure {
-  @JacksonXmlProperty(localName="number", isAttribute=true)
-  private String measure;
+    @JacksonXmlProperty(localName = "number", isAttribute = true)
+    private String measure;
 
-  @JacksonXmlProperty(localName="attributes")
-  private MeasureAttributes measureAttributes;
+    @JacksonXmlProperty(localName = "attributes")
+    private MeasureAttributes measureAttributes;
 
-  public Measure(String measure) {
-    this.measure = measure;
-  }
+    public Measure(String measure) {
+        this.measure = measure;
+    }
 
-  public MeasureAttributes getMeasureAttributes() {
-    return measureAttributes;
-  }
+    public MeasureAttributes getMeasureAttributes() {
+        return measureAttributes;
+    }
 
-  public void setMeasureAttributes(MeasureAttributes measureAttributes) {
-    this.measureAttributes = measureAttributes;
-  }
+    public void setMeasureAttributes(MeasureAttributes measureAttributes) {
+        this.measureAttributes = measureAttributes;
+    }
 
-  @JacksonXmlElementWrapper(useWrapping = false)
-  @JsonProperty("note")
-  private List<Note> notes = new ArrayList<>();
+    @JacksonXmlElementWrapper(useWrapping = false)
+    @JsonProperty("note")
+    private List<Note> notes = new ArrayList<>();
 
-  public String getMeasure() {
-    return measure;
-  }
+    public String getMeasure() {
+        return measure;
+    }
 
-  public void setMeasure(String measure) {
-    this.measure = measure;
-  }
+    public void setMeasure(String measure) {
+        this.measure = measure;
+    }
 
-  public List<Note> getNotes() {
-    return notes;
-  }
+    public List<Note> getNotes() {
+        return notes;
+    }
 
-  public void setNotes(List<Note> notes) {
-    this.notes = notes;
-  }
+    public void setNotes(List<Note> notes) {
+        this.notes = notes;
+    }
 
 }

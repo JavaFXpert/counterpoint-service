@@ -16,25 +16,20 @@
 
 package com.culturedear.counterpoint;
 
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 /**
  * @author James Weaver
  */
-public class Lyric {
-    public String text;
+@EnableConfigurationProperties
+@SpringBootApplication
+public class CounterpointApplication {
 
-    @JacksonXmlProperty(localName = "placement", isAttribute = true)
-    public String placement = "above";
-
-    public Lyric(String text) {
-        this.text = text;
-    }
-
-    @Override
-    public String toString() {
-        return "Lyric{" +
-                "text='" + text + '\'' +
-                '}';
+    public static void main(String[] args) {
+        SpringApplication.run(CounterpointApplication.class);
     }
 }
+
+

@@ -16,44 +16,36 @@
 
 package com.culturedear.counterpoint;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
-@Configuration
-@EnableConfigurationProperties
-@EnableAutoConfiguration
+/**
+ * @author James Weaver
+ * @author Josh Long
+ */
+@ConfigurationProperties(prefix = "chordanalyzerservice")
+@Component
 public class CounterpointProperties {
 
-    @Value("${chordanalyzerservice.route.analyze}")
-    public String ROUTE_ANALYZE;
+    private String chordAnalyzerServiceHost;
 
-    @Value("${chordanalyzerservice.host}")
-    public String CHORD_ANALYZER_SERVICE_HOST;
+    public String getChordAnalyzerServiceHost() {
+        return chordAnalyzerServiceHost;
+    }
 
-    public static CounterpointProperties counterpointProperties;
-
-    public CounterpointProperties() {
+    public void setChordAnalyzerServiceHost(String chordAnalyzerServiceHost) {
+        this.chordAnalyzerServiceHost = chordAnalyzerServiceHost;
     }
 
     /**
      * Provide a route to a service method
-     * @param route a relative URI to the service endpoint for the analyzer service
-     * @return a fully qualified URI to the desired service route
-     */
-    public static String getAnalyzerServiceEndpoint(String route) {
-        return getAnalyzerServiceEndpoint(route, null);
-    }
-
-    /**
-     * Provide a route to a service method
+     *
      * @param route a relative URI to the service endpoint for the analyzer service
      * @param param parameters for the route's query string
      * @return a fully qualified URI to the desired service route
      */
-    public static String getAnalyzerServiceEndpoint(String route, String... param) {
-        return String.format("%s%s", CounterpointProperties.counterpointProperties.CHORD_ANALYZER_SERVICE_HOST,
-                param != null ? String.format(route, param) : route);
+    public String getAnalyzerServiceEndpoint(String route, String... param) {
+        String routeAndParams = param != null ? String.format(route, param) : route;
+        return String.format("%s%s", this.chordAnalyzerServiceHost, routeAndParams);
     }
 }

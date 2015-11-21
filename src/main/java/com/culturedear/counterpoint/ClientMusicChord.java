@@ -18,44 +18,47 @@ package com.culturedear.counterpoint;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+/**
+ * @author James Weaver
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ClientMusicChord {
-  private String root;
-  private String chordType;
-  private String bassNote;
-  private int inversion;
-  private boolean isMajor;
-  private boolean isMinor;
-  private String name;
+    private String root;
+    private String chordType;
+    private String bassNote;
+    private int inversion;
+    private boolean isMajor;
+    private boolean isMinor;
+    private String name;
 
-  public ClientMusicChord() {
-  }
+    public ClientMusicChord() {
+    }
 
-  public String getRoot() {
-    return root;
-  }
+    public String getRoot() {
+        return root;
+    }
 
-  public String getChordType() {
-    return chordType;
-  }
+    public String getChordType() {
+        return chordType;
+    }
 
-  public String getBassNote() {
-    return bassNote;
-  }
+    public String getBassNote() {
+        return bassNote;
+    }
 
-  public int getInversion() {
-    return inversion;
-  }
+    public int getInversion() {
+        return inversion;
+    }
 
-  public boolean isMajor() {
-    return isMajor;
-  }
+    public boolean isMajor() {
+        return isMajor;
+    }
 
-  public boolean isMinor() {
-    return isMinor;
-  }
+    public boolean isMinor() {
+        return isMinor;
+    }
 
-  public String getName() {
-    return name;
-  }
+    public String getName() {
+        return name;
+    }
 }
