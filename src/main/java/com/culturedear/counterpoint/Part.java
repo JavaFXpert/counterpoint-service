@@ -27,30 +27,30 @@ import java.util.List;
  * Created by jamesweaver on 9/26/15
  */
 public class Part {
-  @JacksonXmlProperty(localName="id", isAttribute=true)
-  private String id;
+    @JacksonXmlProperty(localName = "id", isAttribute = true)
+    private String id;
 
-  @JacksonXmlElementWrapper(useWrapping = false)
-  @JsonProperty("measure")
-  private List<Measure> measures = new ArrayList<>();
+    @JacksonXmlElementWrapper(useWrapping = false)
+    @JsonProperty("measure")
+    private List<Measure> measures = new ArrayList<>();
 
-  public Part(String id) {
-    this.id = id;
-  }
+    public Part(String id) {
+        this.id = id;
+    }
 
-  public String getId() {
-    return id;
-  }
+    public String getId() {
+        return id;
+    }
 
-  public void setId(String id) {
-    this.id = id;
-  }
+    public void setId(String id) {
+        this.id = id;
+    }
 
-  public List<Measure> getMeasures() {
-    return measures;
-  }
+    public List<Measure> getMeasures() {
+        return measures;
+    }
 
-  public void setMeasures(List<Measure> measures) {
-    this.measures = measures;
-  }
+    public void setMeasures(List<Measure> measures) {
+        this.measures = measures;
+    }
 }

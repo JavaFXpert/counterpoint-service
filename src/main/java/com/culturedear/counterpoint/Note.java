@@ -21,144 +21,170 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * TODO: Add comments that explain usage of both durations (quarters and eights), and onset.
- * Created by jamesweaver on 9/25/15.
+ *
+ * @author James Weaver
  */
-@JsonPropertyOrder({ "pitch", "duration", "type", "lyric"})
+@JsonPropertyOrder({"pitch", "duration", "type", "lyric"})
 public class Note implements Comparable {
-  // Onset in eighth notes from beginning of part
-  @JsonIgnore
-  private int onset;
+    // Onset in eighth notes from beginning of part
+    @JsonIgnore
+    private int onset;
 
-  // Note number, expressed as semitones above low C
-  private int noteNum;
+    // Note number, expressed as semitones above low C
+    private int noteNum;
 
-  // Duration in eighth notes
-  private int durationEights;
+    // Duration in eighth notes
+    private int durationEights;
 
-  // Lyric to hold chord annotations
-  private Lyric lyric;
+    // Lyric to hold chord annotations
+    private Lyric lyric;
 
-  public Note(int onset, int noteNum, int durationEights) {
-    this.onset = onset;
-    this.noteNum = noteNum;
-    this.durationEights = durationEights;
-  }
-
-  // Private so that onset isn't output in XML stream
-  // TODO: Investigate if an annotation exists to do the same thing
-  public int getOnset() {
-    return onset;
-  }
-
-  public void setOnset(int onset) {
-    this.onset = onset;
-  }
-
-  // Private so that noteNum isn't output in XML stream
-  private int getNoteNum() {
-    return noteNum;
-  }
-
-  public void setNoteNum(int noteNum) {
-    this.noteNum = noteNum;
-  }
-
-  /**
-   * The presence of this method causes pitch elements to be created and written to XML stream
-   * TODO: Consider making the values sensitive to key
-   * @return
-   */
-  public Pitch getPitch() {
-    int octaveNum = noteNum / 12 - 1;
-    int pitchClassNum = noteNum % 12;
-    String step = "";
-    int alter = 0;
-    switch (pitchClassNum) {
-      case 0:
-        step = "C"; break;
-      case 1:
-        step = "C"; alter = 1; break;
-      case 2:
-        step = "D"; break;
-      case 3:
-        step = "E"; alter = -1; break;
-      case 4:
-        step = "E"; break;
-      case 5:
-        step = "F"; break;
-      case 6:
-        step = "F"; alter = 1; break;
-      case 7:
-        step = "G"; break;
-      case 8:
-        step = "A"; alter = -1; break;
-      case 9:
-        step = "A"; break;
-      case 10:
-        step = "B"; alter = -1; break;
-      case 11:
-        step = "B"; break;
+    public Note(int onset, int noteNum, int durationEights) {
+        this.onset = onset;
+        this.noteNum = noteNum;
+        this.durationEights = durationEights;
     }
 
-    return new Pitch(step, alter, octaveNum);
-  }
-
-
-  private int getDurationEights() {
-    return durationEights;
-  }
-
-  public void setDurationEights(int duration) {
-    this.durationEights = durationEights;
-  }
-
-  /**
-   * The presence of this method causes duration elements to be created and written to XML stream
-   */
-  public int getDuration() {
-    return durationEights / 2;
-  }
-
-  /**
-   * The presence of this method causes type elements to be created and written to XML stream
-   */
-  public String getType() {
-    String noteType = "UNKNOWN";
-    switch (durationEights) {
-      case 8: noteType = "whole"; break;
-      case 4: noteType = "half"; break;
-      case 2: noteType = "quarter"; break;
-      case 1: noteType = "eighth"; break;
+    // Private so that onset isn't output in XML stream
+    // TODO: Investigate if an annotation exists to do the same thing
+    public int getOnset() {
+        return onset;
     }
-    return noteType;
-  }
 
-  public Lyric getLyric() {
-    return lyric;
-  }
-
-  public void setLyric(Lyric lyric) {
-    this.lyric = lyric;
-  }
-
-  @Override
-  public String toString() {
-    return "Note{" +
-        "onset=" + onset +
-        ", noteNum=" + noteNum +
-        ", durationEights=" + durationEights +
-        '}';
-  }
-
-  @Override
-  public int compareTo(Object o) {
-    int retVal = 0;
-    if (getNoteNum() > ((Note)o).getNoteNum()) {
-      retVal = 1;
+    public void setOnset(int onset) {
+        this.onset = onset;
     }
-    else if (getNoteNum() < ((Note)o).getNoteNum()) {
-      retVal = -1;
+
+    // Private so that noteNum isn't output in XML stream
+    private int getNoteNum() {
+        return noteNum;
     }
-    return retVal;
-  }
+
+    public void setNoteNum(int noteNum) {
+        this.noteNum = noteNum;
+    }
+
+    /**
+     * The presence of this method causes pitch elements to be created and written to XML stream
+     * TODO: Consider making the values sensitive to key
+     *
+     * @return
+     */
+    public Pitch getPitch() {
+        int octaveNum = noteNum / 12 - 1;
+        int pitchClassNum = noteNum % 12;
+        String step = "";
+        int alter = 0;
+        switch (pitchClassNum) {
+            case 0:
+                step = "C";
+                break;
+            case 1:
+                step = "C";
+                alter = 1;
+                break;
+            case 2:
+                step = "D";
+                break;
+            case 3:
+                step = "E";
+                alter = -1;
+                break;
+            case 4:
+                step = "E";
+                break;
+            case 5:
+                step = "F";
+                break;
+            case 6:
+                step = "F";
+                alter = 1;
+                break;
+            case 7:
+                step = "G";
+                break;
+            case 8:
+                step = "A";
+                alter = -1;
+                break;
+            case 9:
+                step = "A";
+                break;
+            case 10:
+                step = "B";
+                alter = -1;
+                break;
+            case 11:
+                step = "B";
+                break;
+        }
+
+        return new Pitch(step, alter, octaveNum);
+    }
+
+
+    private int getDurationEights() {
+        return durationEights;
+    }
+
+    public void setDurationEights(int duration) {
+        this.durationEights = durationEights;
+    }
+
+    /**
+     * The presence of this method causes duration elements to be created and written to XML stream
+     */
+    public int getDuration() {
+        return durationEights / 2;
+    }
+
+    /**
+     * The presence of this method causes type elements to be created and written to XML stream
+     */
+    public String getType() {
+        String noteType = "UNKNOWN";
+        switch (durationEights) {
+            case 8:
+                noteType = "whole";
+                break;
+            case 4:
+                noteType = "half";
+                break;
+            case 2:
+                noteType = "quarter";
+                break;
+            case 1:
+                noteType = "eighth";
+                break;
+        }
+        return noteType;
+    }
+
+    public Lyric getLyric() {
+        return lyric;
+    }
+
+    public void setLyric(Lyric lyric) {
+        this.lyric = lyric;
+    }
+
+    @Override
+    public String toString() {
+        return "Note{" +
+                "onset=" + onset +
+                ", noteNum=" + noteNum +
+                ", durationEights=" + durationEights +
+                '}';
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        int retVal = 0;
+        if (getNoteNum() > ((Note) o).getNoteNum()) {
+            retVal = 1;
+        } else if (getNoteNum() < ((Note) o).getNoteNum()) {
+            retVal = -1;
+        }
+        return retVal;
+    }
 }

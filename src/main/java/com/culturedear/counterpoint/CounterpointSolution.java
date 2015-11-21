@@ -16,22 +16,24 @@
 
 package com.culturedear.counterpoint;
 
-import org.springframework.context.annotation.Configuration;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
  * Created by jamesweaver on 9/25/15.
  */
-@Configuration
+@Component
 public class CounterpointSolution {
 
-    private CounterpointProperties counterpointProperties;
+    private Log log = LogFactory.getLog(getClass());
 
     // Default beats per measure
     private static int beatsPerMeasure = 4;
@@ -44,18 +46,27 @@ public class CounterpointSolution {
     // TODO: Calculate as a function of 8 (eighth notes), beatsPerMeasure and beatType
     private static int onsetUnitsPerMeasure = 8;
 
-    // First dimension is voice #, second is array of notes
-    private List<List<Note>> notesAllVoices = new ArrayList<List<Note>>();
-
-    public CounterpointSolution() {
-        counterpointProperties = CounterpointProperties.counterpointProperties;
+    @Autowired
+    public CounterpointSolution(CounterpointProperties counterpointProperties) {
+        this.counterpointProperties = counterpointProperties;
     }
+
+    // First dimension is voice #, second is array of notes
+    private List<List<Note>> notesAllVoices = new ArrayList<>();
 
     public void addVoice(List<Note> notes) {
         notesAllVoices.add(notes);
     }
 
     public ScorePartwise toScorePartwise() {
+        try {
+            return this.doScorePartwise();
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    private ScorePartwise doScorePartwise() {
         Measure curMeasure = new Measure(" ");
         ScorePartwise scorePartwise = new ScorePartwise();
         if (notesAllVoices.size() > 0) {
@@ -71,10 +82,8 @@ public class CounterpointSolution {
                 List<Note> notesForPart = notesAllVoices.get(voiceIdxB);
 
                 // Iteratate over the notes in this part and insert Measure elements
-                Iterator<Note> noteIterator = notesForPart.iterator();
 
-                while (noteIterator.hasNext()) {
-                    Note note = noteIterator.next();
+                for (Note note : notesForPart) {
                     int onset = note.getOnset();
                     if (onset % onsetUnitsPerMeasure == 0) {
                         curMeasure = new Measure("" + (onset / onsetUnitsPerMeasure + 1));
@@ -89,13 +98,11 @@ public class CounterpointSolution {
         boolean keepGoing = true;
         int measureNum = 0;
         while (keepGoing) {
-            //System.out.println("Analyzing chord for measure " + measureNum);
+            log.debug("Analyzing chord for measure " + measureNum);
             Note topMeasureFirstNote = null;
-            List<Note> chordNotes = new ArrayList();
+            List<Note> chordNotes = new ArrayList<>();
             List<Part> parts = scorePartwise.getParts();
-            Iterator<Part> partIterator = parts.iterator();
-            while (partIterator.hasNext()) {
-                Part part = partIterator.next();
+            for (Part part : parts) {
                 List<Measure> measures = part.getMeasures();
                 if (measureNum < measures.size()) {
                     Measure measure = measures.get(measureNum);
@@ -103,10 +110,10 @@ public class CounterpointSolution {
                     if (notes.size() > 0) {
                         Note firstNoteInMeasure = notes.get(0);
                         if (measureNum == 0 && firstNoteInMeasure.getPitch().octave <= 3) {
-                          // First note in measure is below middle C, so use bass clef
-                          Clef clef = new Clef("F", 4);
-                          MeasureAttributes measureAttributes = new MeasureAttributes(clef);
-                          measure.setMeasureAttributes(measureAttributes);
+                            // First note in measure is below middle C, so use bass clef
+                            Clef clef = new Clef("F", 4);
+                            MeasureAttributes measureAttributes = new MeasureAttributes(clef);
+                            measure.setMeasureAttributes(measureAttributes);
                         }
                         if (topMeasureFirstNote == null) {
                             topMeasureFirstNote = firstNoteInMeasure;
@@ -134,8 +141,7 @@ public class CounterpointSolution {
                 try {
 
                     ClientMusicChord clientMusicChord =
-                            restTemplate.getForObject(CounterpointProperties
-                                            .getAnalyzerServiceEndpoint(counterpointProperties.ROUTE_ANALYZE, notesString),
+                            restTemplate.getForObject(this.counterpointProperties.getAnalyzerServiceEndpoint(notesString),
                                     ClientMusicChord.class);
 
                     String chordTypeStr = clientMusicChord.getChordType();
@@ -154,7 +160,7 @@ public class CounterpointSolution {
 
                     lyric = new Lyric(chordNotationStr);
                 } catch (Exception e) {
-                    System.out.println("Caught exception when analyzing chord " + e);
+                    log.info("Caught exception when analyzing chord " + e);
                     //lyric = new Lyric("???");
                 }
                 topMeasureFirstNote.setLyric(lyric);
@@ -165,7 +171,10 @@ public class CounterpointSolution {
         return scorePartwise;
     }
 
+    private final CounterpointProperties counterpointProperties;
+
     @Override
+
     public String toString() {
         return "CounterpointSolution{" +
                 "notesAllVoices=" + notesAllVoices +

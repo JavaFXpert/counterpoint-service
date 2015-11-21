@@ -16,6 +16,7 @@
 
 package com.culturedear.counterpoint;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,38 +28,42 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 /**
- * Created by kbastani on 10/15/15.
+ * @author James Weaver
+ * @author Kenny Bastani
+ * @author Josh Long
  */
 @RestController
 @RequestMapping("/counterpoint")
 public class XmlRestController {
 
+    private final CounterpointProperties counterpointProperties;
+
+    @Autowired
+    public XmlRestController(CounterpointProperties counterpointProperties) {
+        this.counterpointProperties = counterpointProperties;
+    }
+
     @RequestMapping(method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_XML_VALUE
     )
-    public ResponseEntity<Object> write(@RequestBody CounterpointModel counterpointModel) {
+    public ResponseEntity<ScorePartwise> write(@RequestBody CounterpointModel counterpointModel) {
 
         // prepare response XML out
-        CounterpointGenerator cg = new CounterpointGenerator();
+        CounterpointGenerator cg = new CounterpointGenerator(
+                this.counterpointProperties);
         cg.fillRhyPat();
+
         int[] cf = counterpointModel.getMainMelody();
         cg.setCantusFirmus(cf);
-        int[] vbs = counterpointModel.getPartsInitialNotes();
 
+        int[] vbs = counterpointModel.getPartsInitialNotes();
         CounterpointSolution counterpointSolution = cg.anySpecies(counterpointModel.getScaleMode(),
                 vbs, cf.length, counterpointModel.getCounterpointSpecies(), counterpointModel.getRulePenalties());
 
-        ScorePartwise scorePartwise = null;
+        return Optional.ofNullable(counterpointSolution.toScorePartwise())
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null));
 
-        try {
-            scorePartwise = counterpointSolution.toScorePartwise();
-        } catch (NullPointerException ex) {
-            scorePartwise = null;
-        }
-
-        return Optional.ofNullable(scorePartwise)
-                .map(cm -> new ResponseEntity<>((Object)cm, HttpStatus.OK))
-                .orElse(new ResponseEntity<>("Could not compute the counterpoint.",HttpStatus.INTERNAL_SERVER_ERROR));
     }
 }
