@@ -1,6 +1,6 @@
 ---
 applications:
   - name: CounterpointService
-    path: target/counerpoint-service-0.0.1-SNAPSHOT.jar
+    path: target/counterpoint-service-0.0.1-SNAPSHOT.jar
     memory: 1G
     buildpack: https://github.com/cloudfoundry/java-buildpack

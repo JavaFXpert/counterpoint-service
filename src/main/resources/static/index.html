@@ -22,7 +22,8 @@
   <title>Counterpoint Composer</title>
   <link rel="stylesheet" href="css/foundation.css" />
   <script src="js/vendor/modernizr.js"></script>
-  <script src="js/nfclient.js"></script>
+  <!--script src="js/nfclient.js"></script-->
+  <script src="https://www.noteflight.com/clientapi/2.0.0/nfclient.js"></script>
 </head>
 
 <body>
@@ -1230,6 +1231,7 @@
 
     var options = {
       host: 'hacking.sites.noteflight.com',
+      protocol: 'https',
       width: 900,
       height: 650,
       viewParams: {
